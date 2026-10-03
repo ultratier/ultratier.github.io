@@ -14,8 +14,9 @@ export async function jev(state, questions) {
 export const DEFAULT_TIERS = [
   { label: "S", desc: "the best or near-best of the list" },
   { label: "A", desc: "above average for the list" },
-  { label: "B", desc: "below average for the list" },
-  { label: "C", desc: "among the worst of the list" },
+  { label: "B", desc: "about average for the list" },
+  { label: "C", desc: "below average for the list" },
+  { label: "D", desc: "among the worst of the list" },
 ];
 
 // "protein 60, price 40"  |  "healthiness"  |  "taste:2, value:1"  -> [{keyword, weight}]
@@ -31,7 +32,7 @@ export function parseTiers(labels, rubric = "") {
   const ls = String(labels || "").split(/[,\n]+/).map(s => s.trim()).filter(Boolean);
   if (ls.length < 2) return DEFAULT_TIERS;
   const n = ls.length;
-  const auto = i => i === 0 ? "the best or near-best of the list" : i === n - 1 ? "among the worst of the list" : i < n / 2 ? "above average for the list" : "below average for the list";
+  const auto = i => i === 0 ? "the best or near-best of the list" : i === n - 1 ? "among the worst of the list" : (n % 2 && i === (n - 1) / 2) ? "about average for the list" : i < n / 2 ? "above average for the list" : "below average for the list";
   const tiers = ls.slice(0, 10).map((label, i) => ({ label, desc: auto(i) }));
   for (const line of String(rubric || "").split("\n")) {
     const m = line.match(/^\s*([^=:]+?)\s*[=:]\s*(.+)$/); if (!m) continue;

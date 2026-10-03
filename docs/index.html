@@ -18,7 +18,7 @@
   @font-face{font-family:'ProxyMono';src:url('./fonts/proxymono-800.woff2') format('woff2');font-weight:800;font-display:swap}
   :root{color-scheme:dark;--bg:#000;--fg:#f5f5f7;--subtle:#1d1d1f;--line:#38383a;--line-strong:#787880;--muted:#a1a1a6;
         --n200:#e8e8ed;--n300:#d2d2d7;--n400:#a1a1a6;--n500:#86868b;--n600:#636366;--n700:#48484a;--win-shadow:#48484a;
-        --accent:var(--fg);--tS:var(--fg);--tA:var(--n400);--tB:var(--n600);--tC:var(--n700);--mono:'ProxyMono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+        --accent:var(--fg);--tS:var(--fg);--tA:var(--n400);--tB:var(--n500);--tC:var(--n600);--tD:var(--n700);--mono:'ProxyMono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
   @media (prefers-color-scheme: light){:root:not([data-theme="dark"]){color-scheme:light;--bg:#f5f5f7;--fg:#1d1d1f;--subtle:#e8e8ed;--line:#d2d2d7;--line-strong:#6e6e73;--muted:#57575b;
         --n200:#2c2c2e;--n300:#424245;--n400:#57575b;--n500:#6e6e73;--n600:#86868b;--n700:#c7c7cc;--win-shadow:#1d1d1f}}
   *{box-sizing:border-box}
@@ -106,7 +106,8 @@
   .tier[data-rank="0"] .lbl{background:var(--fg);color:var(--bg)}
   .tier[data-rank="1"] .lbl{color:var(--fg)}
   .tier[data-rank="2"] .lbl{color:var(--n500)}
-  .tier[data-rank="3"] .lbl{color:var(--n500);background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in srgb,var(--line-strong) 35%,transparent) 6px 7px)}
+  .tier[data-rank="3"] .lbl{color:var(--n500)}
+  .tier[data-rank="4"] .lbl{color:var(--n500);background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in srgb,var(--line-strong) 35%,transparent) 6px 7px)}
   .tier .items{display:flex;flex-wrap:wrap;gap:8px;padding:10px;min-height:64px}
   .card{border:1px solid var(--line-strong);padding:8px 12px 10px;background:var(--bg);max-width:300px;min-width:180px}
   .card b{display:block;font-size:13px;font-weight:700;line-height:1.4}
@@ -137,7 +138,7 @@
   /* Tier skin: shape only. The theme keeps deciding black or white; the skin adds what people recognise
      from TierMaker, the pastel label column (their colours, their 100px cells), rows and rounded tiles in
      Arial, all mixed from the theme's own ink so it works on either ground. Board only. */
-  main[data-skin="tier"] #stage{--tS:#ff7f7f;--tA:#ffbf7f;--tB:#ffdf7f;--tC:#ffff7f}
+  main[data-skin="tier"] #stage{--tS:#ff7f7f;--tA:#ffbf7f;--tB:#ffdf7f;--tC:#ffff7f;--tD:#bfff7f}
   main[data-skin="tier"] #stage .tier,main[data-skin="tier"] #stage .card,main[data-skin="tier"] #stage .legend,main[data-skin="tier"] #stage .verdict,main[data-skin="tier"] #stage .verdict small{font-family:Arial,Helvetica,sans-serif;letter-spacing:0}
   main[data-skin="tier"] #stage .tier{grid-template-columns:100px 1fr;border:0;border-bottom:2px solid var(--bg);margin:0;background:color-mix(in srgb,var(--fg) 9%,var(--bg))}
   main[data-skin="tier"] #stage .tier .lbl{color:#333;font-size:22px;font-weight:700;border:0;background:none;min-height:80px;padding:6px;text-align:center}
@@ -145,6 +146,7 @@
   main[data-skin="tier"] #stage .tier[data-rank="1"] .lbl{background:var(--tA)}
   main[data-skin="tier"] #stage .tier[data-rank="2"] .lbl{background:var(--tB)}
   main[data-skin="tier"] #stage .tier[data-rank="3"] .lbl{background:var(--tC)}
+  main[data-skin="tier"] #stage .tier[data-rank="4"] .lbl{background:var(--tD)}
   main[data-skin="tier"] #stage .tier .items{min-height:80px;padding:8px;gap:8px}
   main[data-skin="tier"] #stage .card{border:1px solid color-mix(in srgb,var(--fg) 18%,var(--bg));border-radius:6px;background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.12)}
   main[data-skin="tier"] #stage .card small{color:var(--n500)}
@@ -199,7 +201,7 @@
           <div class="chips" id="chips"></div>
           <p class="hint" id="weightsHint">Weights ×1 · ×2 · ×3, then off. Add your own with the last chip.</p>
           <details class="tiersadv"><summary>Tiers &amp; rubric</summary>
-            <label class="spec n500" style="margin-top:10px">Tier labels, best first<input class="pfield" id="tiers" value="S, A, B, C" placeholder="S, A, B, C   or   buy, maybe, skip"></label>
+            <label class="spec n500" style="margin-top:10px">Tier labels, best first<input class="pfield" id="tiers" value="S, A, B, C, D" placeholder="S, A, B, C, D   or   buy, maybe, skip"></label>
             <label class="spec n500" style="margin-top:10px">Rubric, one line per tier: label = meaning<textarea class="pfield" id="rubric" rows="3" placeholder="S = under $1 per 100g and 10g+ protein&#10;C = mostly sugar"></textarea></label>
           </details>
           <label class="toggle"><input type="checkbox" id="facts" checked> <span><b>Use looked-up facts</b> <small id="factsHint">Jev sees the fact sheet in 04. Untick to rank on names alone: same model, same list, same criterion, ranked on reputation instead of specs. A typed-judgement model is only as good as the state you hand it. Unticked, Jev is only vibe-checking whatever sat in its stale training data.</small></span></label>
@@ -382,7 +384,7 @@ function syncEdited(){ const n = Object.keys(overrides).length; $("#reset").hidd
 $("#reset").onclick = () => { overrides = {}; if(last) render(last); syncEdited(); writeHash(); };
 function criteriaString(){ return Object.entries(weights).map(([k,w]) => `${k} ${w}`).join(", "); }
 const tiersNow = () => parseTiers($("#tiers").value, $("#rubric").value);
-const tiersKey = () => { const t = tiersNow(), d0 = parseTiers(""); const d = t.length === 4 && t.map(x => x.label).join() === "S,A,B,C" && t.every((x, i) => x.desc === d0[i].desc); return d ? "" : " |tiers:" + t.map(x => x.label + "=" + x.desc).join(";"); };
+const tiersKey = () => { const t = tiersNow(), d0 = parseTiers(""); const d = t.length === 5 && t.map(x => x.label).join() === "S,A,B,C,D" && t.every((x, i) => x.desc === d0[i].desc); return d ? "" : " |tiers:" + t.map(x => x.label + "=" + x.desc).join(";"); };
 $("#tiers").addEventListener("change", () => run()); $("#rubric").addEventListener("change", () => run());
 async function run(){
   const crit = criteriaString() + (useFacts ? "" : " |names-only") + tiersKey();
@@ -415,7 +417,7 @@ async function run(){
   }catch(e){ $("#status").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
   $("#result").classList.remove("busy");
 }
-const rankColor = i => ["var(--tS)","var(--tA)","var(--tB)","var(--tC)"][Math.min(i, 3)]; // colour by position, so any labels work
+const rankColor = i => ["var(--tS)","var(--tA)","var(--tB)","var(--tC)","var(--tD)"][Math.min(i, 4)]; // colour by position, so any labels work
 const nameOf = label => label.split(" · ")[0];
 function render(d){
   const top = d.results[0], second = d.results[1];
@@ -428,7 +430,7 @@ function render(d){
     `<small>${close ? `${esc(nameOf(second.label))} is a near tie. ` : ""}Confidence ${Math.round(top.confidence*100)}% ${useFacts ? "on the spec table below." : "with no facts at all. This is a guess from the name."}</small>`;
   const placed = applyOverrides(d.results, overrides);
   $("#board").innerHTML = d.tiers.map((t, i) => `
-    <div class="tier" data-tier="${esc(t.label)}" data-rank="${Math.min(i, 3)}">
+    <div class="tier" data-tier="${esc(t.label)}" data-rank="${Math.min(i, 4)}">
       <div class="lbl" title="${esc(t.desc)}">${t.label}</div>
       <div class="items">${placed.filter(r => r.tier===t.label).map(card).join("")}</div>
     </div>`).join("") + (useFacts && ITEMS.some(i => !(i.facts.length || i.summary)) ? `<p class="hint legend"><i class="dot">●</i> no facts found; ranked on what Jev already knows about the name.</p>` : "");
@@ -474,7 +476,7 @@ function drawImage(d){
   d.tiers.forEach((t,i) => {
     const y = headH + i*rowH;
     x.strokeStyle = v("--line-strong"); x.lineWidth = 2; x.strokeRect(pad, y, W-2*pad, rowH-10);
-    x.fillStyle = v(["--tS","--tA","--tB","--tC"][Math.min(i, 3)]); x.fillRect(pad, y, 80, rowH-10);
+    x.fillStyle = v(["--tS","--tA","--tB","--tC","--tD"][Math.min(i, 4)]); x.fillRect(pad, y, 80, rowH-10);
     x.fillStyle = tierLook() ? "#333" : i === 0 ? v("--bg") : v("--fg"); x.font = `${tierLook() ? "400 22px" : "800 40px"} ${font}`; x.textAlign = "center";
     x.fillText(t.label, pad+40, y+58); x.textAlign = "left";
     const names = applyOverrides(d.results, overrides).filter(r => r.tier===t.label).map(r => nameOf(r.label) + (overrides[r.label] && overrides[r.label]!==r.tier ? " ✎" : ""));
