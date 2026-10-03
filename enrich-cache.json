@@ -645,5 +645,46 @@
   ],
   "summary": "The Leica Q3 is a full-frame fixed-lens camera introduced in 2023 as the successor to the Leica Q2.",
   "line": "Leica Q3 · camera name: Leica Q3 · maker: Leica Camera · type: Large sensor fixed-lens camera · sensor size: 36mm x 24mm (full frame) · recording medium: SD, SDHC or SDXC memory card · res: 60 MP · lens: 28 mm · f-numbers: f/1.7 at the widest · viewfinder: 0.5-inch OLED with 5.76 million dots · coverage: 100% · rearLCD: 3 inches with 1,840,000 dots, touchscreen · made in: Germany"
+ },
+ "smartphones|iphone 18 pro max": {
+  "name": "iPhone 18 Pro Max",
+  "source": "https://en.wikipedia.org/wiki/IPhone%2018%20Pro",
+  "facts": [
+   "developer: Apple",
+   "series: iPhone",
+   "networks: 2G GSM/EDGE, 3G UMTS/HSPA+, 4G LTE, 5G NR/5G-A",
+   "colors: * Glacier * Silver * Black",
+   "predecessor: iPhone 17 Pro and Pro Max",
+   "related: iPhone Duo",
+   "form factor: Slate",
+   "dimensions: Pro: 150.0x71.9x8.75 mm Pro Max: 163.4x78.0x8.75 mm",
+   "weight: Pro: 211 g Pro Max: 249 g",
+   "soc: Apple A20 Pro",
+   "modem: 18 Pro: Apple C2 18 Pro Max: Qualcomm Snapdragon X80 (US only), Apple C2 ()",
+   "type: Smartphone"
+  ],
+  "summary": "The iPhone 18 Pro and iPhone 18 Pro Max are smartphones developed and marketed by Apple. Alongside the iPhone Duo, they form the twentieth generation of the iPhone, succeeding the iPhone 17 Pro and iPhone 17 Pro Max. They were unveiled during the Apple Event at Apple Park in Cupertino, California, on September 9, 2026. The phones were released on September 18, 2026.",
+  "line": "iPhone 18 Pro Max · developer: Apple · series: iPhone · networks: 2G GSM/EDGE, 3G UMTS/HSPA+, 4G LTE, 5G NR/5G-A · colors: * Glacier * Silver * Black · predecessor: iPhone 17 Pro and Pro Max · related: iPhone Duo · form factor: Slate · dimensions: Pro: 150.0x71.9x8.75 mm Pro Max: 163.4x78.0x8.75 mm · weight: Pro: 211 g Pro Max: 249 g · soc: Apple A20 Pro · modem: 18 Pro: Apple C2 18 Pro Max: Qualcomm Snapdragon X80 (US only), Apple C2 () · type: Smartphone"
+ },
+ "electric cars|mini electric": {
+  "name": "Mini Electric",
+  "source": "https://en.wikipedia.org/wiki/Mini%20Electric",
+  "facts": [
+   "manufacturer: BMW",
+   "aka: Mini Cooper SE",
+   "production: 2019–2024",
+   "model years: 2020–2024",
+   "class: Subcompact/Supermini (B)",
+   "layout: Front-motor, front-wheel-drive",
+   "related: BMW i3",
+   "transmission: Single speed with fixed ratio",
+   "wheelbase: 2495 mm",
+   "length: 3845 mm",
+   "width: 1727 mm",
+   "height: 1432 mm"
+  ],
+  "summary": "The Mini Electric (marketed as the Mini Cooper SE in all markets outside the United Kingdom) is a battery electric version of the third generation Mini Hatch that was launched in 2020 by German automaker BMW under the Mini marque. The drivetrain utilises technology developed for the earlier BMW i3.",
+  "rejected": "Electric car",
+  "line": "Mini Electric · manufacturer: BMW · aka: Mini Cooper SE · production: 2019–2024 · model years: 2020–2024 · class: Subcompact/Supermini (B) · layout: Front-motor, front-wheel-drive · related: BMW i3 · transmission: Single speed with fixed ratio · wheelbase: 2495 mm · length: 3845 mm · width: 1727 mm · height: 1432 mm"
  }
 }

@@ -27,7 +27,7 @@ export const PRESETS = [
     chips: ["battery life", "value for money", "repairability", "performance", "portability"],
     on: ["battery life", "portability"] },
   { label: "small EVs", category: "electric cars",
-    items: ["Tesla Model 3", "BYD Dolphin", "MG4 EV", "Hyundai Kona Electric", "Kia EV3"],
+    items: ["Tesla Model 3", "Mini Electric", "MG4 EV", "Hyundai Kona Electric", "Kia EV3"],
     chips: ["range", "value for money", "charging speed", "practicality", "safety"],
     on: ["range", "value for money"] },
   { label: "game consoles", category: "game consoles",
