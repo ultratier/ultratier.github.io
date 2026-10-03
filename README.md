@@ -23,7 +23,7 @@ Plain Node, zero dependencies. The key stays in `.env`; the browser talks to thi
 - Facts come from Wikipedia infoboxes (serialised, 429-aware, model numbers must match the title).
   Items with no page get a ● and are ranked on the name alone. An optional Serper key adds web facts.
 - Presets in `public/presets.js` carry curated spec lines where Wikipedia only has series pages.
-- Board: drag or tap cards to overrule Jev (marked ✎), Tier skin, full screen, share as image or link.
+- Board: drag or tap cards to overrule Jev (marked ✎), Tier skin (on by default), full screen, share as image or link.
 
 ## Layout
 

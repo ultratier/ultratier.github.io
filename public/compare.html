@@ -245,9 +245,9 @@ if (STATIC && LIVE) setEndpoint(LIVE + "/jev");
 let DATA = null;
 if (STATIC) { try { DATA = await (await fetch("./data/presets.json")).json(); } catch (e) { console.error("static data missing", e); } }
 let CATEGORY = "", ITEMS = [];   // ITEMS: [{name, line, facts, source, summary}]
-// Tier skin: board only, off by default. ?tier=1 in the URL wins, else the last choice on this device.
+// Tier skin: board only, ON by default. ?tier=0 in the URL turns it off, else the last choice on this device.
 const setTier = on => { document.querySelector("main").dataset.skin = on ? "tier" : ""; $("#tierskin").checked = on; try{ localStorage.setItem("jevit-tier", on ? "1" : "0"); }catch{} };
-{ const q = new URLSearchParams(location.search).get("tier"); let st = q; if(st == null){ try{ st = localStorage.getItem("jevit-tier"); }catch{} } setTier(st === "1"); }
+{ const q = new URLSearchParams(location.search).get("tier"); let st = q; if(st == null){ try{ st = localStorage.getItem("jevit-tier"); }catch{} } setTier(st !== "0"); }
 $("#tierskin").onchange = e => setTier(e.target.checked);
 const tierLook = () => document.querySelector("main").dataset.skin === "tier";
 $("#date").textContent = `facts as of ${new Date().toLocaleDateString("en-AU",{month:"long",year:"numeric"})}`;
