@@ -137,10 +137,9 @@
   /* the stage paints its own ground so the Tier skin can be white on a dark page */
   #stage{padding:20px;margin:0 -20px;background:var(--bg);color:var(--fg)}
   /* Tier skin: shape only. The theme keeps deciding black or white; the skin adds what people recognise
-     from TierMaker, the pastel label column (their colours, their 100px cells), rows and rounded tiles in
-     Arial, all mixed from the theme's own ink so it works on either ground. Board only. */
+     from TierMaker, the pastel label column (their colours, their 100px cells), rows and rounded tiles,
+     all mixed from the theme's own ink so it works on either ground. Board only. */
   main[data-skin="tier"] #stage{--tS:#ff7f7f;--tA:#ffbf7f;--tB:#ffdf7f;--tC:#ffff7f;--tD:#bfff7f}
-  main[data-skin="tier"] #stage .tier,main[data-skin="tier"] #stage .card,main[data-skin="tier"] #stage .legend,main[data-skin="tier"] #stage .verdict,main[data-skin="tier"] #stage .verdict small{font-family:Arial,Helvetica,sans-serif;letter-spacing:0}
   main[data-skin="tier"] #stage .tier{grid-template-columns:100px 1fr;border:0;border-bottom:2px solid var(--bg);margin:0;background:color-mix(in srgb,var(--fg) 9%,var(--bg))}
   main[data-skin="tier"] #stage .tier .lbl{color:#333;font-size:22px;font-weight:700;border:0;background:none;min-height:80px;padding:6px;text-align:center}
   main[data-skin="tier"] #stage .tier[data-rank="0"] .lbl{background:var(--tS)}
@@ -479,7 +478,7 @@ function drawImage(d){
   const cv = $("#cv"), H = headH + d.tiers.length*rowH + footH; cv.width = W; cv.height = H;
   const x = cv.getContext("2d");
   const cs = getComputedStyle($("#stage")), v = n => cs.getPropertyValue(n).trim();
-  const font = tierLook() ? "Arial, Helvetica, sans-serif" : "ProxyMono, Menlo, monospace";
+  const font = "ProxyMono, Menlo, monospace";
   x.fillStyle = v("--bg"); x.fillRect(0,0,W,H);
   x.fillStyle = v("--fg"); x.font = `700 40px ${font}`;
   x.fillText(`${CATEGORY[0].toUpperCase()+CATEGORY.slice(1)}, ${new Date().getFullYear()}`, pad, 70);
