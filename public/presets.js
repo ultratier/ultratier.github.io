@@ -16,8 +16,8 @@ export const PRESETS = [
       "Canon PowerShot G7 X Mark III": ["released 2019", "20MP 1-inch sensor", "24-100mm-equivalent f/1.8-2.8 zoom", "video: 4K 30p with a crop, microphone input, flip-up screen, popular with vloggers", "Picture Style colour profiles", "about 304g"],
       "Leica Q3": ["released 2023", "60MP full-frame sensor", "28mm f/1.7 Summilux fixed lens", "video: 8K on paper but poor in practice, heavy rolling shutter from the slow sensor readout, no microphone input, not stabilised for video, a stills camera", "Leica Looks colour profiles", "tilting screen", "about 743g"]
     },
-    chips: ["image quality", "for travel", "value for money", "JPEG look", "video", "beginner friendly"],
-    on: ["image quality", "for travel", "JPEG look"] },
+    chips: ["image quality", "travel friendly", "value for money", "JPEG look", "video", "beginner friendly"],
+    on: ["image quality", "travel friendly", "JPEG look"] },
   { label: "phones", category: "smartphones",
     items: ["iPhone 17 Pro", "Google Pixel 10 Pro", "Samsung Galaxy S25 Ultra", "OnePlus 13", "Nothing Phone 3"],
     chips: ["camera", "battery life", "value for money", "software support", "size and weight"],
