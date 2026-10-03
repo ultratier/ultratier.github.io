@@ -281,6 +281,14 @@ drawChips();
 function drawPresets(){ $("#presets").innerHTML = PRESETS.map((p,i) => `<span class="chip ${p===activePreset?"on":""}" data-p="${i}">${esc(p.label)}</span>`).join(""); }
 // Typing anything that is no longer the preset's list or category releases the preset: its chips go
 // back to the generic set with nothing selected, so the criteria never silently belong to the wrong thing.
+function clearAll(){
+  activePreset = null; ITEMS = []; CATEGORY = ""; CHIPS = [...GENERIC]; for(const k in weights) delete weights[k]; overrides = {}; cache.clear();
+  $("#items").value = ""; $("#category").value = ""; $("#istatus").textContent = ""; $("#status").textContent = ""; $("#footer").innerHTML = "";
+  $("#board").innerHTML = ""; $("#specs").innerHTML = ""; $("#tbhint").hidden = true; $("#reset").hidden = true;
+  $("#verdict").innerHTML = `Pick a preset above, or paste your own list.<small>The ranking is relative: every item is judged against the others in your list only.</small>`;
+  history.replaceState(null, "", location.pathname + location.search);
+  drawPresets(); drawChips();
+}
 function releasePresetIfEdited(){
   if(!activePreset) return;
   if($("#items").value.trim() === activePreset.items.join("\n") && $("#category").value.trim() === activePreset.category) return;
@@ -290,7 +298,9 @@ function releasePresetIfEdited(){
 $("#items").addEventListener("input", releasePresetIfEdited); $("#category").addEventListener("input", releasePresetIfEdited);
 $("#presets").addEventListener("click", e => {
   const el = e.target.closest("[data-p]"); if(!el) return;
-  const p = PRESETS[+el.dataset.p]; activePreset = p;
+  const p = PRESETS[+el.dataset.p];
+  if(p === activePreset){ clearAll(); return; }   // a preset is a toggle: tapping the active one empties everything
+  activePreset = p;
   $("#items").value = p.items.join("\n"); $("#category").value = p.category;
   CHIPS = [...p.chips]; for(const k in weights) delete weights[k]; for(const k of (p.on || [p.chips[0]])) weights[k] = 1;
   drawPresets(); drawChips(); compare();
