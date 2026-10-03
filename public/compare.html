@@ -407,8 +407,6 @@ function render(d){
   const close = second && Math.abs(top.score - second.score) < 0.35;
   const crit = d.criteria.map(c => c.keyword).join(" + ");
   const topItem = itemOf(top.label);
-  const other = cache.get(criteriaString() + (useFacts ? " |names-only" : ""));
-  const otherTier = r => { const it = itemOf(r.label); const o = other?.results.find(x => itemOf(x.label) === it); return o && o.tier !== r.tier ? o.tier : null; };
   const buyTop = topItem?.buy ? ` <a class="buy" href="${esc(topItem.buy)}" target="_blank" rel="noopener sponsored">check price</a>` : "";
   const bestFor = crit.replace(/^for /, "");
   $("#verdict").innerHTML = `Best for ${esc(bestFor)}: ${esc(nameOf(top.label))}${buyTop}${useFacts ? "" : `<span class="mode ptag">names only</span>`}` +
@@ -421,15 +419,13 @@ function render(d){
     </div>`).join("") + (useFacts && ITEMS.some(i => !(i.facts.length || i.summary)) ? `<p class="hint legend"><i class="dot">●</i> no facts found; ranked on what Jev already knows about the name.</p>` : "");
   function card(r){
     const it = itemOf(r.label) || { name: nameOf(r.label), facts: [] };
-    const ot = otherTier(r);
-    const diff = ot ? `<span class="diff" title="Same list, same criteria, ${useFacts ? "without" : "with"} the facts">${useFacts ? "names only" : "with facts"}: ${esc(ot)}</span>` : "";
     const bar = r.probabilities.map(([t,p]) => `<i style="width:${p*100}%;background:${palette[t]}"></i>`).join("");
     const bare = useFacts && !(it.facts.length || it.summary);
     const dot = bare ? `<i class="dot" title="No facts found for this one. Ranked on what Jev already knows about the name.">●</i>` : "";
     const val = f => f.includes(": ") ? f.split(": ").slice(1).join(": ") : f; // curated lines have no key
     const sub = useFacts ? (it.facts.slice(0, 2).map(val).join(" · ") || (it.summary ? "" : "name only")) : `conf ${Math.round(r.confidence*100)}%`;
     const buy = it.buy ? `<a class="buy" href="${esc(it.buy)}" target="_blank" rel="noopener sponsored">Check price</a>` : "";
-    return `<div class="card${r.edited?" edited":""}" data-id="${esc(r.label)}" title="${r.edited?`Jev said ${r.jevTier}, you moved it`:`Jev: ${r.tier}, confidence ${Math.round(r.confidence*100)}%`}"><b>${esc(it.name)}${dot}</b>${sub ? `<small>${esc(sub)}</small>` : ""}<div class="bar">${bar}</div>${diff}${buy}</div>`;
+    return `<div class="card${r.edited?" edited":""}" data-id="${esc(r.label)}" title="${r.edited?`Jev said ${r.jevTier}, you moved it`:`Jev: ${r.tier}, confidence ${Math.round(r.confidence*100)}%`}"><b>${esc(it.name)}${dot}</b>${sub ? `<small>${esc(sub)}</small>` : ""}<div class="bar">${bar}</div>${buy}</div>`;
   }
 }
 
