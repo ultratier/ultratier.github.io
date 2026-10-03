@@ -41,20 +41,20 @@
   .lede{display:grid;gap:28px;margin-bottom:40px}
 
   /* the window */
-  .appwin{border:1px solid var(--fg);background:var(--subtle);color:var(--fg);box-shadow:6px 6px 0 var(--win-shadow)}
+  .appwin{color:var(--fg)} /* no window chrome: the panes stand on the page */
   .appwin-bar{display:flex;align-items:center;gap:12px;padding:5px 10px;background:var(--fg);color:var(--bg);font-size:11px;letter-spacing:.04em}
   .appwin-title{flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .appwin-ver{font-size:10px;opacity:.7}
   .appwin-lights{display:flex;gap:5px} .appwin-lights i{display:block;width:9px;height:9px;border:1px solid var(--bg)} .appwin-lights i:first-child{background:var(--bg)}
-  .appwin-body{padding:16px;display:grid;gap:16px}
-  @media(min-width:640px){.appwin-body{padding:20px;gap:20px}}
+  .appwin-body{padding:0;display:grid;gap:16px}
+  @media(min-width:640px){.appwin-body{gap:20px}}
   @media(min-width:1024px){.appwin-body{grid-template-columns:minmax(0,5fr) minmax(0,7fr)} .span{grid-column:1/-1}}
   .pane{border:1px solid var(--line-strong);background:var(--bg);min-width:0}
   .pbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:4px 12px;border-bottom:1px solid var(--line-strong);font-size:11px;letter-spacing:.04em}
   .pbar .k{white-space:nowrap;font-size:10px;color:var(--n500);text-transform:uppercase;font-feature-settings:"case";letter-spacing:.12em}
   .pbody{padding:18px 16px 20px}
   @media(min-width:640px){.pbody{padding:22px 22px 24px}}
-  .appwin-status{display:flex;flex-wrap:wrap;gap:6px 18px;padding:6px 12px;border-top:1px solid var(--fg);font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-feature-settings:"case";color:var(--n500)}
+  .appwin-status{display:flex;flex-wrap:wrap;gap:6px 18px;padding:14px 0 0;font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-feature-settings:"case";color:var(--n500)}
   .appwin-status b{font-weight:400;color:var(--fg)}
 
   /* fields, buttons, chips */
@@ -183,7 +183,7 @@
   </div>
 
   <div class="appwin">
-    <div class="appwin-bar"><span class="appwin-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="appwin-title">ultratier — compare</span><span class="appwin-ver" id="ver">jev-latest</span></div>
+    <span id="ver" hidden>jev-latest</span>
     <div class="appwin-body">
 
       <section class="pane span" id="result">
