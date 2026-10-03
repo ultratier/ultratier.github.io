@@ -19,7 +19,7 @@ export const PRESETS = [
     chips: ["image quality", "travel friendly", "value for money", "JPEG look", "video", "beginner friendly"],
     on: ["image quality", "travel friendly", "JPEG look"] },
   { label: "phones", category: "smartphones",
-    items: ["iPhone 17 Pro", "Google Pixel 10 Pro", "Samsung Galaxy S25 Ultra", "OnePlus 13", "Nothing Phone 3"],
+    items: ["iPhone 18 Pro Max", "iPhone 17 Pro", "Google Pixel 10 Pro", "Samsung Galaxy S25 Ultra", "OnePlus 13", "Nothing Phone 3"],
     chips: ["camera", "battery life", "value for money", "software support", "size and weight"],
     on: ["camera", "battery life"] },
   { label: "laptops", category: "laptops",
