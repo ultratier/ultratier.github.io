@@ -8,5 +8,6 @@
 | cameras/fujifilm-x100vi.jpg | Wikimedia Commons, "Fujifilm X100VI 25 may 2024a" | CC0 |
 | cameras/panasonic-lumix-s9.jpg | Wikimedia Commons, "Panasonic Lumix DC-S9 25 may 2024b" | CC0 |
 | cameras/leica-q3.jpg | Wikimedia Commons, "Leica Q3 with Summilix" | CC BY 4.0, Burkhard Mücke |
+| laptops/macbook-air-m4.jpg | Wikimedia Commons, "MacBook Air (13-inch, M4, Silver)" by AzureSaturn | CC0 |
 
 All other thumbnails are hotlinked Wikipedia lead images, fetched with the facts.

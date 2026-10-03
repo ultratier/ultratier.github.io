@@ -35,6 +35,7 @@ export const PRESETS = [
     on: ["camera", "battery life"] },
   { label: "laptops", category: "laptops",
     items: ["MacBook Air M4", "Dell XPS 13", "ThinkPad X1 Carbon", "Microsoft Surface Laptop 7", "Framework Laptop 13"],
+    images: { "MacBook Air M4": "https://ultratier.github.io/img/laptops/macbook-air-m4.jpg" },
     chips: ["battery life", "value for money", "repairability", "performance", "portability"],
     on: ["battery life", "portability"] },
   { label: "small EVs", category: "electric cars",
