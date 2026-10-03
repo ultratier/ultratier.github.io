@@ -82,6 +82,10 @@
   .chip input{border:0;background:transparent;color:var(--fg);font:400 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;width:150px;outline:0}
   .chip input::placeholder{color:var(--n500)}
   .chip.on input{color:var(--bg)}
+  .tiersadv{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+  .tiersadv summary{cursor:pointer;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-feature-settings:"case";color:var(--n500)}
+  .tiersadv summary:hover{color:var(--fg)}
+  .tiersadv textarea.pfield{min-height:0}
   .toggle{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);cursor:pointer;font-size:13px}
   .toggle input{appearance:none;flex:none;width:14px;height:14px;margin:4px 0 0;border:1px solid var(--fg);background:var(--bg);cursor:pointer}
   .toggle input:checked{background:var(--fg);box-shadow:inset 0 0 0 3px var(--bg)}
@@ -97,10 +101,10 @@
   .tier:first-child{margin-top:0}
   .busy .tier{opacity:.45}
   .tier .lbl{display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;border-right:1px solid var(--line-strong);font-feature-settings:"case"}
-  .tier[data-tier="S"] .lbl{background:var(--fg);color:var(--bg)}
-  .tier[data-tier="A"] .lbl{color:var(--fg)}
-  .tier[data-tier="B"] .lbl{color:var(--n500)}
-  .tier[data-tier="C"] .lbl{color:var(--n500);background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in srgb,var(--line-strong) 35%,transparent) 6px 7px)}
+  .tier[data-rank="0"] .lbl{background:var(--fg);color:var(--bg)}
+  .tier[data-rank="1"] .lbl{color:var(--fg)}
+  .tier[data-rank="2"] .lbl{color:var(--n500)}
+  .tier[data-rank="3"] .lbl{color:var(--n500);background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in srgb,var(--line-strong) 35%,transparent) 6px 7px)}
   .tier .items{display:flex;flex-wrap:wrap;gap:8px;padding:10px;min-height:64px}
   .card{border:1px solid var(--line-strong);padding:8px 12px 10px;background:var(--bg);max-width:300px;min-width:180px}
   .card b{display:block;font-size:13px;font-weight:700;line-height:1.4}
@@ -128,17 +132,19 @@
   .tierskin input:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
   /* the stage paints its own ground so the Tier skin can be white on a dark page */
   #stage{padding:20px;margin:0 -20px;background:var(--bg);color:var(--fg)}
-  /* Tier skin: only the board changes. White ground, TierMaker's row colours (S red, A orange, B amber,
-     C yellow) and their Arial on the verdict, rows and cards; everything outside stays as it is. */
+  /* Tier skin: the part of TierMaker people recognise, the pastel label column (their colours, their
+     100px cells) and plain grey rows, on a light ground that suits text tiles. TierMaker's own board is
+     near-black because its tiles are images; text tiles on near-black read as a bug. Board only. */
   main[data-skin="tier"] #stage{--bg:#ffffff;--fg:#1d1d1f;--subtle:#e8e8ed;--line:#d2d2d7;--line-strong:#6e6e73;--n300:#424245;--n400:#57575b;--n500:#6e6e73;--n600:#86868b;--n700:#c7c7cc;--tS:#ff7f7f;--tA:#ffbf7f;--tB:#ffdf7f;--tC:#ffff7f}
   main[data-skin="tier"] #stage .tier,main[data-skin="tier"] #stage .card,main[data-skin="tier"] #stage .legend,main[data-skin="tier"] #stage .verdict,main[data-skin="tier"] #stage .verdict small{font-family:Arial,Helvetica,sans-serif;letter-spacing:0}
-  main[data-skin="tier"] #stage .tier{border-color:#d0d0d0;background:#e9e9e9}
-  main[data-skin="tier"] #stage .tier .lbl{color:#000;border-right:1px solid rgba(0,0,0,.12);font-size:22px;background:none}
-  main[data-skin="tier"] #stage .tier[data-tier="S"] .lbl{background:var(--tS);color:#000}
-  main[data-skin="tier"] #stage .tier[data-tier="A"] .lbl{background:var(--tA)}
-  main[data-skin="tier"] #stage .tier[data-tier="B"] .lbl{background:var(--tB);color:#000}
-  main[data-skin="tier"] #stage .tier[data-tier="C"] .lbl{background:var(--tC);color:#000}
-  main[data-skin="tier"] #stage .card{border-color:#cfcfcf;border-radius:4px;background:#fff;color:#111;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+  main[data-skin="tier"] #stage .tier{grid-template-columns:100px 1fr;border:0;border-bottom:2px solid #fff;margin:0;background:#e9e9e9}
+  main[data-skin="tier"] #stage .tier .lbl{color:#333;font-size:22px;font-weight:700;border:0;background:none;min-height:80px;padding:6px;text-align:center}
+  main[data-skin="tier"] #stage .tier[data-rank="0"] .lbl{background:var(--tS)}
+  main[data-skin="tier"] #stage .tier[data-rank="1"] .lbl{background:var(--tA)}
+  main[data-skin="tier"] #stage .tier[data-rank="2"] .lbl{background:var(--tB)}
+  main[data-skin="tier"] #stage .tier[data-rank="3"] .lbl{background:var(--tC)}
+  main[data-skin="tier"] #stage .tier .items{min-height:80px;padding:8px;gap:8px}
+  main[data-skin="tier"] #stage .card{border:1px solid #cfcfcf;border-radius:4px;background:#fff;color:#111;box-shadow:0 1px 2px rgba(0,0,0,.08)}
   main[data-skin="tier"] #stage .card small{color:#57575b}
   main[data-skin="tier"] #stage .bar{background:#e2e2e2}
   /* full screen: just the verdict and the board, on the skin's own ground, rows scaled up */
@@ -190,6 +196,10 @@
         <div class="pbody">
           <div class="chips" id="chips"></div>
           <p class="hint" id="weightsHint">Weights ×1 · ×2 · ×3, then off. Add your own with the last chip.</p>
+          <details class="tiersadv"><summary>Tiers &amp; rubric</summary>
+            <label class="spec n500" style="margin-top:10px">Tier labels, best first<input class="pfield" id="tiers" value="S, A, B, C" placeholder="S, A, B, C   or   buy, maybe, skip"></label>
+            <label class="spec n500" style="margin-top:10px">Rubric, one line per tier: label = meaning<textarea class="pfield" id="rubric" rows="3" placeholder="S = under $1 per 100g and 10g+ protein&#10;C = mostly sugar"></textarea></label>
+          </details>
           <label class="toggle"><input type="checkbox" id="facts" checked> <span><b>Use looked-up facts</b> <small id="factsHint">Jev sees the fact sheet in 04. Untick to rank on names alone: same model, same list, same criterion, ranked on reputation instead of specs. A typed-judgement model is only as good as the state you hand it. Unticked, Jev is only vibe-checking whatever sat in its stale training data.</small></span></label>
         </div>
       </section>
@@ -225,7 +235,7 @@
   <canvas id="cv"></canvas>
 </main>
 <script type="module">
-import { rank } from "/jev.js";
+import { rank, parseTiers } from "/jev.js";
 import { setEndpoint } from "/jev.js";
 import { enableTierBoard, TIERBOARD_CSS, applyOverrides, encodeState, decodeState } from "/tierboard.js";
 import { PRESETS, applyPresetFacts } from "/presets.js";
@@ -369,8 +379,11 @@ enableTierBoard($("#board"), { onMove: (id, tier) => {
 function syncEdited(){ const n = Object.keys(overrides).length; $("#reset").hidden = !n; $("#status").textContent = n ? `${n} card${n>1?"s":""} moved by you` : ""; }
 $("#reset").onclick = () => { overrides = {}; if(last) render(last); syncEdited(); writeHash(); };
 function criteriaString(){ return Object.entries(weights).map(([k,w]) => `${k} ${w}`).join(", "); }
+const tiersNow = () => parseTiers($("#tiers").value, $("#rubric").value);
+const tiersKey = () => { const t = tiersNow(), d0 = parseTiers(""); const d = t.length === 4 && t.map(x => x.label).join() === "S,A,B,C" && t.every((x, i) => x.desc === d0[i].desc); return d ? "" : " |tiers:" + t.map(x => x.label + "=" + x.desc).join(";"); };
+$("#tiers").addEventListener("change", () => run()); $("#rubric").addEventListener("change", () => run());
 async function run(){
-  const crit = criteriaString() + (useFacts ? "" : " |names-only");
+  const crit = criteriaString() + (useFacts ? "" : " |names-only") + tiersKey();
   if(!criteriaString()){ $("#verdict").innerHTML = `Pick at least one thing that matters.<small>The ranking is relative: every item is judged against the others in your list only.</small>`; $("#board").innerHTML=""; return; }
   if(crit !== lastCrit){ overrides = {}; lastCrit = crit; }
   const my = ++seq;
@@ -380,13 +393,13 @@ async function run(){
     if(!ITEMS.length) return;
     if(!d && STATIC){
       const p = DATA?.presets[CATEGORY], key = criteriaString();
-      const frozen = p && ITEMS === p.items ? p.results[useFacts ? "facts" : "names"][key] : null;
+      const frozen = p && ITEMS === p.items && !tiersKey() ? p.results[useFacts ? "facts" : "names"][key] : null;
       if(frozen){
         d = frozen; cache.set(crit, d);
         const o = p.results[useFacts ? "names" : "facts"][key]; if(o) cache.set(key + (useFacts ? " |names-only" : ""), o); // both modes frozen: cards can show where they differ
       } else if(!LIVE) throw new Error("not frozen for this combination, and no server here. Run the repo locally for weights and your own criteria.");
     }
-    if(!d){ d = await rank(ITEMS.map(lineFor), { criteria: criteriaString(), category: CATEGORY }); cache.set(crit, d); }
+    if(!d){ d = await rank(ITEMS.map(lineFor), { criteria: criteriaString(), category: CATEGORY, tiers: tiersNow() }); cache.set(crit, d); }
     if(my !== seq) return;
     last = d; for(const r of d.results) if(overrides[r.label] === r.tier) delete overrides[r.label];
     render(d); syncEdited(); writeHash(); $("#tbhint").hidden = false;
@@ -400,7 +413,7 @@ async function run(){
   }catch(e){ $("#status").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
   $("#result").classList.remove("busy");
 }
-const palette = { S:"var(--tS)", A:"var(--tA)", B:"var(--tB)", C:"var(--tC)" };
+const rankColor = i => ["var(--tS)","var(--tA)","var(--tB)","var(--tC)"][Math.min(i, 3)]; // colour by position, so any labels work
 const nameOf = label => label.split(" · ")[0];
 function render(d){
   const top = d.results[0], second = d.results[1];
@@ -412,14 +425,14 @@ function render(d){
   $("#verdict").innerHTML = `Best for ${esc(bestFor)}: ${esc(nameOf(top.label))}${buyTop}${useFacts ? "" : `<span class="mode ptag">names only</span>`}` +
     `<small>${close ? `${esc(nameOf(second.label))} is a near tie. ` : ""}Confidence ${Math.round(top.confidence*100)}% ${useFacts ? "on the spec table below." : "with no facts at all. This is a guess from the name."}</small>`;
   const placed = applyOverrides(d.results, overrides);
-  $("#board").innerHTML = d.tiers.map(t => `
-    <div class="tier" data-tier="${esc(t.label)}">
+  $("#board").innerHTML = d.tiers.map((t, i) => `
+    <div class="tier" data-tier="${esc(t.label)}" data-rank="${Math.min(i, 3)}">
       <div class="lbl" title="${esc(t.desc)}">${t.label}</div>
       <div class="items">${placed.filter(r => r.tier===t.label).map(card).join("")}</div>
     </div>`).join("") + (useFacts && ITEMS.some(i => !(i.facts.length || i.summary)) ? `<p class="hint legend"><i class="dot">●</i> no facts found; ranked on what Jev already knows about the name.</p>` : "");
   function card(r){
     const it = itemOf(r.label) || { name: nameOf(r.label), facts: [] };
-    const bar = r.probabilities.map(([t,p]) => `<i style="width:${p*100}%;background:${palette[t]}"></i>`).join("");
+    const bar = r.probabilities.map(([t,p], i) => `<i style="width:${p*100}%;background:${rankColor(i)}"></i>`).join("");
     const bare = useFacts && !(it.facts.length || it.summary);
     const dot = bare ? `<i class="dot" title="No facts found for this one. Ranked on what Jev already knows about the name.">●</i>` : "";
     const val = f => f.includes(": ") ? f.split(": ").slice(1).join(": ") : f; // curated lines have no key
@@ -430,11 +443,12 @@ function render(d){
 }
 
 // ---------- shareable URL: #state carries the list, category, weights and your moves ----------
-function writeHash(){ if(!ITEMS.length) return; history.replaceState(null, "", "#" + encodeState({ i: ITEMS.map(x => x.name), c: CATEGORY, w: weights, f: useFacts ? 1 : 0, o: Object.fromEntries(Object.entries(overrides).map(([k,v]) => [nameOf(k), v])) })); }
+function writeHash(){ if(!ITEMS.length) return; history.replaceState(null, "", "#" + encodeState({ i: ITEMS.map(x => x.name), c: CATEGORY, w: weights, f: useFacts ? 1 : 0, t: $("#tiers").value, r: $("#rubric").value, o: Object.fromEntries(Object.entries(overrides).map(([k,v]) => [nameOf(k), v])) })); }
 function readHash(){
   const st = decodeState(location.hash.slice(1)); if(!st || !Array.isArray(st.i)) return null;
   $("#items").value = st.i.join("\n"); if(st.c) $("#category").value = st.c;
   if(st.f === 0){ useFacts = false; $("#facts").checked = false; }
+  if(st.t) $("#tiers").value = st.t; if(st.r) $("#rubric").value = st.r; if(st.t || st.r) document.querySelector(".tiersadv").open = true;
   const preset = PRESETS.find(p => p.category === st.c && p.items.join("\n") === st.i.join("\n")); if(preset){ activePreset = preset; CHIPS = [...preset.chips]; }
   if(st.w && typeof st.w === "object"){ for(const k in weights) delete weights[k]; for(const [k,v] of Object.entries(st.w)) if(+v>0){ weights[k] = Math.min(3, +v|0); if(!CHIPS.includes(k)) CHIPS.push(k); } }
   drawPresets(); drawChips();
@@ -458,8 +472,8 @@ function drawImage(d){
   d.tiers.forEach((t,i) => {
     const y = headH + i*rowH;
     x.strokeStyle = v("--line-strong"); x.lineWidth = 2; x.strokeRect(pad, y, W-2*pad, rowH-10);
-    x.fillStyle = v(`--t${t.label}`); x.fillRect(pad, y, 80, rowH-10);
-    x.fillStyle = tierLook() ? "#000" : t.label === "S" ? v("--bg") : v("--fg"); x.font = `800 40px ${font}`; x.textAlign = "center";
+    x.fillStyle = v(["--tS","--tA","--tB","--tC"][Math.min(i, 3)]); x.fillRect(pad, y, 80, rowH-10);
+    x.fillStyle = tierLook() ? "#333" : i === 0 ? v("--bg") : v("--fg"); x.font = `${tierLook() ? "400 22px" : "800 40px"} ${font}`; x.textAlign = "center";
     x.fillText(t.label, pad+40, y+58); x.textAlign = "left";
     const names = applyOverrides(d.results, overrides).filter(r => r.tier===t.label).map(r => nameOf(r.label) + (overrides[r.label] && overrides[r.label]!==r.tier ? " ✎" : ""));
     x.font = `700 24px ${font}`;
