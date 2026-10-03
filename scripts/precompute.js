@@ -12,7 +12,7 @@ for (const p of PRESETS) {
   process.stdout.write(`${p.label}: facts… `);
   const r = await fetch(BASE + "/api/enrich", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ items: p.items, category: p.category }) });
   if (!r.ok) throw new Error(`enrich ${r.status}`);
-  const items = applyPresetFacts(await r.json(), p.category).map(({ name, line, facts, source, summary, curated }) => ({ name, line, facts, source, summary, curated: !!curated }));
+  const items = applyPresetFacts(await r.json(), p.category).map(({ name, line, facts, source, summary, curated, image }) => ({ name, line, facts, source, summary, image: image || null, curated: !!curated }));
   const results = { facts: {}, names: {} };
   // every single chip, plus the preset's default selection (which may be several chips at 1x).
   // Keys are the page's criteria string ("image quality 1, for travel 1"), so lookups are exact.

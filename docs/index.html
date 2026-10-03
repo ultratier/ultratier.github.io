@@ -110,6 +110,9 @@
   .tier[data-rank="4"] .lbl{color:var(--n500);background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in srgb,var(--line-strong) 35%,transparent) 6px 7px)}
   .tier .items{display:flex;flex-wrap:wrap;gap:8px;padding:10px;min-height:64px}
   .card{border:1px solid var(--line-strong);padding:8px 12px 10px;background:var(--bg);max-width:300px;min-width:180px}
+  .card.haspic{display:flex;gap:10px;align-items:flex-start}
+  .card .txt{min-width:0;flex:1}
+  .card .pic{width:48px;height:48px;object-fit:contain;flex:none;background:#fff;border:1px solid var(--line);pointer-events:none}
   .card b{display:block;font-size:13px;font-weight:700;line-height:1.4}
   .card small{display:block;color:var(--n500);font-size:11px;line-height:1.55;margin-top:2px}
   .bar{display:flex;height:3px;margin-top:8px;overflow:hidden;background:var(--line)}
@@ -149,6 +152,10 @@
   main[data-skin="tier"] #stage .tier[data-rank="4"] .lbl{background:var(--tD)}
   main[data-skin="tier"] #stage .tier .items{min-height:80px;padding:8px;gap:8px}
   main[data-skin="tier"] #stage .card{border:1px solid color-mix(in srgb,var(--fg) 18%,var(--bg));border-radius:6px;background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  main[data-skin="tier"] #stage .card.haspic{flex-direction:column;align-items:stretch;gap:6px;width:150px;min-width:0;padding:6px}
+  main[data-skin="tier"] #stage .card.haspic .pic{width:100%;height:96px;border:0;border-radius:4px}
+  main[data-skin="tier"] #stage .card.haspic b{font-size:12px;white-space:normal}
+  main[data-skin="tier"] #stage .card.haspic small{display:none}
   main[data-skin="tier"] #stage .card small{color:var(--n500)}
   main[data-skin="tier"] #stage .bar{background:color-mix(in srgb,var(--fg) 14%,var(--bg))}
   /* full screen: just the verdict and the board, on the skin's own ground, rows scaled up */
@@ -442,7 +449,8 @@ function render(d){
     const val = f => f.includes(": ") ? f.split(": ").slice(1).join(": ") : f; // curated lines have no key
     const sub = useFacts ? (it.facts.slice(0, 2).map(val).join(" · ") || (it.summary ? "" : "name only")) : `conf ${Math.round(r.confidence*100)}%`;
     const buy = it.buy ? `<a class="buy" href="${esc(it.buy)}" target="_blank" rel="noopener sponsored">Check price</a>` : "";
-    return `<div class="card${r.edited?" edited":""}" data-id="${esc(r.label)}" title="${r.edited?`Jev said ${r.jevTier}, you moved it`:`Jev: ${r.tier}, confidence ${Math.round(r.confidence*100)}%`}"><b>${esc(it.name)}${dot}</b>${sub ? `<small>${esc(sub)}</small>` : ""}<div class="bar">${bar}</div>${buy}</div>`;
+    const pic = it.image ? `<img class="pic" src="${esc(it.image)}" alt="" loading="lazy" draggable="false">` : "";
+    return `<div class="card${r.edited?" edited":""}${it.image?" haspic":""}" data-id="${esc(r.label)}" title="${r.edited?`Jev said ${r.jevTier}, you moved it`:`Jev: ${r.tier}, confidence ${Math.round(r.confidence*100)}%`}">${pic}<div class="txt"><b>${esc(it.name)}${dot}</b>${sub ? `<small>${esc(sub)}</small>` : ""}<div class="bar">${bar}</div>${buy}</div></div>`;
   }
 }
 

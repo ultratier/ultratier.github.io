@@ -89,7 +89,7 @@ async function enrichOne(name, category) {
   const key = `${category}|${name}`.toLowerCase();
   if (cache[key]) return cache[key];
   const q = encodeURIComponent(`${name} ${category}`.trim());
-  let out = { name, source: null, facts: [], summary: "" };
+  let out = { name, source: null, facts: [], summary: "", image: null };
   try {
     // Candidates: a full-text search WITH the category first ("Wingspan board games" finds
     // "Wingspan (board game)", where the bare name lands on a disambiguation page), then the
@@ -107,7 +107,7 @@ async function enrichOne(name, category) {
     const hasNums = t => nums.every(n => tok(t).includes(n));
     for (const title of [...new Set(candidates)].sort((a, b) => (nums.length ? hasNums(b) - hasNums(a) : 0))) {
       if (!fits(title)) { out.rejected ||= title; continue; }
-      const r = JSON.parse(await get(`https://en.wikipedia.org/w/api.php?action=query&prop=revisions|extracts&rvprop=content&rvslots=main&exintro=1&explaintext=1&titles=${encodeURIComponent(title)}&format=json&formatversion=2&redirects=1`));
+      const r = JSON.parse(await get(`https://en.wikipedia.org/w/api.php?action=query&prop=revisions|extracts|pageimages&piprop=thumbnail&pithumbsize=320&pilicense=any&rvprop=content&rvslots=main&exintro=1&explaintext=1&titles=${encodeURIComponent(title)}&format=json&formatversion=2&redirects=1`));
       const page = r.query?.pages?.[0] || {};
       const extract = (page.extract || "").replace(/\s+/g, " ");
       const wikitext = page.revisions?.[0]?.slots?.main?.content || "";
@@ -115,6 +115,7 @@ async function enrichOne(name, category) {
       out.source = `https://en.wikipedia.org/wiki/${encodeURIComponent(page.title || title)}`;
       out.facts = infobox(wikitext);
       out.summary = extract.slice(0, 400);
+      out.image = page.thumbnail?.source || null;   // the page's lead image, hotlinked from upload.wikimedia.org
       break;
     }
   } catch (e) { out.error = String(e.message || e); }

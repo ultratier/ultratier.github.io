@@ -1,143 +1,72 @@
 {
- "game consoles|playstation 5": {
-  "name": "PlayStation 5",
-  "source": "https://en.wikipedia.org/wiki/PlayStation%205",
-  "facts": [
-   "aka: PS5",
-   "developer: Sony Interactive Entertainment",
-   "manufacturer: Sony, Foxconn",
-   "family: PlayStation",
-   "type: Home video game console",
-   "generation: Ninth",
-   "units sold: 95 million (as of June 30, 2026)",
-   "cpu: Custom AMD 8-core Zen 2",
-   "storage: Pro: 2 TB Expandable up to 8 TB via M.2 NVMe PCIe Gen4 x4 port",
-   "memory card: USB-based, up to 8 TB",
-   "online services: PlayStation Network PlayStation Plus",
-   "dimensions: Base: 390 xx Base Digital: 390 xx Slim: 358 xx Slim Digital: 358 xx Pro: 388 xx"
-  ],
-  "summary": "The PlayStation 5 (PS5) is a home video game console developed by Sony Interactive Entertainment as the fifth iteration of their PlayStation brand. It was announced as the successor to the PlayStation 4 in April 2019, and was launched in Australia, Japan, New Zealand, North America, and South Korea on November 12, 2020, and worldwide a week later. The PS5 is part of the ninth generation of video g",
-  "line": "PlayStation 5 · aka: PS5 · developer: Sony Interactive Entertainment · manufacturer: Sony, Foxconn · family: PlayStation · type: Home video game console · generation: Ninth · units sold: 95 million (as of June 30, 2026) · cpu: Custom AMD 8-core Zen 2 · storage: Pro: 2 TB Expandable up to 8 TB via M.2 NVMe PCIe Gen4 x4 port · memory card: USB-based, up to 8 TB · online services: PlayStation Network PlayStation Plus · dimensions: Base: 390 xx Base Digital: 390 xx Slim: 358 xx Slim Digital: 358 xx Pro: 388 xx"
- },
- "game consoles|steam deck": {
-  "name": "Steam Deck",
-  "source": "https://en.wikipedia.org/wiki/Steam%20Deck",
-  "facts": [
-   "developer: Valve Corporation",
-   "type: Handheld gaming computer",
-   "media: Digital distribution",
-   "os: SteamOS",
-   "system on chip: AMD \"Van Gogh\" APU",
-   "cpu: Quad-core Zen 2 with 8 threads @ 2.4–3.5 GHz",
-   "memory card: microSD",
-   "graphics: RDNA 2 w/ 8x CUs @ 1–1.6 GHz (1–1.6 TFLOPS FP32).",
-   "sound: Stereo speakers from DSP, Headphone jack",
-   "online services: Steam",
-   "dimensions: 298 xx",
-   "weight: LCD: 669 g OLED: 640 g"
-  ],
-  "summary": "The Steam Deck is a handheld gaming computer produced by Valve Corporation, designed to run games available on its Steam storefront. Built upon the experiences gained from Valve's earlier ventures with the original 2015 Steam Machine and the Steam Controller, the Steam Deck integrates a custom AMD APU and SteamOS, a Linux-based operating system. The Steam Deck represents Valve's pivot towards a fu",
-  "line": "Steam Deck · developer: Valve Corporation · type: Handheld gaming computer · media: Digital distribution · os: SteamOS · system on chip: AMD \"Van Gogh\" APU · cpu: Quad-core Zen 2 with 8 threads @ 2.4–3.5 GHz · memory card: microSD · graphics: RDNA 2 w/ 8x CUs @ 1–1.6 GHz (1–1.6 TFLOPS FP32). · sound: Stereo speakers from DSP, Headphone jack · online services: Steam · dimensions: 298 xx · weight: LCD: 669 g OLED: 640 g"
- },
  "compact cameras|ricoh gr iv": {
   "name": "Ricoh GR IV",
   "source": "https://en.wikipedia.org/wiki/Ricoh%20GR%20(large%20sensor%20compact%20camera)",
-  "facts": [
-   "camera name: Ricoh GR",
-   "maker: Ricoh",
-   "type: Large sensor fixed-lens camera",
-   "sensor type: CMOS",
-   "sensor size: 23.7 x 15.7 mm (APS-C type)",
-   "recording medium: SD, SDHC, SDXC",
-   "lens: 28 mm equivalent",
-   "shutter speeds: 1/4000 s to 300 s",
-   "f-numbers: f/2.8 at the widest",
-   "cont: 4 frames per second",
-   "ovf: Optical viewfinder available as an accessory",
-   "speedRange: 100-25600"
-  ],
-  "summary": "The Ricoh GR is a digital large sensor compact camera announced by Ricoh on April 17, 2013, one of a number of Ricoh GR digital cameras. It was succeeded by the Ricoh GR II in 2015, the Ricoh GR III in 2019, the GR IIIx in 2021 and the GR IV in 2025.",
-  "line": "Ricoh GR IV · camera name: Ricoh GR · maker: Ricoh · type: Large sensor fixed-lens camera · sensor type: CMOS · sensor size: 23.7 x 15.7 mm (APS-C type) · recording medium: SD, SDHC, SDXC · lens: 28 mm equivalent · shutter speeds: 1/4000 s to 300 s · f-numbers: f/2.8 at the widest · cont: 4 frames per second · ovf: Optical viewfinder available as an accessory · speedRange: 100-25600"
+  "facts": [],
+  "summary": "",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Ricoh_GR_%2816159018330%29.jpg/330px-Ricoh_GR_%2816159018330%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Ricoh GR IV"
  },
  "compact cameras|fujifilm x100vi": {
   "name": "Fujifilm X100VI",
   "source": "https://en.wikipedia.org/wiki/Fujifilm%20X100",
-  "facts": [
-   "camera name: Fujifilm X100 series",
-   "maker: Fujifilm",
-   "type: Large sensor fixed-lens camera",
-   "date: X100: X100S: X100T: X100F: X100V: X100VI:",
-   "lens mount: Fixed lens",
-   "lens: 23 mm (35 mm equivalent)",
-   "sensor: CMOS",
-   "sensor maker: Sony",
-   "storage: SD, SDHC, SDXC, (UHS-I)",
-   "fmode: Single point, Zone, Wide/Tracking",
-   "fcbkt: AUTO, MANUAL",
-   "exposure: TTL 256-zone metering"
-  ],
-  "summary": "The Fujifilm X100 is a series of digital compact cameras with a fixed prime lens. Originally part of the FinePix line, then becoming a member of the X series from Fujifilm, the X100 series includes the FinePix X100, X100S, X100T, X100F, X100V, and X100VI. They each have a large image sensor and a 23 mm lens (35 mm equivalent angle of view in full frame format). All six cameras have received genera",
-  "line": "Fujifilm X100VI · camera name: Fujifilm X100 series · maker: Fujifilm · type: Large sensor fixed-lens camera · date: X100: X100S: X100T: X100F: X100V: X100VI: · lens mount: Fixed lens · lens: 23 mm (35 mm equivalent) · sensor: CMOS · sensor maker: Sony · storage: SD, SDHC, SDXC, (UHS-I) · fmode: Single point, Zone, Wide/Tracking · fcbkt: AUTO, MANUAL · exposure: TTL 256-zone metering"
- },
- "game consoles|nintendo switch 2": {
-  "name": "Nintendo Switch 2",
-  "source": "https://en.wikipedia.org/wiki/Nintendo%20Switch%202",
-  "facts": [
-   "codename: Ounce",
-   "developer: Nintendo TDD",
-   "manufacturer: Foxconn",
-   "type: Video game console",
-   "units sold: 23.68 million",
-   "os: Nintendo Switch system software",
-   "system on chip: Custom Nvidia Tegra T239 processor (codenamed \"Drake\")",
-   "cpu: Octa-core ARM Cortex-A78C @ 998MHz (docked); 1,101MHz (undocked)",
-   "memory: 12 GB LPDDR5X 128-bit @ 6,400 MT/s (docked); 4,266 MT/s (undocked)",
-   "storage: 256 GB UFS 3.1",
-   "memory card: microSD Express, up to 2 TB",
-   "sound: stereo speakers, 3D audio effects Docked: Linear PCM 5.1 , 3D audio effects"
-  ],
-  "summary": "The Nintendo Switch 2 is a video game console developed by Nintendo and released in most regions on June 5, 2025. Like the original Nintendo Switch, it can be used as a handheld, as a tablet, or connected via the dock to an external display. The Joy-Con 2 controllers can be used while magnetically attached or detached from the console. Compared to the original Switch, the Switch 2 has a larger liq",
-  "line": "Nintendo Switch 2 · codename: Ounce · developer: Nintendo TDD · manufacturer: Foxconn · type: Video game console · units sold: 23.68 million · os: Nintendo Switch system software · system on chip: Custom Nvidia Tegra T239 processor (codenamed \"Drake\") · cpu: Octa-core ARM Cortex-A78C @ 998MHz (docked); 1,101MHz (undocked) · memory: 12 GB LPDDR5X 128-bit @ 6,400 MT/s (docked); 4,266 MT/s (undocked) · storage: 256 GB UFS 3.1 · memory card: microSD Express, up to 2 TB · sound: stereo speakers, 3D audio effects Docked: Linear PCM 5.1 , 3D audio effects"
+  "facts": [],
+  "summary": "",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Fujifilm_X100_001.jpg/330px-Fujifilm_X100_001.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Fujifilm X100VI"
  },
  "compact cameras|panasonic lumix s9": {
   "name": "Panasonic Lumix S9",
   "source": "https://en.wikipedia.org/wiki/Panasonic%20Lumix%20DC-S9",
-  "facts": [
-   "camera name: Panasonic LUMIX DC-S9",
-   "maker: Panasonic Corporation",
-   "type: Mirrorless interchangeable-lens digital camera (full frame)",
-   "lens mount: Leica L-mount",
-   "lens: L-Mount system",
-   "complens: L-Mount lenses",
-   "sensor: Full-frame CMOS sensor",
-   "sensor type: 24.2 MP BSI CMOS (digital)",
-   "sensor size: 36 × 24 mm",
-   "sensor maker: Sony Semiconductor manufacturing Corporation",
-   "res: 6000 x 4000 (~24.2 MP)",
-   "speedRange: 100 – 51200 (standard) 50 - 204800 (expand)"
-  ],
-  "summary": "The Panasonic LUMIX DC-S9 (also known as the LUMIX S9) is a digital, full frame mirrorless interchangeable-lens camera. It was released by Panasonic in June 2024 as part of the LUMIX S series cameras. Designed with input from Gen Z and marketed as a camera for social media, it combined many of the features of the LUMIX S5II with a smaller body that measures 126x74x47mm, and weighs only 486g. It al",
-  "line": "Panasonic Lumix S9 · camera name: Panasonic LUMIX DC-S9 · maker: Panasonic Corporation · type: Mirrorless interchangeable-lens digital camera (full frame) · lens mount: Leica L-mount · lens: L-Mount system · complens: L-Mount lenses · sensor: Full-frame CMOS sensor · sensor type: 24.2 MP BSI CMOS (digital) · sensor size: 36 × 24 mm · sensor maker: Sony Semiconductor manufacturing Corporation · res: 6000 x 4000 (~24.2 MP) · speedRange: 100 – 51200 (standard) 50 - 204800 (expand)"
+  "facts": [],
+  "summary": "",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Panasonic_LUMIX_S9_front_view_with_lens.jpg/330px-Panasonic_LUMIX_S9_front_view_with_lens.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Panasonic Lumix S9"
  },
- "compact cameras|ricoh gr iii": {
-  "name": "Ricoh GR III",
-  "source": "https://en.wikipedia.org/wiki/Ricoh%20GR%20(large%20sensor%20compact%20camera)",
+ "compact cameras|sony rx1r iii": {
+  "name": "Sony RX1R III",
+  "source": "https://en.wikipedia.org/wiki/Sony%20Cyber-shot%20DSC-RX1",
+  "facts": [],
+  "summary": "",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/Sony_RX1R_in_TIPMEE_20131024.jpg/330px-Sony_RX1R_in_TIPMEE_20131024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Sony RX1R III"
+ },
+ "compact cameras|canon powershot g7 x mark iii": {
+  "name": "Canon PowerShot G7 X Mark III",
+  "source": "https://en.wikipedia.org/wiki/Canon%20PowerShot%20G7%20X",
+  "facts": [],
+  "summary": "",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Canon_Powershot_G7_X.jpg/330px-Canon_Powershot_G7_X.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Canon PowerShot G7 X Mark III"
+ },
+ "compact cameras|leica q3": {
+  "name": "Leica Q3",
+  "source": "https://en.wikipedia.org/wiki/Leica%20Q3",
+  "facts": [],
+  "summary": "",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/A_Leica_Q3.jpg/330px-A_Leica_Q3.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Leica Q3"
+ },
+ "smartphones|iphone 18 pro max": {
+  "name": "iPhone 18 Pro Max",
+  "source": "https://en.wikipedia.org/wiki/IPhone%2018%20Pro",
   "facts": [
-   "camera name: Ricoh GR",
-   "maker: Ricoh",
-   "type: Large sensor fixed-lens camera",
-   "sensor type: CMOS",
-   "sensor size: 23.7 x 15.7 mm (APS-C type)",
-   "recording medium: SD, SDHC, SDXC",
-   "lens: 28 mm equivalent",
-   "shutter speeds: 1/4000 s to 300 s",
-   "f-numbers: f/2.8 at the widest",
-   "cont: 4 frames per second",
-   "ovf: Optical viewfinder available as an accessory",
-   "speedRange: 100-25600"
+   "developer: Apple",
+   "series: iPhone",
+   "networks: 2G GSM/EDGE, 3G UMTS/HSPA+, 4G LTE, 5G NR/5G-A",
+   "colors: * Glacier * Silver * Black",
+   "predecessor: iPhone 17 Pro and Pro Max",
+   "related: iPhone Duo",
+   "form factor: Slate",
+   "dimensions: Pro: 150.0x71.9x8.75 mm Pro Max: 163.4x78.0x8.75 mm",
+   "weight: Pro: 211 g Pro Max: 249 g",
+   "soc: Apple A20 Pro",
+   "modem: 18 Pro: Apple C2 18 Pro Max: Qualcomm Snapdragon X80 (US only), Apple C2 ()",
+   "type: Smartphone"
   ],
-  "summary": "The Ricoh GR is a digital large sensor compact camera announced by Ricoh on April 17, 2013, one of a number of Ricoh GR digital cameras. It was succeeded by the Ricoh GR II in 2015, the Ricoh GR III in 2019, the GR IIIx in 2021 and the GR IV in 2025.",
-  "line": "Ricoh GR III · camera name: Ricoh GR · maker: Ricoh · type: Large sensor fixed-lens camera · sensor type: CMOS · sensor size: 23.7 x 15.7 mm (APS-C type) · recording medium: SD, SDHC, SDXC · lens: 28 mm equivalent · shutter speeds: 1/4000 s to 300 s · f-numbers: f/2.8 at the widest · cont: 4 frames per second · ovf: Optical viewfinder available as an accessory · speedRange: 100-25600"
+  "summary": "The iPhone 18 Pro and iPhone 18 Pro Max are smartphones developed and marketed by Apple. Alongside the iPhone Duo, they form the twentieth generation of the iPhone, succeeding the iPhone 17 Pro and iPhone 17 Pro Max. They were unveiled during the Apple Event at Apple Park in Cupertino, California, on September 9, 2026. The phones were released on September 18, 2026.",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/IPhone_18_Pro_Vector.svg/330px-IPhone_18_Pro_Vector.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "iPhone 18 Pro Max · developer: Apple · series: iPhone · networks: 2G GSM/EDGE, 3G UMTS/HSPA+, 4G LTE, 5G NR/5G-A · colors: * Glacier * Silver * Black · predecessor: iPhone 17 Pro and Pro Max · related: iPhone Duo · form factor: Slate · dimensions: Pro: 150.0x71.9x8.75 mm Pro Max: 163.4x78.0x8.75 mm · weight: Pro: 211 g Pro Max: 249 g · soc: Apple A20 Pro · modem: 18 Pro: Apple C2 18 Pro Max: Qualcomm Snapdragon X80 (US only), Apple C2 () · type: Smartphone"
  },
  "smartphones|iphone 17 pro": {
   "name": "iPhone 17 Pro",
@@ -157,27 +86,8 @@
    "modem: Qualcomm Snapdragon X80"
   ],
   "summary": "The iPhone 17 Pro and iPhone 17 Pro Max are smartphones developed and marketed by Apple. Alongside the iPhone 17 and iPhone Air, they form the nineteenth generation of the iPhone, succeeding the iPhone 16 Pro and iPhone 16 Pro Max. They were unveiled during the Apple Event at Apple Park in Cupertino, California, on September 9, 2025, and released on September 19, 2025. The phones were discontinued",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/IPhone_17_Pro_Vector.svg/330px-IPhone_17_Pro_Vector.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "iPhone 17 Pro · developer: Apple · series: iPhone · networks: 2G GSM/EDGE, 3G UMTS/HSPA+, 4G LTE, 5G NR/5G-A · colors: * Deep Blue * Silver · predecessor: iPhone 16 Pro and Pro Max · successor: iPhone 18 Pro and Pro Max · related: iPhone 17 iPhone Air iPhone 17e · form factor: Slate · dimensions: Pro: 150.0x71.9x8.75 mm Pro Max: 163.4x78.0x8.75 mm · weight: Pro: 206 g Pro Max: 233 g · soc: Apple A19 Pro · modem: Qualcomm Snapdragon X80"
- },
- "smartphones|google pixel 10 pro": {
-  "name": "Google Pixel 10 Pro",
-  "source": "https://en.wikipedia.org/wiki/Pixel%2010%20Pro",
-  "facts": [
-   "developer: Google",
-   "series: Pixel",
-   "predecessor: Pixel 9 Pro, Pixel 9 Pro XL",
-   "successor: Pixel 11 Pro, Pixel 11 Pro XL",
-   "related: Pixel 10 Pixel 10 Pro Fold Pixel 10a",
-   "type: Smartphone",
-   "form factor: Slate",
-   "dimensions: : 72 mm : 8.6 mm Pixel 10 Pro XL:: 76.6 mm : 8.5 mm",
-   "weight: Pixel 10 Pro: 207 g, Pixel 10 Pro XL: 232 g",
-   "os: Android 16, upgradable to Android 17",
-   "soc: Google Tensor G5",
-   "cpu: 1x 3.78 GHz Cortex-X4 + 5x 3.05 GHz Cortex-A725 + 2x 2.25 GHz Cortex-A520"
-  ],
-  "summary": "The Pixel 10 Pro and Pixel 10 Pro XL are a pair of flagship Android-based smartphones designed, developed, and marketed by Google as part of the Google Pixel product line. It was announced on August 20, 2025 at the Made by Google keynote in Brooklyn, New York. It serves as the successor to the Pixel 9 Pro & Pixel 9 Pro XL, with a familiar design introduced with the Pixel 9 Series. It features the ",
-  "line": "Google Pixel 10 Pro · developer: Google · series: Pixel · predecessor: Pixel 9 Pro, Pixel 9 Pro XL · successor: Pixel 11 Pro, Pixel 11 Pro XL · related: Pixel 10 Pixel 10 Pro Fold Pixel 10a · type: Smartphone · form factor: Slate · dimensions: : 72 mm : 8.6 mm Pixel 10 Pro XL:: 76.6 mm : 8.5 mm · weight: Pixel 10 Pro: 207 g, Pixel 10 Pro XL: 232 g · os: Android 16, upgradable to Android 17 · soc: Google Tensor G5 · cpu: 1x 3.78 GHz Cortex-X4 + 5x 3.05 GHz Cortex-A725 + 2x 2.25 GHz Cortex-A520"
  },
  "smartphones|samsung galaxy s25 ultra": {
   "name": "Samsung Galaxy S25 Ultra",
@@ -197,27 +107,8 @@
    "form factor: Slate"
   ],
   "summary": "The Samsung Galaxy S25 is a series of high-end Android-based smartphones manufactured, developed, designed and marketed by Samsung Electronics as part of its flagship Galaxy S series. They collectively serve as the successor to the Galaxy S24 series. The first three models were announced on January 22, 2025, at the Samsung's Galaxy Unpacked event in San Jose, California, and were released on Febru",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/%E7%AC%AC%E4%B8%80%E6%89%8B%EF%BC%81Samsung_Galaxy_S25%E7%B3%BB%E5%88%97%E6%8B%BF%E5%88%B0%E4%BA%86%EF%BC%9A5%E4%B8%AA%E5%8D%87%E7%BA%A7%EF%BC%81S_Pen%E4%B8%8D%E6%94%AF%E6%8C%81%E8%93%9D%E7%89%99%E4%BA%86%EF%BC%9F_%282160p_50fps_VP9-96kbit_AAC%29-00.00.07.100.png/330px-%E7%AC%AC%E4%B8%80%E6%89%8B%EF%BC%81Samsung_Galaxy_S25%E7%B3%BB%E5%88%97%E6%8B%BF%E5%88%B0%E4%BA%86%EF%BC%9A5%E4%B8%AA%E5%8D%87%E7%BA%A7%EF%BC%81S_Pen%E4%B8%8D%E6%94%AF%E6%8C%81%E8%93%9D%E7%89%99%E4%BA%86%EF%BC%9F_%282160p_50fps_VP9-96kbit_AAC%29-00.00.07.100.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Samsung Galaxy S25 Ultra · brand: Samsung · manufacturer: Samsung Electronics · series: Galaxy S · family: Samsung Galaxy · networks: 2G / 3G / 4G / 5G · released: S25, S25+ and S25 Ultra: S25 Edge: S25 FE: · available: S25, S25+ and S25 Ultra: S25 Edge: S25 FE: · discontinued: S25, S25+, S25 Ultra and S25 Edge: S25 FE: · predecessor: Samsung Galaxy S24 · successor: Samsung Galaxy S26 · type: Smartphone · form factor: Slate"
- },
- "smartphones|oneplus 13": {
-  "name": "OnePlus 13",
-  "source": "https://en.wikipedia.org/wiki/OnePlus%2013",
-  "facts": [
-   "developer: OnePlus",
-   "manufacturer: Oppo",
-   "colors: Black, Blue, White",
-   "networks: 2G, 3G, 4G, 4G LTE, 5G NR (dual sim)",
-   "released: (China), (International)",
-   "predecessor: OnePlus 12",
-   "successor: OnePlus 15",
-   "related: OnePlus 13R",
-   "form factor: Slate",
-   "dimensions: H: 162.9 mm W: 76.5 mm D: 8.5 mm D: 8.9 mm",
-   "os: Android 15, OxygenOS 15 (International), ColorOS 15 (China)",
-   "soc: Qualcomm SM8750-AB Snapdragon 8 Elite (3 nm)"
-  ],
-  "summary": "The OnePlus 13 is an Android-based smartphone manufactured by OnePlus. Announced on October 31, 2024, it was released in China a day later, and internationally on January 7, 2025. The OnePlus 13s, part of the 13 series, was announced in India in June 2025. OnePlus 13 is available in 3 colours—a white and black variant which has a glass back, and a blue variant which uses vegan leather. It has flat",
-  "line": "OnePlus 13 · developer: OnePlus · manufacturer: Oppo · colors: Black, Blue, White · networks: 2G, 3G, 4G, 4G LTE, 5G NR (dual sim) · released: (China), (International) · predecessor: OnePlus 12 · successor: OnePlus 15 · related: OnePlus 13R · form factor: Slate · dimensions: H: 162.9 mm W: 76.5 mm D: 8.5 mm D: 8.9 mm · os: Android 15, OxygenOS 15 (International), ColorOS 15 (China) · soc: Qualcomm SM8750-AB Snapdragon 8 Elite (3 nm)"
  },
  "smartphones|nothing phone 3": {
   "name": "Nothing Phone 3",
@@ -237,27 +128,8 @@
    "dimensions: 160.6 x 75.6 x 9 (mm)"
   ],
   "summary": "The Nothing Phone 3 (stylized as Phone (3)) is an Android smartphone by Nothing Technology Ltd. It is the company's first device marketed as a \"flagship\" smartphone. The Phone (3) was officially announced on July 1, 2025, during a launch event in London. Pre-orders for the device began on July 4, 2025, and it became available for general purchase on July 15, 2025. At launch, the phone started at a",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/%E5%8D%8A%E5%A4%9C%E9%A6%96%E5%8F%91%EF%BC%81%E7%AC%AC%E4%B8%80%E6%89%8B%E6%8B%BF%E5%88%B0%E4%BA%86Nothing_Phone_%283%29_%EF%BC%81%E7%81%AF%E6%9D%A1%E6%B2%A1%E4%BA%86%E3%80%81%E8%83%8C%E5%90%8E%E5%A4%9A%E4%B8%80%E4%B8%AAscreen%EF%BC%81-00.00.11.457.png/330px-%E5%8D%8A%E5%A4%9C%E9%A6%96%E5%8F%91%EF%BC%81%E7%AC%AC%E4%B8%80%E6%89%8B%E6%8B%BF%E5%88%B0%E4%BA%86Nothing_Phone_%283%29_%EF%BC%81%E7%81%AF%E6%9D%A1%E6%B2%A1%E4%BA%86%E3%80%81%E8%83%8C%E5%90%8E%E5%A4%9A%E4%B8%80%E4%B8%AAscreen%EF%BC%81-00.00.11.457.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Nothing Phone 3 · aka: Phone (3) · developer: Nothing · manufacturer: Nothing Technology Limited · brand: Nothing · colors: White, Black · series: Phone · networks: 5G, 4G, 3G, 2G Speed: HSPA, LTE, 5G · released: July 2, 2025 · predecessor: Phone 2 · type: Smartphone · form factor: Slate · dimensions: 160.6 x 75.6 x 9 (mm)"
- },
- "laptops|macbook air m4": {
-  "name": "MacBook Air M4",
-  "source": "https://en.wikipedia.org/wiki/MacBook%20Air%20(Apple%20silicon)",
-  "facts": [
-   "developer: Apple",
-   "family: MacBook",
-   "type: Subnotebook",
-   "os: macOS",
-   "predecessor: MacBook Air (Intel-based) 12-inch MacBook (indirect, fanless)",
-   "manufacturer: Foxconn Pegatron",
-   "system on chip: Apple M-series",
-   "memory type: on-package LPDDR4X, LPDDR5, LPDDR5X",
-   "memory: 16–32 GB unified memory",
-   "online services: Optional on online configurations: Final Cut Pro, Logic Pro",
-   "power: Up to 66.5 Wh battery and 70 W GaN power adapter",
-   "storage: Soldered solid-state drive: 256 GB – 2 TB storage"
-  ],
-  "summary": "The MacBook Air is a line of Mac-branded laptops made by Apple. In 2020, Apple stopped using Intel processors in the Air and switched to using their own Apple silicon M-series chips. Since 2026, the MacBook Air is Apple's mid-level laptop, situated above the MacBook Neo and below the MacBook Pro. As of 2026, it is sold with 13-inch and 15-inch screens. Apple released the MacBook Air with the Apple",
-  "line": "MacBook Air M4 · developer: Apple · family: MacBook · type: Subnotebook · os: macOS · predecessor: MacBook Air (Intel-based) 12-inch MacBook (indirect, fanless) · manufacturer: Foxconn Pegatron · system on chip: Apple M-series · memory type: on-package LPDDR4X, LPDDR5, LPDDR5X · memory: 16–32 GB unified memory · online services: Optional on online configurations: Final Cut Pro, Logic Pro · power: Up to 66.5 Wh battery and 70 W GaN power adapter · storage: Soldered solid-state drive: 256 GB – 2 TB storage"
  },
  "laptops|dell xps 13": {
   "name": "Dell XPS 13",
@@ -275,6 +147,7 @@
    "marketing target: Consumer"
   ],
   "summary": "XPS laptops are a family of consumer-oriented high-end laptops under the XPS brand, manufactured by Dell Inc..",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/DELL_XPS_13_and_15_%2837080596413%29.jpg/330px-DELL_XPS_13_and_15_%2837080596413%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Dell XPS 13 · developer: Dell · manufacturer: Dell · type: Laptop · release date: (as Dimension sub-brand) 2008 (as separate product family) · cpu: Intel, AMD, Qualcomm · graphics: Intel/AMD/Qualcomm (integrated); ATI/AMD/Nvidia (discrete) · related: Inspiron, Vostro, Latitude · family: XPS · os: Windows, Linux · marketing target: Consumer"
  },
  "laptops|thinkpad x1 carbon": {
@@ -290,6 +163,7 @@
    "lifespan: 2011–present"
   ],
   "summary": "The ThinkPad X1 series is a line of high-end ThinkPad laptop and tablet computers produced by Lenovo. It is a sub-series of the ThinkPad X series designed to be extra premium with material that make them lighter and portable, having been originally classed as Ultrabooks. While the ThinkPad T series is the flagship ThinkPad line, the ThinkPad X1 series's X1 Carbon specifically has been cited as a f",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Lenovo_ThinkPad_X1_Ultrabook.jpg/330px-Lenovo_ThinkPad_X1_Ultrabook.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "ThinkPad X1 Carbon · developer: Lenovo · family: ThinkPad · type: Ultrabook, flipbook, or tablet computer · cpu: Intel Core · graphics: Intel Graphics · related: ThinkPad X series · lifespan: 2011–present"
  },
  "laptops|microsoft surface laptop 7": {
@@ -310,6 +184,7 @@
    "graphics: Adreno"
   ],
   "summary": "The Surface Laptop of the 7th generation, also referred to as the Surface Laptop 7th Edition, is a laptop computer developed by Microsoft. It is the seventh generation of Surface Laptop, and was unveiled alongside the 11th-generation Surface Pro. It is the first Surface Laptop released for Windows on ARM. It is also the first Surface Laptop with a built-in NPU designed for generative AI, via Micro",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Microsoft_Surface_Laptop_7.jpg/330px-Microsoft_Surface_Laptop_7.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Microsoft Surface Laptop 7 · developer: Microsoft · family: Microsoft Surface · type: Laptop · generation: Seventh · release date: Consumer: Business: · price: 15\": USD $1299 - 2,499 13.8\": USD $999 - 2,499 · os: Windows 11 Home Upgradeable to Windows 11 Pro · power: 15\": 65W 13.8\": 39W · memory: 16 GB, 32 GB, 64 GB RAM · storage: 1 TB, 512 GB, 256 GB · memory card: Removable SSD · graphics: Adreno"
  },
  "laptops|framework laptop 13": {
@@ -325,6 +200,7 @@
    "products: Desktop computers, laptops"
   ],
   "summary": "Framework Computer, Inc. is an American personal computer manufacturer, known for being a proponent of the right to repair movement. Their laptops are easily repairable, upgradable, and customizable with their modular first designs. Founded in 2020 by Nirav Patel, with an experienced team from other electronic companies, they launched their first product, the Framework Laptop 13, in late 2021. Sin",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Framework_laptop_part_made_with_love_by_team.jpg/330px-Framework_laptop_part_made_with_love_by_team.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Framework Laptop 13 · type: Private · industry: Computer hardware · founder: Nirav Patel · hq location city: San Francisco, California · hq location country: United States · key people: Nirav Patel (founder, CEO) · products: Desktop computers, laptops"
  },
  "electric cars|tesla model 3": {
@@ -345,27 +221,29 @@
    "weight: 3552 -"
   ],
   "summary": "The Tesla Model 3 is a battery electric powered mid-size sedan with a fastback body style built by Tesla, Inc., introduced in 2017. The Model 3 was marketed as a more affordable option compared to Tesla's previous vehicles, the Model S and Model X. The Model 3 was the world's top-selling plug-in electric car for three years, from 2018 to 2020, before the Tesla Model Y, a crossover SUV based on the",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Tesla_Model_3_%282023%29_Autofr%C3%BChling_Ulm_IMG_9282.jpg/330px-Tesla_Model_3_%282023%29_Autofr%C3%BChling_Ulm_IMG_9282.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Tesla Model 3 · manufacturer: Tesla, Inc. · production: 2017–present · designer: Franz von Holzhausen · class: Mid-size car · body style: 4-door sedan · related: Tesla Model Y · transmission: Single-speed fixed (9:1 ratio) · electric range: ) 363 mi () 341 mi () 303 mi (Performance) (all EPA est.) 830 km CLTC (Plus) · charging: 7.6 kW at 32 A () 11.5 kW at 48 A () DC: 170 kW () 250 kW () CCS2, GB/T or NACS connector · wheelbase: 113.2 in · width: 72.8 in · weight: 3552 -"
  },
- "electric cars|byd dolphin": {
-  "name": "BYD Dolphin",
-  "source": "https://en.wikipedia.org/wiki/BYD%20Dolphin",
+ "electric cars|mini electric": {
+  "name": "Mini Electric",
+  "source": "https://en.wikipedia.org/wiki/Mini%20Electric",
   "facts": [
-   "manufacturer: BYD Auto",
-   "model code: *EA1 *EM2E",
-   "production: August 2021 – present",
-   "designer: Under the lead of Wolfgang Egger",
-   "body style: 5-door hatchback",
-   "platform: e-Platform 3.0",
-   "motor: Permanent magnet synchronous",
-   "transmission: 1-speed A/T",
-   "wheelbase: 2700 mm",
-   "width: 1770 mm",
-   "height: 1570 mm",
-   "weight: 1285 –"
+   "manufacturer: BMW",
+   "aka: Mini Cooper SE",
+   "production: 2019–2024",
+   "model years: 2020–2024",
+   "class: Subcompact/Supermini (B)",
+   "layout: Front-motor, front-wheel-drive",
+   "related: BMW i3",
+   "transmission: Single speed with fixed ratio",
+   "wheelbase: 2495 mm",
+   "length: 3845 mm",
+   "width: 1727 mm",
+   "height: 1432 mm"
   ],
-  "summary": "The BYD Dolphin (Chinese: 比亚迪海豚; pinyin: Bǐyǎdí Hǎitún) is a battery electric hatchback produced by the Chinese manufacturer BYD Auto since 2021. A subcompact (B-segment) hatchback, the Dolphin is positioned above the Seagull in the Chinese market and part of BYD's Ocean Series. The Dolphin has been exported to overseas markets such as Europe, Australia and Southeast Asia since 2023 with lengthene",
-  "line": "BYD Dolphin · manufacturer: BYD Auto · model code: *EA1 *EM2E · production: August 2021 – present · designer: Under the lead of Wolfgang Egger · body style: 5-door hatchback · platform: e-Platform 3.0 · motor: Permanent magnet synchronous · transmission: 1-speed A/T · wheelbase: 2700 mm · width: 1770 mm · height: 1570 mm · weight: 1285 –"
+  "summary": "The Mini Electric (marketed as the Mini Cooper SE in all markets outside the United Kingdom) is a battery electric version of the third generation Mini Hatch that was launched in 2020 by German automaker BMW under the Mini marque. The drivetrain utilises technology developed for the earlier BMW i3.",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Mini_Hatch_%28F56%29_Electric_IMG_2679.jpg/330px-Mini_Hatch_%28F56%29_Electric_IMG_2679.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Mini Electric · manufacturer: BMW · aka: Mini Cooper SE · production: 2019–2024 · model years: 2020–2024 · class: Subcompact/Supermini (B) · layout: Front-motor, front-wheel-drive · related: BMW i3 · transmission: Single speed with fixed ratio · wheelbase: 2495 mm · length: 3845 mm · width: 1727 mm · height: 1432 mm"
  },
  "electric cars|mg4 ev": {
   "name": "MG4 EV",
@@ -378,6 +256,7 @@
    "sp: uk"
   ],
   "summary": "The MG4 EV or MG4 Electric is a battery electric small family car (C-segment) produced by the Chinese automotive manufacturer SAIC Motor under the British MG marque. First released in June 2022 as the MG Mulan in China (renamed MG4 EV in August 2023), it was introduced in Europe in July 2022. In March 2025, MG Motor introduced a second model of the MG4 EV to the Chinese market. It adopts a differe",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/MG4_Electric_%E2%80%93_f_21042025.jpg/330px-MG4_Electric_%E2%80%93_f_21042025.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "MG4 EV · manufacturer: MG Motor, SAIC Motor · production: 2022–present · class: Small family car (C) · body style: 5-door hatchback · sp: uk"
  },
  "electric cars|hyundai kona electric": {
@@ -392,6 +271,7 @@
    "body style: 5-door SUV"
   ],
   "summary": "The Hyundai Kona (Korean: 현대 코나) is a subcompact crossover SUV produced by the South Korean manufacturer Hyundai. The first-generation Kona debuted in June 2017 and the production version was revealed later that year. The current, second-generation model was revealed in December 2022 and launched in 2023. It was developed first as a battery-electric model before being adapted for petrol and hybrid",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Hyundai_Kona_N_Line_%28SX2%29_DSC_8250.jpg/330px-Hyundai_Kona_N_Line_%28SX2%29_DSC_8250.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Hyundai Kona Electric · manufacturer: Hyundai · aka: Hyundai Kauai (Portugal.2017~) Hyundai Encino (China, 2018-2020) · production: 2017–present · model years: 2018–present · class: Subcompact crossover SUV · body style: 5-door SUV"
  },
  "electric cars|kia ev3": {
@@ -412,7 +292,29 @@
    "length: 4300-4310 mm"
   ],
   "summary": "The Kia EV3 (Korean: 기아 EV3) is a battery electric (C-segment) compact crossover SUV manufactured and marketed by Kia since 2024. It is the fourth model in the manufacturer's \"EV\" line-up and Kia’s second dedicated electric vehicle to feature the 400-volt architecture after the EV5.",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Kia_EV3_GT-Line_Automesse_Ludwigsburg_2025_DSC_2635_%28cropped%29.jpg/330px-Kia_EV3_GT-Line_Automesse_Ludwigsburg_2025_DSC_2635_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Kia EV3 · manufacturer: Kia · model code: SV · production: 2024–present · assembly: South Korea: Gwangmyeong (Sohari Plant) Mexico: Monterrey, Nuevo León (KMMX) · class: Compact crossover SUV (C) · body style: 5-door SUV · platform: K3, E-GMP (400 V architecture) · related: Kia EV4 · motor: Permanent magnet synchronous motor · electric range: (WLTP) · wheelbase: 2680 mm · length: 4300-4310 mm"
+ },
+ "game consoles|playstation 5": {
+  "name": "PlayStation 5",
+  "source": "https://en.wikipedia.org/wiki/PlayStation%205",
+  "facts": [
+   "aka: PS5",
+   "developer: Sony Interactive Entertainment",
+   "manufacturer: Sony, Foxconn",
+   "family: PlayStation",
+   "type: Home video game console",
+   "generation: Ninth",
+   "units sold: 95 million (as of June 30, 2026)",
+   "cpu: Custom AMD 8-core Zen 2",
+   "storage: Pro: 2 TB Expandable up to 8 TB via M.2 NVMe PCIe Gen4 x4 port",
+   "memory card: USB-based, up to 8 TB",
+   "online services: PlayStation Network PlayStation Plus",
+   "dimensions: Base: 390 xx Base Digital: 390 xx Slim: 358 xx Slim Digital: 358 xx Pro: 388 xx"
+  ],
+  "summary": "The PlayStation 5 (PS5) is a home video game console developed by Sony Interactive Entertainment as the fifth iteration of their PlayStation brand. It was announced as the successor to the PlayStation 4 in April 2019, and was launched in Australia, Japan, New Zealand, North America, and South Korea on November 12, 2020, and worldwide a week later. The PS5 is part of the ninth generation of video g",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Black_and_white_Playstation_5_base_edition_with_controller.png/330px-Black_and_white_Playstation_5_base_edition_with_controller.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "PlayStation 5 · aka: PS5 · developer: Sony Interactive Entertainment · manufacturer: Sony, Foxconn · family: PlayStation · type: Home video game console · generation: Ninth · units sold: 95 million (as of June 30, 2026) · cpu: Custom AMD 8-core Zen 2 · storage: Pro: 2 TB Expandable up to 8 TB via M.2 NVMe PCIe Gen4 x4 port · memory card: USB-based, up to 8 TB · online services: PlayStation Network PlayStation Plus · dimensions: Base: 390 xx Base Digital: 390 xx Slim: 358 xx Slim Digital: 358 xx Pro: 388 xx"
  },
  "game consoles|xbox series x": {
   "name": "Xbox Series X",
@@ -432,7 +334,50 @@
    "compatibility: All Xbox One games and select Xbox 360 and original Xbox games"
   ],
   "summary": "The Xbox Series X and Xbox Series S are the fourth generation of consoles in Microsoft's Xbox series, succeeding the previous generation's Xbox One. Released on November 10, 2020, the higher-end Series X and lower-end Series S are part of the ninth generation of video game consoles, which also includes Sony's PlayStation 5, released the same month. Like the Xbox One, the consoles use an AMD 64-bit",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Xbox_Series_X_S_color.svg/330px-Xbox_Series_X_S_color.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Xbox Series X · developer: Microsoft · manufacturer: Flextronics, Flex, Foxconn · family: Xbox · type: Home video game consoles · generation: Ninth · units sold: 35 million (as of February 25, 2026) · os: Xbox System Software · power: Built-in power supply (both consoles) · currentfw: 10.0.26100.9438 · online services: Xbox network, Xbox Game Pass · dimensions: Series X: 15.1 x, Series S: 15.1 x · compatibility: All Xbox One games and select Xbox 360 and original Xbox games"
+ },
+ "game consoles|nintendo switch 2": {
+  "name": "Nintendo Switch 2",
+  "source": "https://en.wikipedia.org/wiki/Nintendo%20Switch%202",
+  "facts": [
+   "codename: Ounce",
+   "developer: Nintendo TDD",
+   "manufacturer: Foxconn",
+   "type: Video game console",
+   "units sold: 23.68 million",
+   "os: Nintendo Switch system software",
+   "system on chip: Custom Nvidia Tegra T239 processor (codenamed \"Drake\")",
+   "cpu: Octa-core ARM Cortex-A78C @ 998MHz (docked); 1,101MHz (undocked)",
+   "memory: 12 GB LPDDR5X 128-bit @ 6,400 MT/s (docked); 4,266 MT/s (undocked)",
+   "storage: 256 GB UFS 3.1",
+   "memory card: microSD Express, up to 2 TB",
+   "sound: stereo speakers, 3D audio effects Docked: Linear PCM 5.1 , 3D audio effects"
+  ],
+  "summary": "The Nintendo Switch 2 is a video game console developed by Nintendo and released in most regions on June 5, 2025. Like the original Nintendo Switch, it can be used as a handheld, as a tablet, or connected via the dock to an external display. The Joy-Con 2 controllers can be used while magnetically attached or detached from the console. Compared to the original Switch, the Switch 2 has a larger liq",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Nintendo_Switch_2_logo.svg/330px-Nintendo_Switch_2_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Nintendo Switch 2 · codename: Ounce · developer: Nintendo TDD · manufacturer: Foxconn · type: Video game console · units sold: 23.68 million · os: Nintendo Switch system software · system on chip: Custom Nvidia Tegra T239 processor (codenamed \"Drake\") · cpu: Octa-core ARM Cortex-A78C @ 998MHz (docked); 1,101MHz (undocked) · memory: 12 GB LPDDR5X 128-bit @ 6,400 MT/s (docked); 4,266 MT/s (undocked) · storage: 256 GB UFS 3.1 · memory card: microSD Express, up to 2 TB · sound: stereo speakers, 3D audio effects Docked: Linear PCM 5.1 , 3D audio effects"
+ },
+ "game consoles|steam deck": {
+  "name": "Steam Deck",
+  "source": "https://en.wikipedia.org/wiki/Steam%20Deck",
+  "facts": [
+   "developer: Valve Corporation",
+   "type: Handheld gaming computer",
+   "media: Digital distribution",
+   "os: SteamOS",
+   "system on chip: AMD \"Van Gogh\" APU",
+   "cpu: Quad-core Zen 2 with 8 threads @ 2.4–3.5 GHz",
+   "memory card: microSD",
+   "graphics: RDNA 2 w/ 8x CUs @ 1–1.6 GHz (1–1.6 TFLOPS FP32).",
+   "sound: Stereo speakers from DSP, Headphone jack",
+   "online services: Steam",
+   "dimensions: 298 xx",
+   "weight: LCD: 669 g OLED: 640 g"
+  ],
+  "summary": "The Steam Deck is a handheld gaming computer produced by Valve Corporation, designed to run games available on its Steam storefront. Built upon the experiences gained from Valve's earlier ventures with the original 2015 Steam Machine and the Steam Controller, the Steam Deck integrates a custom AMD APU and SteamOS, a Linux-based operating system. The Steam Deck represents Valve's pivot towards a fu",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Steam_Deck_%28front%29.png/330px-Steam_Deck_%28front%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Steam Deck · developer: Valve Corporation · type: Handheld gaming computer · media: Digital distribution · os: SteamOS · system on chip: AMD \"Van Gogh\" APU · cpu: Quad-core Zen 2 with 8 threads @ 2.4–3.5 GHz · memory card: microSD · graphics: RDNA 2 w/ 8x CUs @ 1–1.6 GHz (1–1.6 TFLOPS FP32). · sound: Stereo speakers from DSP, Headphone jack · online services: Steam · dimensions: 298 xx · weight: LCD: 669 g OLED: 640 g"
  },
  "game consoles|nintendo switch": {
   "name": "Nintendo Switch",
@@ -452,7 +397,71 @@
    "connectivity: , Wi-Fi 5 @ 2.4/5 GHz , Bluetooth 4.1 , 1 × USB-C , Headphone jack ,"
   ],
   "summary": "The Nintendo Switch is a video game console developed by Nintendo and released worldwide in most regions on March 3, 2017. Released in the middle of the eighth generation of home consoles, the Switch succeeded the Wii U and competed with Sony's PlayStation 4 and Microsoft's Xbox One; it also competes with the ninth-generation consoles, the PlayStation 5 and Xbox Series X/S. The Switch is a tablet ",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/Nintendo_Switch_logo.svg/330px-Nintendo_Switch_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Nintendo Switch · developer: Nintendo PTD · type: Video game console · generation: Eighth/Ninth · price: Lite: OLED: · units shipped: 156.59 million (, details) · os: Nintendo Switch system software · system on chip: Nvidia Tegra X1 · cpu: Quad-core ARM Cortex-A57 · memory: 4 GB LPDDR4 · memory card: microSD, up to 2 TB · sound: , Undocked: Linear PCM 2.0 · connectivity: , Wi-Fi 5 @ 2.4/5 GHz , Bluetooth 4.1 , 1 × USB-C , Headphone jack ,"
+ },
+ "smartphones|google pixel 10 pro": {
+  "name": "Google Pixel 10 Pro",
+  "source": "https://en.wikipedia.org/wiki/Pixel%2010%20Pro",
+  "facts": [
+   "developer: Google",
+   "series: Pixel",
+   "predecessor: Pixel 9 Pro, Pixel 9 Pro XL",
+   "successor: Pixel 11 Pro, Pixel 11 Pro XL",
+   "related: Pixel 10 Pixel 10 Pro Fold Pixel 10a",
+   "type: Smartphone",
+   "form factor: Slate",
+   "dimensions: : 72 mm : 8.6 mm Pixel 10 Pro XL:: 76.6 mm : 8.5 mm",
+   "weight: Pixel 10 Pro: 207 g, Pixel 10 Pro XL: 232 g",
+   "os: Android 16, upgradable to Android 17",
+   "soc: Google Tensor G5",
+   "cpu: 1x 3.78 GHz Cortex-X4 + 5x 3.05 GHz Cortex-A725 + 2x 2.25 GHz Cortex-A520"
+  ],
+  "summary": "The Pixel 10 Pro and Pixel 10 Pro XL are a pair of flagship Android-based smartphones designed, developed, and marketed by Google as part of the Google Pixel product line. It was announced on August 20, 2025 at the Made by Google keynote in Brooklyn, New York. It serves as the successor to the Pixel 9 Pro & Pixel 9 Pro XL, with a familiar design introduced with the Pixel 9 Series. It features the ",
+  "image": null,
+  "line": "Google Pixel 10 Pro · developer: Google · series: Pixel · predecessor: Pixel 9 Pro, Pixel 9 Pro XL · successor: Pixel 11 Pro, Pixel 11 Pro XL · related: Pixel 10 Pixel 10 Pro Fold Pixel 10a · type: Smartphone · form factor: Slate · dimensions: : 72 mm : 8.6 mm Pixel 10 Pro XL:: 76.6 mm : 8.5 mm · weight: Pixel 10 Pro: 207 g, Pixel 10 Pro XL: 232 g · os: Android 16, upgradable to Android 17 · soc: Google Tensor G5 · cpu: 1x 3.78 GHz Cortex-X4 + 5x 3.05 GHz Cortex-A725 + 2x 2.25 GHz Cortex-A520"
+ },
+ "smartphones|oneplus 13": {
+  "name": "OnePlus 13",
+  "source": "https://en.wikipedia.org/wiki/OnePlus%2013",
+  "facts": [
+   "developer: OnePlus",
+   "manufacturer: Oppo",
+   "colors: Black, Blue, White",
+   "networks: 2G, 3G, 4G, 4G LTE, 5G NR (dual sim)",
+   "released: (China), (International)",
+   "predecessor: OnePlus 12",
+   "successor: OnePlus 15",
+   "related: OnePlus 13R",
+   "form factor: Slate",
+   "dimensions: H: 162.9 mm W: 76.5 mm D: 8.5 mm D: 8.9 mm",
+   "os: Android 15, OxygenOS 15 (International), ColorOS 15 (China)",
+   "soc: Qualcomm SM8750-AB Snapdragon 8 Elite (3 nm)"
+  ],
+  "summary": "The OnePlus 13 is an Android-based smartphone manufactured by OnePlus. Announced on October 31, 2024, it was released in China a day later, and internationally on January 7, 2025. The OnePlus 13s, part of the 13 series, was announced in India in June 2025. OnePlus 13 is available in 3 colours—a white and black variant which has a glass back, and a blue variant which uses vegan leather. It has flat",
+  "image": null,
+  "line": "OnePlus 13 · developer: OnePlus · manufacturer: Oppo · colors: Black, Blue, White · networks: 2G, 3G, 4G, 4G LTE, 5G NR (dual sim) · released: (China), (International) · predecessor: OnePlus 12 · successor: OnePlus 15 · related: OnePlus 13R · form factor: Slate · dimensions: H: 162.9 mm W: 76.5 mm D: 8.5 mm D: 8.9 mm · os: Android 15, OxygenOS 15 (International), ColorOS 15 (China) · soc: Qualcomm SM8750-AB Snapdragon 8 Elite (3 nm)"
+ },
+ "laptops|macbook air m4": {
+  "name": "MacBook Air M4",
+  "source": "https://en.wikipedia.org/wiki/MacBook%20Air%20(Apple%20silicon)",
+  "facts": [
+   "developer: Apple",
+   "family: MacBook",
+   "type: Subnotebook",
+   "os: macOS",
+   "predecessor: MacBook Air (Intel-based) 12-inch MacBook (indirect, fanless)",
+   "manufacturer: Foxconn Pegatron",
+   "system on chip: Apple M-series",
+   "memory type: on-package LPDDR4X, LPDDR5, LPDDR5X",
+   "memory: 16–32 GB unified memory",
+   "online services: Optional on online configurations: Final Cut Pro, Logic Pro",
+   "power: Up to 66.5 Wh battery and 70 W GaN power adapter",
+   "storage: Soldered solid-state drive: 256 GB – 2 TB storage"
+  ],
+  "summary": "The MacBook Air is a line of Mac-branded laptops made by Apple. In 2020, Apple stopped using Intel processors in the Air and switched to using their own Apple silicon M-series chips. Since 2026, the MacBook Air is Apple's mid-level laptop, situated above the MacBook Neo and below the MacBook Pro. As of 2026, it is sold with 13-inch and 15-inch screens. Apple released the MacBook Air with the Apple",
+  "image": null,
+  "line": "MacBook Air M4 · developer: Apple · family: MacBook · type: Subnotebook · os: macOS · predecessor: MacBook Air (Intel-based) 12-inch MacBook (indirect, fanless) · manufacturer: Foxconn Pegatron · system on chip: Apple M-series · memory type: on-package LPDDR4X, LPDDR5, LPDDR5X · memory: 16–32 GB unified memory · online services: Optional on online configurations: Final Cut Pro, Logic Pro · power: Up to 66.5 Wh battery and 70 W GaN power adapter · storage: Soldered solid-state drive: 256 GB – 2 TB storage"
  },
  "board games|catan": {
   "name": "Catan",
@@ -469,6 +478,7 @@
    "date: * First edition: * Third edition: * Fourth edition: * Fifth edition: * Sixth edition:"
   ],
   "summary": "Catan (), previously known as The Settlers of Catan or simply Settlers, is a multiplayer board game designed by Klaus Teuber. It was first published in 1995 in Germany by Franckh-Kosmos Verlag (Kosmos). Its release, The Settlers of Catan became one of the first Eurogames to achieve popularity outside Europe. As of 2020, more than 32 million boxed sets in 40 languages had been sold. The game and it",
+  "image": "https://upload.wikimedia.org/wikipedia/en/a/a3/Catan-2015-boxart.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "line": "Catan · other names: The Settlers of Catan · designer: Klaus Teuber · players: 3–4 (standard), 5–6 (with extensions) · setup time: 15 minutes · playing time: 1–2 hours · random chance: low-moderate · ages: 10+ · skills: Strategy, Negotiation · date: * First edition: * Third edition: * Fourth edition: * Fifth edition: * Sixth edition:"
  },
  "board games|ticket to ride": {
@@ -484,6 +494,7 @@
    "skills: Strategy"
   ],
   "summary": "Ticket to Ride is a series of turn-based strategy railway-themed Eurogames designed by Alan R. Moon, the first of which was released in 2004 by Days of Wonder. This game is the world's highest-selling train game. As of 2026, over 20 million copies of the game have been sold worldwide, and it has been translated into 33 languages. Days of Wonder has released digital versions of the board games, car",
+  "image": "https://upload.wikimedia.org/wikipedia/en/9/92/Ticket_to_Ride_Board_Game_Box_EN.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "line": "Ticket to Ride · designer: Alan R. Moon · illustrator: Julien Delval, Cyrille Daujean · publisher: Days of Wonder (2004) · players: Varies in each version · setup time: <5 minutes · random chance: Moderate · skills: Strategy"
  },
  "board games|wingspan": {
@@ -500,6 +511,7 @@
    "playing time: 40-70 mins (standard), 60-90 mins (with expansion)"
   ],
   "summary": "Wingspan is a board game designed by Elizabeth Hargrave and published by Stonemaier Games in 2019. It is a medium-weight, card-driven, engine-building board game in which players compete to attract birds to their wildlife preserves. During the game's development process, Hargrave constructed personal charts of birds observed in Maryland, with statistics sourced from various biological databases; t",
+  "image": "https://upload.wikimedia.org/wikipedia/en/c/c3/3d-wingspan-768x752.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "line": "Wingspan · designer: Elizabeth Hargrave · illustrator: Ana Maria Martinez Jaramillo Natalia Rojas Beth Sobel · publisher: Stonemaier Games · genre: Strategy, Deck-building · language: English and 27 others · players: 1-5 (standard), 1-7 (with expansion) · setup time: 5 mins · playing time: 40-70 mins (standard), 60-90 mins (with expansion)"
  },
  "board games|azul": {
@@ -513,6 +525,7 @@
    "playing time: 30–45 minutes"
   ],
   "summary": "Azul (Portuguese for \"blue\") is an abstract strategy board game designed by Michael Kiesling and released by Plan B Games in 2017. Based on Portuguese tiles called azulejos, in Azul players collect sets of similarly colored tiles which they place on their player board. When a row is filled, one of the tiles is moved into a square pattern on the right side of the player board, where it garners poin",
+  "image": "https://upload.wikimedia.org/wikipedia/en/2/23/Picture_of_Azul_game_box.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "line": "Azul · designer: Michael Kiesling · illustrator: Philippe Guérin, Chris Quilliams · publisher: Plan B Games · date: 2017 · playing time: 30–45 minutes"
  },
  "board games|pandemic": {
@@ -529,6 +542,7 @@
    "genre: Board game, Role-playing game, Cooperative board game, Cooperative gameplay"
   ],
   "summary": "Pandemic is a cooperative board game designed by Matt Leacock and first published by Z-Man Games in the United States in 2008. Pandemic is based on the premise that four diseases have broken out in the world, each threatening to wipe out a region. Through the combined effort of all the players, the goal is to discover all four cures before any of several game-losing conditions are reached. The gam",
+  "image": "https://upload.wikimedia.org/wikipedia/en/3/36/Pandemic_game.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "line": "Pandemic · designer: Matt Leacock · publisher: * Z-Man Games (U.S.) * Κάισσα (Greece) · players: 2–4, (5 with On the Brink expansion), (1–6 with the In the Lab expansion) · setup time: 10 min · playing time: 45 min · random chance: Moderate · skills: Tactics, cooperation, logic, logistics · genre: Board game, Role-playing game, Cooperative board game, Cooperative gameplay"
  },
  "board games|carcassonne": {
@@ -544,147 +558,7 @@
    "related: Small World, Ticket to Ride, 7 Wonders, Castles of Mad King Ludwig, Castles of Burgundy"
   ],
   "summary": "Carcassonne () is a tile-based Eurogame for two to five players, designed by Klaus-Jürgen Wrede and published in 2000 by Hans im Glück in German and by Rio Grande Games (until 2012) and Z-Man Games (currently) in English. It received the Spiel des Jahres and the Deutscher Spiele Preis awards in 2001. It is named after the medieval fortified town of Carcassonne in southern France, famed for its cit",
+  "image": "https://upload.wikimedia.org/wikipedia/en/5/5e/Carcassonne-game.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "line": "Carcassonne · designer: Klaus-Jürgen Wrede · genre: Tile-based game, Eurogame · players: 2–5 (6–8 with expansion) · setup time: 1–5 minutes · playing time: 30–90 minutes · random chance: Medium · related: Small World, Ticket to Ride, 7 Wonders, Castles of Mad King Ludwig, Castles of Burgundy"
- },
- "smartphones|iphone 18 pro": {
-  "name": "iPhone 18 pro",
-  "source": "https://en.wikipedia.org/wiki/IPhone%2018%20Pro",
-  "facts": [
-   "developer: Apple",
-   "series: iPhone",
-   "networks: 2G GSM/EDGE, 3G UMTS/HSPA+, 4G LTE, 5G NR/5G-A",
-   "colors: * Glacier * Silver * Black",
-   "predecessor: iPhone 17 Pro and Pro Max",
-   "related: iPhone Duo",
-   "form factor: Slate",
-   "dimensions: Pro: 150.0x71.9x8.75 mm Pro Max: 163.4x78.0x8.75 mm",
-   "weight: Pro: 211 g Pro Max: 249 g",
-   "soc: Apple A20 Pro",
-   "modem: 18 Pro: Apple C2 18 Pro Max: Qualcomm Snapdragon X80 (US only), Apple C2 ()",
-   "type: Smartphone"
-  ],
-  "summary": "The iPhone 18 Pro and iPhone 18 Pro Max are smartphones developed and marketed by Apple. Alongside the iPhone Duo, they form the twentieth generation of the iPhone, succeeding the iPhone 17 Pro and iPhone 17 Pro Max. They were unveiled during the Apple Event at Apple Park in Cupertino, California, on September 9, 2026. The phones were released on September 18, 2026. ",
-  "line": "iPhone 18 pro · developer: Apple · series: iPhone · networks: 2G GSM/EDGE, 3G UMTS/HSPA+, 4G LTE, 5G NR/5G-A · colors: * Glacier * Silver * Black · predecessor: iPhone 17 Pro and Pro Max · related: iPhone Duo · form factor: Slate · dimensions: Pro: 150.0x71.9x8.75 mm Pro Max: 163.4x78.0x8.75 mm · weight: Pro: 211 g Pro Max: 249 g · soc: Apple A20 Pro · modem: 18 Pro: Apple C2 18 Pro Max: Qualcomm Snapdragon X80 (US only), Apple C2 () · type: Smartphone"
- },
- "compact cameras|sony rx1r iii": {
-  "name": "Sony RX1R III",
-  "source": "https://en.wikipedia.org/wiki/Sony%20Cyber-shot%20DSC-RX1",
-  "facts": [
-   "camera name: Sony DSC-RX1",
-   "maker: Sony",
-   "type: Large sensor fixed-lens camera",
-   "sensor type: CMOS",
-   "sensor size: 35.8 x 23.8mm (Full Frame)",
-   "sensor maker: Sony",
-   "recording medium: SD/SDHC/SDXC/Memory Stick Duo/Pro Duo/Pro-HG Duo",
-   "res: 6000 x 4000 (24 megapixels)",
-   "lens mount: Fixed",
-   "lens: 35mm",
-   "flashcomp: yes",
-   "shutter speeds: 1/4000s to 30s (Bulb mode available in Manual Mode)"
-  ],
-  "summary": "The Sony Cyber-shot DSC-RX1 is a series of premium fixed-lens full-frame digital compact cameras made by Sony as part of its Cyber-shot line. The DSC-RX1 was announced in September 2012. The DSC-RX1R, released in 2013, is a variant of the Sony DSC-RX1 without anti-aliasing filter in front of the image sensor. In 2015, both models were succeeded by the DSC-RX1R II.",
-  "line": "Sony RX1R III · camera name: Sony DSC-RX1 · maker: Sony · type: Large sensor fixed-lens camera · sensor type: CMOS · sensor size: 35.8 x 23.8mm (Full Frame) · sensor maker: Sony · recording medium: SD/SDHC/SDXC/Memory Stick Duo/Pro Duo/Pro-HG Duo · res: 6000 x 4000 (24 megapixels) · lens mount: Fixed · lens: 35mm · flashcomp: yes · shutter speeds: 1/4000s to 30s (Bulb mode available in Manual Mode)"
- },
- "compact cameras|canon powershot g7 x mark iii": {
-  "name": "Canon PowerShot G7 X Mark III",
-  "source": "https://en.wikipedia.org/wiki/Canon%20PowerShot%20G7%20X",
-  "facts": [
-   "camera name: Canon PowerShot G7 X",
-   "maker: Canon",
-   "type: Large sensor fixed-lens camera",
-   "sensor type: BSI-CMOS",
-   "sensor size: 13.2 × 8.8 mm (so-called 1 inch type, actually 0.18 square-inch)",
-   "recording medium: SD, SDHC, or SDXC memory card",
-   "res: 5472 × 3648 (20 megapixels)",
-   "lens: 24-100 mm equivalent",
-   "shutter speeds: 1/2000s to 40s",
-   "f-numbers: f/1.8-f/2.8 at the widest",
-   "farea: 31 focus points",
-   "cont: 6.5 frames per second"
-  ],
-  "summary": "The Canon PowerShot G7 X is a compact digital camera announced by Canon Inc on September 15, 2014. The G7 X model was designed to compete with the Sony Cyber-shot DSC-RX100-series cameras. With the introduction of G7 X, there were three parallel models in the Canon PowerShot G-series: G16, G1 X Mark II, and G7 X. In 2016, Canon introduced the Canon PowerShot G7 X Mark II with a newer DIGIC 7 proce",
-  "line": "Canon PowerShot G7 X Mark III · camera name: Canon PowerShot G7 X · maker: Canon · type: Large sensor fixed-lens camera · sensor type: BSI-CMOS · sensor size: 13.2 × 8.8 mm (so-called 1 inch type, actually 0.18 square-inch) · recording medium: SD, SDHC, or SDXC memory card · res: 5472 × 3648 (20 megapixels) · lens: 24-100 mm equivalent · shutter speeds: 1/2000s to 40s · f-numbers: f/1.8-f/2.8 at the widest · farea: 31 focus points · cont: 6.5 frames per second"
- },
- "compact cameras|fujifilm x100v": {
-  "name": "Fujifilm X100V",
-  "source": "https://en.wikipedia.org/wiki/Fujifilm%20X100",
-  "facts": [
-   "camera name: Fujifilm X100 series",
-   "maker: Fujifilm",
-   "type: Large sensor fixed-lens camera",
-   "date: X100: X100S: X100T: X100F: X100V: X100VI:",
-   "lens mount: Fixed lens",
-   "lens: 23 mm (35 mm equivalent)",
-   "sensor: CMOS",
-   "sensor maker: Sony",
-   "storage: SD, SDHC, SDXC, (UHS-I)",
-   "fmode: Single point, Zone, Wide/Tracking",
-   "fcbkt: AUTO, MANUAL",
-   "exposure: TTL 256-zone metering"
-  ],
-  "summary": "The Fujifilm X100 is a series of digital compact cameras with a fixed prime lens. Originally part of the FinePix line, then becoming a member of the X series from Fujifilm, the X100 series includes the FinePix X100, X100S, X100T, X100F, X100V, and X100VI. They each have a large image sensor and a 23 mm lens (35 mm equivalent angle of view in full frame format). All six cameras have received genera",
-  "line": "Fujifilm X100V · camera name: Fujifilm X100 series · maker: Fujifilm · type: Large sensor fixed-lens camera · date: X100: X100S: X100T: X100F: X100V: X100VI: · lens mount: Fixed lens · lens: 23 mm (35 mm equivalent) · sensor: CMOS · sensor maker: Sony · storage: SD, SDHC, SDXC, (UHS-I) · fmode: Single point, Zone, Wide/Tracking · fcbkt: AUTO, MANUAL · exposure: TTL 256-zone metering"
- },
- "compact cameras|leica q3": {
-  "name": "Leica Q3",
-  "source": "https://en.wikipedia.org/wiki/Leica%20Q3",
-  "facts": [
-   "camera name: Leica Q3",
-   "maker: Leica Camera",
-   "type: Large sensor fixed-lens camera",
-   "sensor size: 36mm x 24mm (full frame)",
-   "recording medium: SD, SDHC or SDXC memory card",
-   "res: 60 MP",
-   "lens: 28 mm",
-   "f-numbers: f/1.7 at the widest",
-   "viewfinder: 0.5-inch OLED with 5.76 million dots",
-   "coverage: 100%",
-   "rearLCD: 3 inches with 1,840,000 dots, touchscreen",
-   "made in: Germany"
-  ],
-  "summary": "The Leica Q3 is a full-frame fixed-lens camera introduced in 2023 as the successor to the Leica Q2.",
-  "line": "Leica Q3 · camera name: Leica Q3 · maker: Leica Camera · type: Large sensor fixed-lens camera · sensor size: 36mm x 24mm (full frame) · recording medium: SD, SDHC or SDXC memory card · res: 60 MP · lens: 28 mm · f-numbers: f/1.7 at the widest · viewfinder: 0.5-inch OLED with 5.76 million dots · coverage: 100% · rearLCD: 3 inches with 1,840,000 dots, touchscreen · made in: Germany"
- },
- "smartphones|iphone 18 pro max": {
-  "name": "iPhone 18 Pro Max",
-  "source": "https://en.wikipedia.org/wiki/IPhone%2018%20Pro",
-  "facts": [
-   "developer: Apple",
-   "series: iPhone",
-   "networks: 2G GSM/EDGE, 3G UMTS/HSPA+, 4G LTE, 5G NR/5G-A",
-   "colors: * Glacier * Silver * Black",
-   "predecessor: iPhone 17 Pro and Pro Max",
-   "related: iPhone Duo",
-   "form factor: Slate",
-   "dimensions: Pro: 150.0x71.9x8.75 mm Pro Max: 163.4x78.0x8.75 mm",
-   "weight: Pro: 211 g Pro Max: 249 g",
-   "soc: Apple A20 Pro",
-   "modem: 18 Pro: Apple C2 18 Pro Max: Qualcomm Snapdragon X80 (US only), Apple C2 ()",
-   "type: Smartphone"
-  ],
-  "summary": "The iPhone 18 Pro and iPhone 18 Pro Max are smartphones developed and marketed by Apple. Alongside the iPhone Duo, they form the twentieth generation of the iPhone, succeeding the iPhone 17 Pro and iPhone 17 Pro Max. They were unveiled during the Apple Event at Apple Park in Cupertino, California, on September 9, 2026. The phones were released on September 18, 2026.",
-  "line": "iPhone 18 Pro Max · developer: Apple · series: iPhone · networks: 2G GSM/EDGE, 3G UMTS/HSPA+, 4G LTE, 5G NR/5G-A · colors: * Glacier * Silver * Black · predecessor: iPhone 17 Pro and Pro Max · related: iPhone Duo · form factor: Slate · dimensions: Pro: 150.0x71.9x8.75 mm Pro Max: 163.4x78.0x8.75 mm · weight: Pro: 211 g Pro Max: 249 g · soc: Apple A20 Pro · modem: 18 Pro: Apple C2 18 Pro Max: Qualcomm Snapdragon X80 (US only), Apple C2 () · type: Smartphone"
- },
- "electric cars|mini electric": {
-  "name": "Mini Electric",
-  "source": "https://en.wikipedia.org/wiki/Mini%20Electric",
-  "facts": [
-   "manufacturer: BMW",
-   "aka: Mini Cooper SE",
-   "production: 2019–2024",
-   "model years: 2020–2024",
-   "class: Subcompact/Supermini (B)",
-   "layout: Front-motor, front-wheel-drive",
-   "related: BMW i3",
-   "transmission: Single speed with fixed ratio",
-   "wheelbase: 2495 mm",
-   "length: 3845 mm",
-   "width: 1727 mm",
-   "height: 1432 mm"
-  ],
-  "summary": "The Mini Electric (marketed as the Mini Cooper SE in all markets outside the United Kingdom) is a battery electric version of the third generation Mini Hatch that was launched in 2020 by German automaker BMW under the Mini marque. The drivetrain utilises technology developed for the earlier BMW i3.",
-  "rejected": "Electric car",
-  "line": "Mini Electric · manufacturer: BMW · aka: Mini Cooper SE · production: 2019–2024 · model years: 2020–2024 · class: Subcompact/Supermini (B) · layout: Front-motor, front-wheel-drive · related: BMW i3 · transmission: Single speed with fixed ratio · wheelbase: 2495 mm · length: 3845 mm · width: 1727 mm · height: 1432 mm"
  }
 }
