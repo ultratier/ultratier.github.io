@@ -16,10 +16,17 @@ export const PRESETS = [
       "Canon PowerShot G7 X Mark III": ["released 2019", "20MP 1-inch sensor", "24-100mm-equivalent f/1.8-2.8 zoom", "video: 4K 30p with a crop, microphone input, flip-up screen, popular with vloggers", "Picture Style colour profiles", "about 304g"],
       "Leica Q3": ["released 2023", "60MP full-frame sensor", "28mm f/1.7 Summilux fixed lens", "video: 8K on paper but poor in practice, heavy rolling shutter from the slow sensor readout, no microphone input, not stabilised for video, a stills camera", "Leica Looks colour profiles", "tilting screen", "about 743g"]
     },
+    // Official product shots where the maker's site had a clean one; copies live in docs/img so they
+    // cannot vanish. The rest fall back to the Wikipedia lead image.
+    images: {
+      "Ricoh GR IV": "https://ultratier.github.io/img/cameras/ricoh-gr-iv.jpg",
+      "Sony RX1R III": "https://ultratier.github.io/img/cameras/sony-rx1r-iii.jpg",
+      "Canon PowerShot G7 X Mark III": "https://ultratier.github.io/img/cameras/canon-g7x-iii.jpg"
+    },
     chips: ["image quality", "travel friendly", "value for money", "JPEG look", "video", "beginner friendly"],
     on: ["image quality", "travel friendly", "JPEG look"] },
   { label: "phones", category: "smartphones",
-    items: ["iPhone 18 Pro Max", "iPhone 17 Pro", "Google Pixel 10 Pro", "Samsung Galaxy S25 Ultra", "OnePlus 13", "Nothing Phone 3"],
+    items: ["iPhone 18 Pro Max", "iPhone 17 Pro", "Samsung Galaxy S25 Ultra", "Huawei Mate 70 Pro", "LG Wing", "Nothing Phone 3"],
     chips: ["camera", "battery life", "value for money", "software support", "size and weight"],
     on: ["camera", "battery life"] },
   { label: "laptops", category: "laptops",
@@ -40,9 +47,10 @@ export const PRESETS = [
     on: ["for families", "easy to learn"] },
 ];
 
-// Curated facts from a preset replace what the lookup found (series-level pages are stale).
+// Curated facts and images from a preset replace what the lookup found (series-level pages are stale).
 export function applyPresetFacts(items, category) {
-  const p = PRESETS.find(p => p.category === category); if (!p?.facts) return items;
-  return items.map(it => { const f = p.facts[it.name]; if (!f) return it;
-    return { ...it, facts: f, summary: "", source: it.source, curated: true, line: [it.name, ...f].join(" · ") }; });
+  const p = PRESETS.find(p => p.category === category); if (!p || (!p.facts && !p.images)) return items;
+  return items.map(it => { const f = p.facts?.[it.name], img = p.images?.[it.name];
+    const out = img ? { ...it, image: img } : it;
+    return f ? { ...out, facts: f, summary: "", curated: true, line: [it.name, ...f].join(" · ") } : out; });
 }

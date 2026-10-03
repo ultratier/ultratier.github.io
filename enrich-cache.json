@@ -400,48 +400,6 @@
   "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/Nintendo_Switch_logo.svg/330px-Nintendo_Switch_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "line": "Nintendo Switch · developer: Nintendo PTD · type: Video game console · generation: Eighth/Ninth · price: Lite: OLED: · units shipped: 156.59 million (, details) · os: Nintendo Switch system software · system on chip: Nvidia Tegra X1 · cpu: Quad-core ARM Cortex-A57 · memory: 4 GB LPDDR4 · memory card: microSD, up to 2 TB · sound: , Undocked: Linear PCM 2.0 · connectivity: , Wi-Fi 5 @ 2.4/5 GHz , Bluetooth 4.1 , 1 × USB-C , Headphone jack ,"
  },
- "smartphones|google pixel 10 pro": {
-  "name": "Google Pixel 10 Pro",
-  "source": "https://en.wikipedia.org/wiki/Pixel%2010%20Pro",
-  "facts": [
-   "developer: Google",
-   "series: Pixel",
-   "predecessor: Pixel 9 Pro, Pixel 9 Pro XL",
-   "successor: Pixel 11 Pro, Pixel 11 Pro XL",
-   "related: Pixel 10 Pixel 10 Pro Fold Pixel 10a",
-   "type: Smartphone",
-   "form factor: Slate",
-   "dimensions: : 72 mm : 8.6 mm Pixel 10 Pro XL:: 76.6 mm : 8.5 mm",
-   "weight: Pixel 10 Pro: 207 g, Pixel 10 Pro XL: 232 g",
-   "os: Android 16, upgradable to Android 17",
-   "soc: Google Tensor G5",
-   "cpu: 1x 3.78 GHz Cortex-X4 + 5x 3.05 GHz Cortex-A725 + 2x 2.25 GHz Cortex-A520"
-  ],
-  "summary": "The Pixel 10 Pro and Pixel 10 Pro XL are a pair of flagship Android-based smartphones designed, developed, and marketed by Google as part of the Google Pixel product line. It was announced on August 20, 2025 at the Made by Google keynote in Brooklyn, New York. It serves as the successor to the Pixel 9 Pro & Pixel 9 Pro XL, with a familiar design introduced with the Pixel 9 Series. It features the ",
-  "image": null,
-  "line": "Google Pixel 10 Pro · developer: Google · series: Pixel · predecessor: Pixel 9 Pro, Pixel 9 Pro XL · successor: Pixel 11 Pro, Pixel 11 Pro XL · related: Pixel 10 Pixel 10 Pro Fold Pixel 10a · type: Smartphone · form factor: Slate · dimensions: : 72 mm : 8.6 mm Pixel 10 Pro XL:: 76.6 mm : 8.5 mm · weight: Pixel 10 Pro: 207 g, Pixel 10 Pro XL: 232 g · os: Android 16, upgradable to Android 17 · soc: Google Tensor G5 · cpu: 1x 3.78 GHz Cortex-X4 + 5x 3.05 GHz Cortex-A725 + 2x 2.25 GHz Cortex-A520"
- },
- "smartphones|oneplus 13": {
-  "name": "OnePlus 13",
-  "source": "https://en.wikipedia.org/wiki/OnePlus%2013",
-  "facts": [
-   "developer: OnePlus",
-   "manufacturer: Oppo",
-   "colors: Black, Blue, White",
-   "networks: 2G, 3G, 4G, 4G LTE, 5G NR (dual sim)",
-   "released: (China), (International)",
-   "predecessor: OnePlus 12",
-   "successor: OnePlus 15",
-   "related: OnePlus 13R",
-   "form factor: Slate",
-   "dimensions: H: 162.9 mm W: 76.5 mm D: 8.5 mm D: 8.9 mm",
-   "os: Android 15, OxygenOS 15 (International), ColorOS 15 (China)",
-   "soc: Qualcomm SM8750-AB Snapdragon 8 Elite (3 nm)"
-  ],
-  "summary": "The OnePlus 13 is an Android-based smartphone manufactured by OnePlus. Announced on October 31, 2024, it was released in China a day later, and internationally on January 7, 2025. The OnePlus 13s, part of the 13 series, was announced in India in June 2025. OnePlus 13 is available in 3 colours—a white and black variant which has a glass back, and a blue variant which uses vegan leather. It has flat",
-  "image": null,
-  "line": "OnePlus 13 · developer: OnePlus · manufacturer: Oppo · colors: Black, Blue, White · networks: 2G, 3G, 4G, 4G LTE, 5G NR (dual sim) · released: (China), (International) · predecessor: OnePlus 12 · successor: OnePlus 15 · related: OnePlus 13R · form factor: Slate · dimensions: H: 162.9 mm W: 76.5 mm D: 8.5 mm D: 8.9 mm · os: Android 15, OxygenOS 15 (International), ColorOS 15 (China) · soc: Qualcomm SM8750-AB Snapdragon 8 Elite (3 nm)"
- },
  "laptops|macbook air m4": {
   "name": "MacBook Air M4",
   "source": "https://en.wikipedia.org/wiki/MacBook%20Air%20(Apple%20silicon)",
@@ -560,5 +518,47 @@
   "summary": "Carcassonne () is a tile-based Eurogame for two to five players, designed by Klaus-Jürgen Wrede and published in 2000 by Hans im Glück in German and by Rio Grande Games (until 2012) and Z-Man Games (currently) in English. It received the Spiel des Jahres and the Deutscher Spiele Preis awards in 2001. It is named after the medieval fortified town of Carcassonne in southern France, famed for its cit",
   "image": "https://upload.wikimedia.org/wikipedia/en/5/5e/Carcassonne-game.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "line": "Carcassonne · designer: Klaus-Jürgen Wrede · genre: Tile-based game, Eurogame · players: 2–5 (6–8 with expansion) · setup time: 1–5 minutes · playing time: 30–90 minutes · random chance: Medium · related: Small World, Ticket to Ride, 7 Wonders, Castles of Mad King Ludwig, Castles of Burgundy"
+ },
+ "smartphones|huawei mate 70 pro": {
+  "name": "Huawei Mate 70 Pro",
+  "source": "https://en.wikipedia.org/wiki/Huawei%20Mate%2070",
+  "facts": [
+   "manufacturer: Huawei",
+   "series: Huawei Mate",
+   "networks: GSM/ CDMA/ HSPA / CDMA2000/ LTE",
+   "released: November 26, 2024",
+   "available: China",
+   "predecessor: Huawei Mate 60",
+   "type: Smartphone",
+   "form factor: Slate",
+   "memory: Mate 70, Pro: 12 GB RAM (LPDDR5 specification), Mate 70 Pro+, RS: 16GB (LPDDR5)",
+   "sim: Dual SIM (Nano-SIM)",
+   "display: 1 panel: 6.9 in Resolution: 1316 x 2832 px",
+   "front camera: 13 MP, f/2.4, 18mm (ultrawide) TOF 3D, (depth/biometrics sensor)"
+  ],
+  "summary": "Huawei Mate 70 (stylized as HUAWEI Mate70) is a series of high-end smartphones manufactured by Huawei and released on the market in China in November 2024. The base model has a titanium casing. It features a 5,300 mAh battery, a 50 MP camera, up to 1 TB storage, 12 GB RAM and Beidou satellite connectivity. It runs the newly-launched operating system HarmonyOS 5 that is no longer compatible with An",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Huawei_Mate_70_%2854235974194%29.jpg/330px-Huawei_Mate_70_%2854235974194%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "Huawei Mate 70 Pro · manufacturer: Huawei · series: Huawei Mate · networks: GSM/ CDMA/ HSPA / CDMA2000/ LTE · released: November 26, 2024 · available: China · predecessor: Huawei Mate 60 · type: Smartphone · form factor: Slate · memory: Mate 70, Pro: 12 GB RAM (LPDDR5 specification), Mate 70 Pro+, RS: 16GB (LPDDR5) · sim: Dual SIM (Nano-SIM) · display: 1 panel: 6.9 in Resolution: 1316 x 2832 px · front camera: 13 MP, f/2.4, 18mm (ultrawide) TOF 3D, (depth/biometrics sensor)"
+ },
+ "smartphones|lg wing": {
+  "name": "LG Wing",
+  "source": "https://en.wikipedia.org/wiki/LG%20Wing",
+  "facts": [
+   "brand: LG Electronics",
+   "manufacturer: LG Electronics",
+   "related: LG Velvet LG V60 ThinQ",
+   "type: Phablet",
+   "form factor: Swivel Slate",
+   "dimensions: 169.5 mm H 74.5 mm W 10.9 mm D",
+   "weight: 260 g",
+   "os: Original: Android 10 Upgradable to: Android 13",
+   "soc: Qualcomm Snapdragon 765G",
+   "cpu: Octa-core (1x 2.4 GHz Prime, 1x 2.2 GHz Gold, 6x 1.8 GHz Silver) Kryo 475",
+   "gpu: Adreno 620",
+   "memory: 8 GB RAM"
+  ],
+  "summary": "The LG Wing 5G is a phablet smartphone manufactured by LG Electronics, announced on September 14, 2020 and became available on October 15, 2020. The device features a swivel design where the main display can be rotated to form a T-shape, revealing a smaller secondary display. It runs on the Android operating system. On April 5, 2021, LG announced it would be shutting down its mobile phone division",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/LG_%EC%9C%99%28LG_Wing%29%2C_%EC%9D%B8%EA%B8%B0_%EC%95%84%EC%9D%B4%EB%8F%8C_%EC%8A%88%ED%8D%BC%EC%97%A0%28SuperM%29_%EB%AE%A4%EC%A7%81%EB%B9%84%EB%94%94%EC%98%A4_%E2%80%98%EC%94%AC%EC%8A%A4%ED%8B%B8%EB%9F%AC%E2%80%99%EB%A1%9C_%EB%93%B1%EC%9E%A5_%2850464041023%29.jpg/330px-LG_%EC%9C%99%28LG_Wing%29%2C_%EC%9D%B8%EA%B8%B0_%EC%95%84%EC%9D%B4%EB%8F%8C_%EC%8A%88%ED%8D%BC%EC%97%A0%28SuperM%29_%EB%AE%A4%EC%A7%81%EB%B9%84%EB%94%94%EC%98%A4_%E2%80%98%EC%94%AC%EC%8A%A4%ED%8B%B8%EB%9F%AC%E2%80%99%EB%A1%9C_%EB%93%B1%EC%9E%A5_%2850464041023%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "line": "LG Wing · brand: LG Electronics · manufacturer: LG Electronics · related: LG Velvet LG V60 ThinQ · type: Phablet · form factor: Swivel Slate · dimensions: 169.5 mm H 74.5 mm W 10.9 mm D · weight: 260 g · os: Original: Android 10 Upgradable to: Android 13 · soc: Qualcomm Snapdragon 765G · cpu: Octa-core (1x 2.4 GHz Prime, 1x 2.2 GHz Gold, 6x 1.8 GHz Silver) Kryo 475 · gpu: Adreno 620 · memory: 8 GB RAM"
  }
 }

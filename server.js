@@ -159,8 +159,8 @@ http.createServer((req, res) => {
   }
   const map = { "/": "public/index.html", "/compare": "public/compare.html", "/jev.js": "public/jev.js", "/tierboard.js": "public/tierboard.js", "/presets.js": "public/presets.js" };
   const u = req.url.split("?")[0];
-  const rel = map[u] || (/^\/fonts\/[\w.-]+\.(woff2|txt)$/.test(u) ? "public" + u : null);
+  const rel = map[u] || (/^\/fonts\/[\w.-]+\.(woff2|txt)$/.test(u) || /^\/img\/[\w./-]+\.(jpg|png|webp)$/.test(u) && !u.includes("..") ? "public" + u : null);
   if (!rel) { res.writeHead(404); return res.end("not found"); }
-  res.writeHead(200, { "content-type": rel.endsWith(".js") ? "text/javascript" : rel.endsWith(".woff2") ? "font/woff2" : rel.endsWith(".txt") ? "text/plain" : "text/html", ...(rel.endsWith(".woff2") ? { "cache-control": "public, max-age=14400" } : {}) });
+  res.writeHead(200, { "content-type": rel.endsWith(".js") ? "text/javascript" : rel.endsWith(".woff2") ? "font/woff2" : rel.endsWith(".jpg") ? "image/jpeg" : rel.endsWith(".png") ? "image/png" : rel.endsWith(".txt") ? "text/plain" : "text/html", ...(rel.endsWith(".woff2") ? { "cache-control": "public, max-age=14400" } : {}) });
   fs.createReadStream(path.join(__dirname, rel)).pipe(res);
 }).listen(PORT, () => console.log(`jevtier proxy → http://localhost:${PORT}`));
