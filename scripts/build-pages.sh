@@ -8,7 +8,6 @@ cd "$(dirname "$0")/.."
 mkdir -p docs/fonts docs/data
 cp public/jev.js public/tierboard.js public/presets.js docs/
 cp public/fonts/*.woff2 public/fonts/OFL-ProxyMono.txt docs/fonts/
-mkdir -p docs/img && cp -R public/img/. docs/img/
 # absolute module/font paths -> relative, and the static flag
 sed -e 's|from "/jev.js"|from "./jev.js"|; s|from "/tierboard.js"|from "./tierboard.js"|; s|from "/presets.js"|from "./presets.js"|' \
     -e 's|/fonts/proxymono-|./fonts/proxymono-|g' \
