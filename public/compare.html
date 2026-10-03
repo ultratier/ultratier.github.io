@@ -185,8 +185,24 @@
     <div class="appwin-bar"><span class="appwin-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="appwin-title">ultratier — compare</span><span class="appwin-ver" id="ver">jev-latest</span></div>
     <div class="appwin-body">
 
+      <section class="pane span" id="result">
+        <div class="pbar"><span class="k">01 &nbsp; Board</span><span class="pbar-right"><span class="k" id="status"></span><label class="tierskin"><input type="checkbox" id="tierskin"> Tier skin</label></span></div>
+        <div class="pbody">
+          <div id="stage">
+            <p class="verdict" id="verdict"></p>
+            <div id="board"></div>
+          </div>
+          <p class="tbhint hint" id="tbhint" hidden><span>Disagree? Drag a card to another row, or tap a card then a row.</span><button id="reset" class="pbtn" hidden>Reset to Jev</button></p>
+          <div class="actions">
+            <button id="share" class="pbtn pbtn-primary">Share this ranking</button>
+            <button id="copy" class="pbtn">Copy image</button>
+            <button id="full" class="pbtn">Full screen</button>
+          </div>
+        </div>
+      </section>
+
       <section class="pane">
-        <div class="pbar"><span class="k">01 &nbsp; Input</span><span class="k" id="istatus"></span></div>
+        <div class="pbar"><span class="k">02 &nbsp; Input</span><span class="k" id="istatus"></span></div>
         <div class="pbody">
           <p class="spec n500" style="margin:0 0 8px">Try one</p>
           <div class="chips" id="presets"></div>
@@ -201,7 +217,7 @@
       </section>
 
       <section class="pane">
-        <div class="pbar"><span class="k">02 &nbsp; Criteria</span><span class="k">tap to add · tap again to weight</span></div>
+        <div class="pbar"><span class="k">03 &nbsp; Criteria</span><span class="k">tap to add · tap again to weight</span></div>
         <div class="pbody">
           <div class="chips" id="chips"></div>
           <p class="hint" id="weightsHint">Weights ×1 · ×2 · ×3, then off. Add your own with the last chip.</p>
@@ -210,22 +226,6 @@
             <label class="spec n500" style="margin-top:10px">Rubric, one line per tier: label = meaning<textarea class="pfield" id="rubric" rows="3" placeholder="S = under $1 per 100g and 10g+ protein&#10;C = mostly sugar"></textarea></label>
           </details>
           <label class="toggle"><input type="checkbox" id="facts" checked> <span><b>Use looked-up facts</b> <small id="factsHint">Jev sees the fact sheet in 04. Untick to rank on names alone: same model, same list, same criterion, ranked on reputation instead of specs. A typed-judgement model is only as good as the state you hand it. Unticked, Jev is only vibe-checking whatever sat in its stale training data.</small></span></label>
-        </div>
-      </section>
-
-      <section class="pane span" id="result">
-        <div class="pbar"><span class="k">03 &nbsp; Board</span><span class="pbar-right"><span class="k" id="status"></span><label class="tierskin"><input type="checkbox" id="tierskin"> Tier skin</label></span></div>
-        <div class="pbody">
-          <div id="stage">
-            <p class="verdict" id="verdict"></p>
-            <div id="board"></div>
-          </div>
-          <p class="tbhint hint" id="tbhint" hidden><span>Disagree? Drag a card to another row, or tap a card then a row.</span><button id="reset" class="pbtn" hidden>Reset to Jev</button></p>
-          <div class="actions">
-            <button id="share" class="pbtn pbtn-primary">Share this ranking</button>
-            <button id="copy" class="pbtn">Copy image</button>
-            <button id="full" class="pbtn">Full screen</button>
-          </div>
         </div>
       </section>
 
@@ -298,11 +298,20 @@ drawChips();
 function drawPresets(){ $("#presets").innerHTML = PRESETS.map((p,i) => `<span class="chip ${p===activePreset?"on":""}" data-p="${i}">${esc(p.label)}</span>`).join(""); }
 // Typing anything that is no longer the preset's list or category releases the preset: its chips go
 // back to the generic set with nothing selected, so the criteria never silently belong to the wrong thing.
+// The board is the first thing on the page, so it always shows its rows, even before anything is ranked.
+function renderEmpty(){
+  $("#board").innerHTML = tiersNow().map((t, i) => `
+    <div class="tier" data-tier="${esc(t.label)}" data-rank="${Math.min(i, 4)}">
+      <div class="lbl" title="${esc(t.desc)}">${esc(t.label)}</div>
+      <div class="items"></div>
+    </div>`).join("");
+  $("#verdict").innerHTML = `Pick a preset below, or paste your own list.<small>The ranking is relative: every item is judged against the others in your list only.</small>`;
+}
 function clearAll(){
   activePreset = null; ITEMS = []; CATEGORY = ""; CHIPS = [...GENERIC]; for(const k in weights) delete weights[k]; overrides = {}; cache.clear();
   $("#items").value = ""; $("#category").value = ""; $("#istatus").textContent = ""; $("#status").textContent = ""; $("#footer").innerHTML = "";
-  $("#board").innerHTML = ""; $("#specs").innerHTML = ""; $("#tbhint").hidden = true; $("#reset").hidden = true;
-  $("#verdict").innerHTML = `Pick a preset above, or paste your own list.<small>The ranking is relative: every item is judged against the others in your list only.</small>`;
+  $("#specs").innerHTML = ""; $("#tbhint").hidden = true; $("#reset").hidden = true;
+  renderEmpty();
   history.replaceState(null, "", location.pathname + location.search);
   drawPresets(); drawChips();
 }
@@ -343,7 +352,7 @@ async function compare(){
   if(STATIC){
     const p = DATA?.presets[CATEGORY];
     const same = p && names.length === p.items.length && names.every((n, i) => n === p.items[i].name);
-    if(!same && !LIVE){ $("#istatus").innerHTML = '<span class="err">no server here: pick a preset above, or run the repo locally to rank your own list</span>'; return; }
+    if(!same && !LIVE){ $("#istatus").innerHTML = '<span class="err">no server here: pick a preset, or run the repo locally to rank your own list</span>'; return; }
     if(!same){ return liveCompare(names); }
     ITEMS = p.items; activePreset = PRESETS.find(x => x.category === p.category) || null; if(!Object.keys(weights).length){ CHIPS = [...p.chips]; for(const k of (p.on || [p.chips[0]])) weights[k] = 1; } drawChips();
     $("#istatus").textContent = `frozen ${new Date(DATA.generated).toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"})}`;
@@ -393,7 +402,7 @@ const tiersKey = () => { const t = tiersNow(), d0 = parseTiers(""); const d = t.
 $("#tiers").addEventListener("change", () => run()); $("#rubric").addEventListener("change", () => run());
 async function run(){
   const crit = criteriaString() + (useFacts ? "" : " |names-only") + tiersKey();
-  if(!criteriaString()){ $("#verdict").innerHTML = `Pick at least one thing that matters.<small>The ranking is relative: every item is judged against the others in your list only.</small>`; $("#board").innerHTML=""; return; }
+  if(!criteriaString()){ renderEmpty(); if(ITEMS.length) $("#verdict").innerHTML = `Pick at least one thing that matters.<small>The ranking is relative: every item is judged against the others in your list only.</small>`; return; }
   if(crit !== lastCrit){ overrides = {}; lastCrit = crit; }
   const my = ++seq;
   $("#result").classList.add("busy"); $("#status").textContent = "ranking…";
@@ -528,7 +537,7 @@ $("#copy").onclick = async () => {
 pendingOverrides = readHash()?.o || null;
 // Nothing is pre-selected: a shared link runs; otherwise the board waits for a preset or a pasted list.
 if(location.hash.length > 1) compare();
-else $("#verdict").innerHTML = `Pick a preset above, or paste your own list.<small>The ranking is relative: every item is judged against the others in your list only.</small>`;
+else renderEmpty();
 </script>
 </body>
 </html>
