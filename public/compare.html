@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ultratier: instant tier list by a decision model</title>
+<meta name="description" content="Ultratier: the ultrafast tier list by a decision model. Paste any list, pick what matters, and it is ranked into S/A/B/C in one call. Then turn the facts off and watch the same model guess.">
+<meta name="theme-color" content="#000000">
+<link rel="preload" href="/fonts/proxymono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/proxymono-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* monoproxy system, ported: black ground, one near-white ink, Apple neutral ramp, ProxyMono only,
+     technical labels, the 1984 app window. No colour anywhere; hierarchy is size, weight, case, tone. */
+  @font-face{font-family:'ProxyMono';src:url('/fonts/proxymono-400.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'ProxyMono';src:url('/fonts/proxymono-700.woff2') format('woff2');font-weight:700;font-display:swap}
+  @font-face{font-family:'ProxyMono';src:url('/fonts/proxymono-800.woff2') format('woff2');font-weight:800;font-display:swap}
+  :root{color-scheme:dark;--bg:#000;--fg:#f5f5f7;--subtle:#1d1d1f;--line:#38383a;--line-strong:#787880;--muted:#a1a1a6;
+        --n200:#e8e8ed;--n300:#d2d2d7;--n400:#a1a1a6;--n500:#86868b;--n600:#636366;--n700:#48484a;--win-shadow:#48484a;
+        --accent:var(--fg);--tS:var(--fg);--tA:var(--n400);--tB:var(--n600);--tC:var(--n700);--mono:'ProxyMono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  @media (prefers-color-scheme: light){:root:not([data-theme="dark"]){color-scheme:light;--bg:#f5f5f7;--fg:#1d1d1f;--subtle:#e8e8ed;--line:#d2d2d7;--line-strong:#6e6e73;--muted:#57575b;
+        --n200:#2c2c2e;--n300:#424245;--n400:#57575b;--n500:#6e6e73;--n600:#86868b;--n700:#c7c7cc;--win-shadow:#1d1d1f}}
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{margin:0;background:var(--bg);color:var(--fg);font:400 14px/1.6 var(--mono)}
+  body::after{content:'';position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  ::selection{background:var(--fg);color:var(--bg)}
+  p{text-wrap:pretty}
+  a{color:inherit}
+  main{max-width:1180px;margin:0 auto;padding:56px 20px 80px}
+  @media(min-width:640px){main{padding:72px 32px 100px}}
+
+  .spec{font-size:11px;font-weight:400;line-height:1.6;letter-spacing:.14em;text-transform:uppercase;font-feature-settings:"case";font-variant-numeric:tabular-nums}
+  .n500{color:var(--n500)} .n400{color:var(--n400)} .n300{color:var(--n300)}
+  h1{font-size:clamp(38px,7.2vw,124px);font-weight:500;line-height:.95;letter-spacing:-.04em;text-transform:uppercase;font-feature-settings:"case";margin:20px 0 0}
+  h1 em{font-style:normal;color:var(--n500)}
+  p.sub{max-width:62ch;font-size:15px;line-height:1.6;color:var(--n300);margin:24px 0 0}
+  p.sub span{color:var(--n500)}
+  .lede{display:grid;gap:28px;margin-bottom:40px}
+
+  /* the window */
+  .appwin{border:1px solid var(--fg);background:var(--subtle);color:var(--fg);box-shadow:6px 6px 0 var(--win-shadow)}
+  .appwin-bar{display:flex;align-items:center;gap:12px;padding:5px 10px;background:var(--fg);color:var(--bg);font-size:11px;letter-spacing:.04em}
+  .appwin-title{flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .appwin-ver{font-size:10px;opacity:.7}
+  .appwin-lights{display:flex;gap:5px} .appwin-lights i{display:block;width:9px;height:9px;border:1px solid var(--bg)} .appwin-lights i:first-child{background:var(--bg)}
+  .appwin-body{padding:16px;display:grid;gap:16px}
+  @media(min-width:640px){.appwin-body{padding:20px;gap:20px}}
+  @media(min-width:1024px){.appwin-body{grid-template-columns:minmax(0,5fr) minmax(0,7fr)} .span{grid-column:1/-1}}
+  .pane{border:1px solid var(--line-strong);background:var(--bg);min-width:0}
+  .pbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:4px 12px;border-bottom:1px solid var(--line-strong);font-size:11px;letter-spacing:.04em}
+  .pbar .k{white-space:nowrap;font-size:10px;color:var(--n500);text-transform:uppercase;font-feature-settings:"case";letter-spacing:.12em}
+  .pbody{padding:18px 16px 20px}
+  @media(min-width:640px){.pbody{padding:22px 22px 24px}}
+  .appwin-status{display:flex;flex-wrap:wrap;gap:6px 18px;padding:6px 12px;border-top:1px solid var(--fg);font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-feature-settings:"case";color:var(--n500)}
+  .appwin-status b{font-weight:400;color:var(--fg)}
+
+  /* fields, buttons, chips */
+  label{display:block}
+  .pfield{display:block;width:100%;margin-top:8px;padding:10px 12px;border:1px solid var(--line-strong);background:var(--bg);color:var(--fg);font:400 14px/1.5 var(--mono)}
+  .pfield:focus-visible{outline:2px solid var(--fg);outline-offset:2px;border-color:var(--fg)}
+  textarea.pfield{min-height:128px;resize:vertical}
+  .pbtn{display:inline-flex;align-items:center;gap:10px;min-height:40px;padding:0 18px;border:1px solid var(--fg);background:var(--bg);color:var(--fg);font:700 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;font-feature-settings:"case";text-decoration:none;cursor:pointer;box-shadow:3px 3px 0 var(--win-shadow);transition:transform 80ms linear,box-shadow 80ms linear}
+  .pbtn:hover{background:var(--subtle)} .pbtn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--win-shadow)}
+  .pbtn:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+  .pbtn-primary{background:var(--fg);color:var(--bg)} .pbtn-primary:hover{background:var(--n200)}
+  .pbtn:disabled{opacity:.6;cursor:default;transform:none}
+  .ptag{padding:1px 5px;border:1px solid currentColor;font-size:9px;line-height:1.2;letter-spacing:.08em;text-transform:uppercase;font-feature-settings:"case"}
+  .ptag.off{border-style:dashed}
+  .row{display:grid;gap:12px;margin-top:14px;align-items:end}
+  @media(min-width:640px){.row{grid-template-columns:minmax(0,1fr) auto}}
+  .hint{font-size:11px;line-height:1.6;color:var(--n500);margin:12px 0 0}
+  .hint code{font:inherit;color:var(--fg)}
+  .err{color:var(--fg);text-decoration:underline;text-decoration-style:wavy;text-underline-offset:3px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:0 12px;border:1px solid var(--line-strong);background:var(--bg);color:var(--n400);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-feature-settings:"case";cursor:pointer;user-select:none}
+  .chip:hover{border-color:var(--fg);color:var(--fg)}
+  .chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+  .chip .w{font-size:9px;padding:0 4px;border:1px solid currentColor;line-height:1.4}
+  .chip input{border:0;background:transparent;color:var(--fg);font:400 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;width:150px;outline:0}
+  .chip input::placeholder{color:var(--n500)}
+  .chip.on input{color:var(--bg)}
+  .toggle{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);cursor:pointer;font-size:13px}
+  .toggle input{appearance:none;flex:none;width:14px;height:14px;margin:4px 0 0;border:1px solid var(--fg);background:var(--bg);cursor:pointer}
+  .toggle input:checked{background:var(--fg);box-shadow:inset 0 0 0 3px var(--bg)}
+  .toggle input:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+  .toggle b{font-weight:700} .toggle small{display:block;color:var(--n500);font-size:11px;line-height:1.6;margin-top:2px}
+
+  /* the board */
+  .verdict{font-size:clamp(20px,2.6vw,28px);font-weight:700;line-height:1.2;letter-spacing:-.02em;margin:0 0 18px;min-height:28px}
+  .verdict small{display:block;font-size:12px;font-weight:400;letter-spacing:0;color:var(--n500);margin-top:8px;line-height:1.6}
+  .verdict .mode{display:inline-block;vertical-align:middle;margin-left:10px;font-weight:400;letter-spacing:.14em;border-style:dashed;color:var(--fg)}
+  .verdict a.buy{font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;margin-left:12px;vertical-align:middle;color:var(--n400)}
+  .tier{display:grid;grid-template-columns:56px 1fr;border:1px solid var(--line-strong);margin-top:-1px;background:var(--bg);transition:opacity .2s}
+  .tier:first-child{margin-top:0}
+  .busy .tier{opacity:.45}
+  .tier .lbl{display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;border-right:1px solid var(--line-strong);font-feature-settings:"case"}
+  .tier[data-tier="S"] .lbl{background:var(--fg);color:var(--bg)}
+  .tier[data-tier="A"] .lbl{color:var(--fg)}
+  .tier[data-tier="B"] .lbl{color:var(--n500)}
+  .tier[data-tier="C"] .lbl{color:var(--n500);background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in srgb,var(--line-strong) 35%,transparent) 6px 7px)}
+  .tier .items{display:flex;flex-wrap:wrap;gap:8px;padding:10px;min-height:64px}
+  .card{border:1px solid var(--line-strong);padding:8px 12px 10px;background:var(--bg);max-width:300px;min-width:180px}
+  .card b{display:block;font-size:13px;font-weight:700;line-height:1.4}
+  .card small{display:block;color:var(--n500);font-size:11px;line-height:1.55;margin-top:2px}
+  .bar{display:flex;height:3px;margin-top:8px;overflow:hidden;background:var(--line)}
+  .bar i{display:block}
+  .card b .dot,.legend .dot{font-style:normal;color:var(--n500);font-size:10px;margin-left:6px;vertical-align:middle}
+  .legend .dot{margin:0 6px 0 0}
+  .card .diff{display:inline-block;margin-top:8px;margin-right:8px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-feature-settings:"case";padding:1px 5px;border:1px dashed var(--fg)}
+  a.buy{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-feature-settings:"case";color:var(--n400);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-strong)}
+  a.buy:hover{color:var(--fg)}
+  .card a.buy{display:inline-block;margin-top:8px}
+  .actions{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+  .meta{color:var(--n500);font-size:11px;letter-spacing:.04em}
+  .fact{margin:0 0 14px;padding-bottom:14px;border-bottom:1px solid var(--line)} .fact:last-child{border:0;margin:0;padding:0}
+  .fact b{display:block;font-size:13px;font-weight:700} .fact small{color:var(--n500);font-size:11px;line-height:1.6} .fact small.none{color:var(--n400);border-bottom:1px dashed var(--line-strong)}
+  .fact a{color:var(--n400)}
+  .disclosure{font-size:10px;letter-spacing:.06em;color:var(--n500);margin-top:18px}
+  canvas{display:none}
+  /* the Tier skin switch lives in the board's title bar, so toggling never moves anything below it */
+  .pbar-right{display:flex;align-items:center;gap:16px}
+  .tierskin{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-feature-settings:"case";color:var(--fg);white-space:nowrap}
+  .tierskin input{appearance:none;width:11px;height:11px;margin:0;border:1px solid var(--fg);background:var(--bg);cursor:pointer}
+  .tierskin input:checked{background:var(--fg);box-shadow:inset 0 0 0 2px var(--bg)}
+  .tierskin input:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+  /* the stage paints its own ground so the Tier skin can be white on a dark page */
+  #stage{padding:20px;margin:0 -20px;background:var(--bg);color:var(--fg)}
+  /* Tier skin: only the board changes. White ground, TierMaker's row colours (S red, A orange, B amber,
+     C yellow) and their Arial on the verdict, rows and cards; everything outside stays as it is. */
+  main[data-skin="tier"] #stage{--bg:#ffffff;--fg:#1d1d1f;--subtle:#e8e8ed;--line:#d2d2d7;--line-strong:#6e6e73;--n300:#424245;--n400:#57575b;--n500:#6e6e73;--n600:#86868b;--n700:#c7c7cc;--tS:#ff7f7f;--tA:#ffbf7f;--tB:#ffdf7f;--tC:#ffff7f}
+  main[data-skin="tier"] #stage .tier,main[data-skin="tier"] #stage .card,main[data-skin="tier"] #stage .legend,main[data-skin="tier"] #stage .verdict,main[data-skin="tier"] #stage .verdict small{font-family:Arial,Helvetica,sans-serif;letter-spacing:0}
+  main[data-skin="tier"] #stage .tier{border-color:#d0d0d0;background:#e9e9e9}
+  main[data-skin="tier"] #stage .tier .lbl{color:#000;border-right:1px solid rgba(0,0,0,.12);font-size:22px;background:none}
+  main[data-skin="tier"] #stage .tier[data-tier="S"] .lbl{background:var(--tS);color:#000}
+  main[data-skin="tier"] #stage .tier[data-tier="A"] .lbl{background:var(--tA)}
+  main[data-skin="tier"] #stage .tier[data-tier="B"] .lbl{background:var(--tB);color:#000}
+  main[data-skin="tier"] #stage .tier[data-tier="C"] .lbl{background:var(--tC);color:#000}
+  main[data-skin="tier"] #stage .card{border-color:#cfcfcf;border-radius:4px;background:#fff;color:#111;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+  main[data-skin="tier"] #stage .card small{color:#57575b}
+  main[data-skin="tier"] #stage .bar{background:#e2e2e2}
+  /* full screen: just the verdict and the board, on the skin's own ground, rows scaled up */
+  #stage:fullscreen,#stage.fs{background:var(--bg);color:var(--fg);padding:48px clamp(24px,5vw,96px);overflow:auto;display:flex;flex-direction:column;justify-content:center}
+  #stage.fs{position:fixed;inset:0;z-index:1000} /* fallback where the Fullscreen API is refused (iPhone Safari, embedded views) */
+  :is(#stage:fullscreen,#stage.fs) .verdict{font-size:clamp(24px,3vw,40px)}
+  :is(#stage:fullscreen,#stage.fs) .tier{grid-template-columns:96px 1fr}
+  :is(#stage:fullscreen,#stage.fs) .tier .lbl{font-size:34px}
+  :is(#stage:fullscreen,#stage.fs) .tier .items{min-height:104px;padding:14px;gap:12px}
+  :is(#stage:fullscreen,#stage.fs) .card{max-width:360px;min-width:220px;padding:12px 16px 14px}
+  :is(#stage:fullscreen,#stage.fs) .card b{font-size:16px}
+  :is(#stage:fullscreen,#stage.fs) .card small{font-size:12px}
+  .frame{position:relative}
+  .frame::before{content:'';position:absolute;inset:0;pointer-events:none;--mk:11px;--ink:var(--line-strong);
+    background:linear-gradient(var(--ink),var(--ink)) left -5px top 0/var(--mk) 1px no-repeat,linear-gradient(var(--ink),var(--ink)) left 0 top -5px/1px var(--mk) no-repeat,linear-gradient(var(--ink),var(--ink)) right -5px top 0/var(--mk) 1px no-repeat,linear-gradient(var(--ink),var(--ink)) right 0 top -5px/1px var(--mk) no-repeat,linear-gradient(var(--ink),var(--ink)) left -5px bottom 0/var(--mk) 1px no-repeat,linear-gradient(var(--ink),var(--ink)) left 0 bottom -5px/1px var(--mk) no-repeat,linear-gradient(var(--ink),var(--ink)) right -5px bottom 0/var(--mk) 1px no-repeat,linear-gradient(var(--ink),var(--ink)) right 0 bottom -5px/1px var(--mk) no-repeat}
+</style>
+</head>
+<body>
+<main>
+  <div class="lede frame">
+    <div>
+      <p class="spec n500">ultratier &nbsp;·&nbsp; 001 &nbsp;·&nbsp; <span id="date"></span></p>
+      <h1 id="title">Ultra<em>tier</em></h1>
+      <p class="sub">The ultrafast tier list by a decision model. Agree with it, or fight it. <span>Paste what you're comparing, tap what matters, and it is ranked in one call. The model here is Jev; Llama, GPT or any other behaves the same way: with facts in front of it, it judges. Without them, it guesses.</span></p>
+    </div>
+  </div>
+
+  <div class="appwin">
+    <div class="appwin-bar"><span class="appwin-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="appwin-title">ultratier — compare</span><span class="appwin-ver" id="ver">jev-latest</span></div>
+    <div class="appwin-body">
+
+      <section class="pane">
+        <div class="pbar"><span class="k">01 &nbsp; Input</span><span class="k" id="istatus"></span></div>
+        <div class="pbody">
+          <p class="spec n500" style="margin:0 0 8px">Try one</p>
+          <div class="chips" id="presets"></div>
+          <label class="spec n500" style="margin-top:16px">What are you comparing? One per line
+            <textarea class="pfield" id="items" placeholder="Ricoh GR IV&#10;Fujifilm X100VI&#10;Leica Q3&#10;…"></textarea></label>
+          <div class="row">
+            <label class="spec n500">What kind of things are these?<input class="pfield" id="category" placeholder="e.g. compact cameras, yoghurt, running shoes"></label>
+            <button class="pbtn pbtn-primary" id="compare">Compare</button>
+          </div>
+          <p class="hint" id="ownlist" hidden>Static showcase, no server, nobody's tokens. To rank your own list: <a href="https://github.com/monoproxy/ultratier">clone the repo</a>, add a <a href="https://typesafe.ai">Jev key</a>, run <code>node server.js</code>.</p>
+        </div>
+      </section>
+
+      <section class="pane">
+        <div class="pbar"><span class="k">02 &nbsp; Criteria</span><span class="k">tap to add · tap again to weight</span></div>
+        <div class="pbody">
+          <div class="chips" id="chips"></div>
+          <p class="hint" id="weightsHint">Weights ×1 · ×2 · ×3, then off. Add your own with the last chip.</p>
+          <label class="toggle"><input type="checkbox" id="facts" checked> <span><b>Use looked-up facts</b> <small id="factsHint">Jev sees the fact sheet in 04. Untick to rank on names alone: same model, same list, same criterion, ranked on reputation instead of specs. A typed-judgement model is only as good as the state you hand it. Unticked, Jev is only vibe-checking whatever sat in its stale training data.</small></span></label>
+        </div>
+      </section>
+
+      <section class="pane span" id="result">
+        <div class="pbar"><span class="k">03 &nbsp; Board</span><span class="pbar-right"><span class="k" id="status"></span><label class="tierskin"><input type="checkbox" id="tierskin"> Tier skin</label></span></div>
+        <div class="pbody">
+          <div id="stage">
+            <p class="verdict" id="verdict"></p>
+            <div id="board"></div>
+          </div>
+          <p class="tbhint hint" id="tbhint" hidden><span>Disagree? Drag a card to another row, or tap a card then a row.</span><button id="reset" class="pbtn" hidden>Reset to Jev</button></p>
+          <div class="actions">
+            <button id="share" class="pbtn pbtn-primary">Share this ranking</button>
+            <button id="copy" class="pbtn">Copy image</button>
+            <button id="full" class="pbtn">Full screen</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="pane span">
+        <div class="pbar"><span class="k">04 &nbsp; Fact sheet</span><span class="k">what the ranking was decided on</span></div>
+        <div class="pbody">
+          <div id="specs"></div>
+          <p class="hint">Facts come from the linked source. Items with no facts found are ranked on their name alone, which is a guess. <a href="#">Report a wrong fact</a></p>
+          <p class="disclosure" id="disclosure" hidden>As an Amazon Associate this site earns from qualifying purchases. Price links don't affect the ranking.</p>
+        </div>
+      </section>
+
+    </div>
+    <div class="appwin-status" id="footer"></div>
+  </div>
+  <canvas id="cv"></canvas>
+</main>
+<script type="module">
+import { rank } from "/jev.js";
+import { setEndpoint } from "/jev.js";
+import { enableTierBoard, TIERBOARD_CSS, applyOverrides, encodeState, decodeState } from "/tierboard.js";
+import { PRESETS, applyPresetFacts } from "/presets.js";
+document.head.appendChild(Object.assign(document.createElement("style"), { textContent: TIERBOARD_CSS }));
+setEndpoint(location.origin + "/api/jev");
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const SITE = "ultratier";
+// Static showcase (GitHub Pages): no server, so the presets come frozen from data/presets.json with
+// Jev's answers for every chip in both modes. Anything that needs a live Jev call is switched off
+// and points at running the repo locally.
+const STATIC = !!document.querySelector('meta[name="jevit-static"]');
+// Optional live backend for the showcase (meta jevit-api). Presets stay frozen and free; a visitor's
+// own list, weights or criteria go to it. If it is down or absent, the page says to run locally.
+const LIVE = document.querySelector('meta[name="jevit-api"]')?.content?.replace(/\/$/, "") || "";
+if (STATIC && LIVE) setEndpoint(LIVE + "/jev");
+let DATA = null;
+if (STATIC) { try { DATA = await (await fetch("./data/presets.json")).json(); } catch (e) { console.error("static data missing", e); } }
+let CATEGORY = "", ITEMS = [];   // ITEMS: [{name, line, facts, source, summary}]
+// Tier skin: board only, off by default. ?tier=1 in the URL wins, else the last choice on this device.
+const setTier = on => { document.querySelector("main").dataset.skin = on ? "tier" : ""; $("#tierskin").checked = on; try{ localStorage.setItem("jevit-tier", on ? "1" : "0"); }catch{} };
+{ const q = new URLSearchParams(location.search).get("tier"); let st = q; if(st == null){ try{ st = localStorage.getItem("jevit-tier"); }catch{} } setTier(st === "1"); }
+$("#tierskin").onchange = e => setTier(e.target.checked);
+const tierLook = () => document.querySelector("main").dataset.skin === "tier";
+$("#date").textContent = `facts as of ${new Date().toLocaleDateString("en-AU",{month:"long",year:"numeric"})}`;
+let pendingOverrides = null;
+let CHIPS = ["quality", "value for money", "beginner friendly", "popularity", "for travel"];
+const DEFAULT_ON = {};
+const weights = { ...DEFAULT_ON };
+let custom = "";
+function drawChips(){
+  $("#chips").innerHTML = CHIPS.map(c => chip(c)).join("") +
+    ((STATIC && !LIVE) ? "" : `<span class="chip ${custom && weights[custom] ? "on":""}" data-custom><input id="custom" placeholder="something else…" value="${esc(custom)}">${custom && weights[custom] ? `<span class="w">${weights[custom]}×</span>`:""}</span>`);
+  function chip(c){ const w = weights[c]||0; return `<span class="chip ${w?"on":""}" data-c="${esc(c)}">${esc(c)}${w?`<span class="w">${w}×</span>`:""}</span>`; }
+}
+$("#chips").addEventListener("click", e => {
+  const el = e.target.closest(".chip"); if(!el || el.hasAttribute("data-custom")) return;
+  const c = el.dataset.c;
+  if(STATIC && !LIVE){ for(const k in weights) delete weights[k]; weights[c] = 1; }
+  else { weights[c] = ((weights[c]||0) + 1) % 4; if(!weights[c]) delete weights[c]; }
+  drawChips(); run();
+});
+$("#chips").addEventListener("keydown", e => {
+  if(e.target.id !== "custom" || e.key !== "Enter") return;
+  if(custom) delete weights[custom];
+  custom = e.target.value.trim(); if(custom) weights[custom] = 1;
+  drawChips(); run();
+});
+drawChips();
+// ---------- presets: one tap fills the list, the category and that category's criteria ----------
+function drawPresets(){ $("#presets").innerHTML = PRESETS.map((p,i) => `<span class="chip ${p.category===CATEGORY?"on":""}" data-p="${i}">${esc(p.label)}</span>`).join(""); }
+$("#presets").addEventListener("click", e => {
+  const el = e.target.closest("[data-p]"); if(!el) return;
+  const p = PRESETS[+el.dataset.p];
+  $("#items").value = p.items.join("\n"); $("#category").value = p.category;
+  CHIPS = p.chips; for(const k in weights) delete weights[k]; for(const k of (p.on || [p.chips[0]])) weights[k] = 1; custom = "";
+  drawChips(); compare();
+});
+drawPresets();
+if(STATIC && !LIVE){
+  $("#items").readOnly = true; $("#category").readOnly = true;
+  $("#compare").disabled = true; $("#compare").textContent = "Frozen";
+  $("#compare").title = "This showcase has no server. Clone the repo and run node server.js to rank your own list.";
+  $("#ownlist").hidden = false;
+  $("#weightsHint").textContent = "One criterion at a time in this showcase. Weights and your own criteria need the live version.";
+} else if(STATIC){
+  $("#ownlist").innerHTML = "Presets are frozen, free and instant. Your own list, weights and criteria are ranked live. If that is ever down, <a href=\"https://github.com/monoproxy/ultratier\">clone the repo</a>, add a <a href=\"https://typesafe.ai\">Jev key</a>, run <code>node server.js</code>.";
+  $("#ownlist").hidden = false;
+}
+
+// ---------- live enrichment: paste -> facts ----------
+$("#compare").onclick = compare;
+async function compare(){
+  const names = $("#items").value.split("\n").map(s => s.trim()).filter(Boolean).slice(0, 60);
+  CATEGORY = $("#category").value.trim() || "items";
+  if(names.length < 2){ $("#istatus").innerHTML = '<span class="err">Need at least 2 things.</span>'; return; }
+  if(STATIC){
+    const p = DATA?.presets[CATEGORY];
+    const same = p && names.length === p.items.length && names.every((n, i) => n === p.items[i].name);
+    if(!same && !LIVE){ $("#istatus").innerHTML = '<span class="err">no server here: pick a preset above, or run the repo locally to rank your own list</span>'; return; }
+    if(!same){ return liveCompare(names); }
+    ITEMS = p.items; CHIPS = p.chips; if(!Object.keys(weights).every(k => p.chips.includes(k))){ for(const k in weights) delete weights[k]; for(const k of (p.on || [p.chips[0]])) weights[k] = 1; } drawChips();
+    $("#istatus").textContent = `frozen ${new Date(DATA.generated).toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"})}`;
+    cache.clear(); drawFacts(); drawPresets(); run(); return;
+  }
+  return liveCompare(names);
+}
+async function liveCompare(names){
+  $("#compare").disabled = true; $("#istatus").textContent = `Looking up facts for ${names.length} ${CATEGORY}…`;
+  try{
+    const r = await fetch((LIVE || location.origin + "/api") + "/enrich", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({ items: names, category: CATEGORY }) });
+    if(!r.ok) throw new Error(`enrich ${r.status}`);
+    ITEMS = applyPresetFacts(await r.json(), CATEGORY);
+    const found = ITEMS.filter(i => i.facts.length || i.summary).length;
+    $("#istatus").textContent = found === ITEMS.length ? `Facts found for all ${found}.` : `Facts found for ${found} of ${ITEMS.length}. The rest are ranked on name alone.`;
+    $("#disclosure").hidden = !ITEMS.some(i => i.buy);
+    if(pendingOverrides){ overrides = {}; for(const it of ITEMS) if(pendingOverrides[it.name]) overrides[lineFor(it)] = pendingOverrides[it.name]; lastCrit = criteriaString() + (useFacts ? "" : " |names-only"); pendingOverrides = null; }
+    cache.clear(); drawFacts(); drawPresets(); run();
+  }catch(e){ $("#istatus").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  $("#compare").disabled = false;
+}
+function drawFacts(){
+  $("#specs").innerHTML = ITEMS.map(i => `<p class="fact"><b>${esc(i.name)}</b>` +
+    (i.facts.length ? `<small>${esc(i.facts.join(" · "))}</small>` : i.summary ? `<small>${esc(i.summary)}</small>` : `<small class="none">No facts found. Ranked on the name only.</small>`) +
+    (i.curated ? ` <small>curated spec line</small>` : i.source ? ` <small><a href="${esc(i.source)}" target="_blank" rel="noopener">source</a></small>` : "") +
+    (i.buy ? ` <small><a class="buy" href="${esc(i.buy)}" target="_blank" rel="noopener sponsored">check price</a></small>` : "") + `</p>`).join("");
+}
+
+// ---------- ranking with a per-criteria cache ----------
+const cache = new Map(); let last = null, seq = 0;
+let overrides = {}, lastCrit = "";
+let useFacts = true;
+$("#facts").onchange = e => { useFacts = e.target.checked; run(); };
+const lineFor = i => useFacts ? i.line : i.name;
+const itemOf = label => ITEMS.find(i => i.line === label || i.name === label);   // user corrections: item line -> tier, per criteria string
+enableTierBoard($("#board"), { onMove: (id, tier) => {
+  const jev = last?.results.find(r => r.label === id);
+  if (jev && jev.tier === tier) delete overrides[id]; else overrides[id] = tier;
+  $("#board").querySelector(`.card[data-id="${CSS.escape(id)}"]`)?.classList.toggle("edited", !!overrides[id]);
+  syncEdited(); writeHash();
+} });
+function syncEdited(){ const n = Object.keys(overrides).length; $("#reset").hidden = !n; $("#status").textContent = n ? `${n} card${n>1?"s":""} moved by you` : ""; }
+$("#reset").onclick = () => { overrides = {}; if(last) render(last); syncEdited(); writeHash(); };
+function criteriaString(){ return Object.entries(weights).map(([k,w]) => `${k} ${w}`).join(", "); }
+async function run(){
+  const crit = criteriaString() + (useFacts ? "" : " |names-only");
+  if(!criteriaString()){ $("#verdict").innerHTML = `Pick at least one thing that matters.<small>The ranking is relative: every item is judged against the others in your list only.</small>`; $("#board").innerHTML=""; return; }
+  if(crit !== lastCrit){ overrides = {}; lastCrit = crit; }
+  const my = ++seq;
+  $("#result").classList.add("busy"); $("#status").textContent = "ranking…";
+  try{
+    let d = cache.get(crit);
+    if(!ITEMS.length) return;
+    if(!d && STATIC){
+      const p = DATA?.presets[CATEGORY], key = criteriaString();
+      const frozen = p && ITEMS === p.items ? p.results[useFacts ? "facts" : "names"][key] : null;
+      if(frozen){
+        d = frozen; cache.set(crit, d);
+        const o = p.results[useFacts ? "names" : "facts"][key]; if(o) cache.set(key + (useFacts ? " |names-only" : ""), o); // both modes frozen: cards can show where they differ
+      } else if(!LIVE) throw new Error("not frozen for this combination, and no server here. Run the repo locally for weights and your own criteria.");
+    }
+    if(!d){ d = await rank(ITEMS.map(lineFor), { criteria: criteriaString(), category: CATEGORY }); cache.set(crit, d); }
+    if(my !== seq) return;
+    last = d; for(const r of d.results) if(overrides[r.label] === r.tier) delete overrides[r.label];
+    render(d); syncEdited(); writeHash(); $("#tbhint").hidden = false;
+    const avg = d.results.reduce((a, r) => a + r.confidence, 0) / d.results.length;
+    const other = cache.get(criteriaString() + (useFacts ? " |names-only" : ""));
+    const oavg = other ? other.results.reduce((a, r) => a + r.confidence, 0) / other.results.length : null;
+    $("#ver").textContent = d.model;
+    $("#footer").innerHTML = [`model <b>${esc(d.model)}</b>`, `state <b>${useFacts ? "facts" : "names only"}</b>`, `tokens <b>${d.usage.input_tokens}</b>`,
+      `avg confidence <b>${Math.round(avg*100)}%</b>` + (oavg != null ? ` · ${useFacts ? "names only" : "with facts"} <b>${Math.round(oavg*100)}%</b>` : ""),
+      `items <b>${d.results.length}</b>`].map(x => `<span>${x}</span>`).join("");
+  }catch(e){ $("#status").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  $("#result").classList.remove("busy");
+}
+const palette = { S:"var(--tS)", A:"var(--tA)", B:"var(--tB)", C:"var(--tC)" };
+const nameOf = label => label.split(" · ")[0];
+function render(d){
+  const top = d.results[0], second = d.results[1];
+  const close = second && Math.abs(top.score - second.score) < 0.35;
+  const crit = d.criteria.map(c => c.keyword).join(" + ");
+  const topItem = itemOf(top.label);
+  const other = cache.get(criteriaString() + (useFacts ? " |names-only" : ""));
+  const otherTier = r => { const it = itemOf(r.label); const o = other?.results.find(x => itemOf(x.label) === it); return o && o.tier !== r.tier ? o.tier : null; };
+  const buyTop = topItem?.buy ? ` <a class="buy" href="${esc(topItem.buy)}" target="_blank" rel="noopener sponsored">check price</a>` : "";
+  const bestFor = crit.replace(/^for /, "");
+  $("#verdict").innerHTML = `Best for ${esc(bestFor)}: ${esc(nameOf(top.label))}${buyTop}${useFacts ? "" : `<span class="mode ptag">names only</span>`}` +
+    `<small>${close ? `${esc(nameOf(second.label))} is a near tie. ` : ""}Confidence ${Math.round(top.confidence*100)}% ${useFacts ? "on the spec table below." : "with no facts at all. This is a guess from the name."}</small>`;
+  const placed = applyOverrides(d.results, overrides);
+  $("#board").innerHTML = d.tiers.map(t => `
+    <div class="tier" data-tier="${esc(t.label)}">
+      <div class="lbl" title="${esc(t.desc)}">${t.label}</div>
+      <div class="items">${placed.filter(r => r.tier===t.label).map(card).join("")}</div>
+    </div>`).join("") + (useFacts && ITEMS.some(i => !(i.facts.length || i.summary)) ? `<p class="hint legend"><i class="dot">●</i> no facts found; ranked on what Jev already knows about the name.</p>` : "");
+  function card(r){
+    const it = itemOf(r.label) || { name: nameOf(r.label), facts: [] };
+    const ot = otherTier(r);
+    const diff = ot ? `<span class="diff" title="Same list, same criteria, ${useFacts ? "without" : "with"} the facts">${useFacts ? "names only" : "with facts"}: ${esc(ot)}</span>` : "";
+    const bar = r.probabilities.map(([t,p]) => `<i style="width:${p*100}%;background:${palette[t]}"></i>`).join("");
+    const bare = useFacts && !(it.facts.length || it.summary);
+    const dot = bare ? `<i class="dot" title="No facts found for this one. Ranked on what Jev already knows about the name.">●</i>` : "";
+    const val = f => f.includes(": ") ? f.split(": ").slice(1).join(": ") : f; // curated lines have no key
+    const sub = useFacts ? (it.facts.slice(0, 2).map(val).join(" · ") || (it.summary ? "" : "name only")) : `conf ${Math.round(r.confidence*100)}%`;
+    const buy = it.buy ? `<a class="buy" href="${esc(it.buy)}" target="_blank" rel="noopener sponsored">Check price</a>` : "";
+    return `<div class="card${r.edited?" edited":""}" data-id="${esc(r.label)}" title="${r.edited?`Jev said ${r.jevTier}, you moved it`:`Jev: ${r.tier}, confidence ${Math.round(r.confidence*100)}%`}"><b>${esc(it.name)}${dot}</b>${sub ? `<small>${esc(sub)}</small>` : ""}<div class="bar">${bar}</div>${diff}${buy}</div>`;
+  }
+}
+
+// ---------- shareable URL: #state carries the list, category, weights and your moves ----------
+function writeHash(){ if(!ITEMS.length) return; history.replaceState(null, "", "#" + encodeState({ i: ITEMS.map(x => x.name), c: CATEGORY, w: weights, f: useFacts ? 1 : 0, o: Object.fromEntries(Object.entries(overrides).map(([k,v]) => [nameOf(k), v])) })); }
+function readHash(){
+  const st = decodeState(location.hash.slice(1)); if(!st || !Array.isArray(st.i)) return null;
+  $("#items").value = st.i.join("\n"); if(st.c) $("#category").value = st.c;
+  if(st.f === 0){ useFacts = false; $("#facts").checked = false; }
+  const preset = PRESETS.find(p => p.category === st.c); if(preset) CHIPS = preset.chips;
+  if(st.w && typeof st.w === "object"){ for(const k in weights) delete weights[k]; for(const [k,v] of Object.entries(st.w)) if(+v>0){ weights[k] = Math.min(3, +v|0); if(!CHIPS.includes(k)) custom = k; } drawChips(); }
+  return st;
+}
+// ---------- share image: the thing that leaves the site ----------
+function drawImage(d){
+  const W = 1200, pad = 48, rowH = 96, headH = 170, footH = 70;
+  const cv = $("#cv"), H = headH + d.tiers.length*rowH + footH; cv.width = W; cv.height = H;
+  const x = cv.getContext("2d");
+  const cs = getComputedStyle($("#stage")), v = n => cs.getPropertyValue(n).trim();
+  const font = tierLook() ? "Arial, Helvetica, sans-serif" : "ProxyMono, Menlo, monospace";
+  x.fillStyle = v("--bg"); x.fillRect(0,0,W,H);
+  x.fillStyle = v("--fg"); x.font = `700 40px ${font}`;
+  x.fillText(`${CATEGORY[0].toUpperCase()+CATEGORY.slice(1)}, ${new Date().getFullYear()}`, pad, 70);
+  x.fillStyle = v("--n500"); x.font = `400 22px ${font}`;
+  const crit = d.criteria.map(c => `${c.keyword}${d.criteria.length>1?` ${Math.round(c.weight*100)}%`:""}`).join(" · ");
+  x.fillText(`ranked for ${crit}${useFacts ? "" : " · names only, no facts looked up"}`, pad, 112);
+  x.fillStyle = v("--fg"); x.font = `400 22px ${font}`;
+  x.fillText(`Best: ${nameOf(d.results[0].label)}`, pad, 150);
+  d.tiers.forEach((t,i) => {
+    const y = headH + i*rowH;
+    x.strokeStyle = v("--line-strong"); x.lineWidth = 2; x.strokeRect(pad, y, W-2*pad, rowH-10);
+    x.fillStyle = v(`--t${t.label}`); x.fillRect(pad, y, 80, rowH-10);
+    x.fillStyle = tierLook() ? "#000" : t.label === "S" ? v("--bg") : v("--fg"); x.font = `800 40px ${font}`; x.textAlign = "center";
+    x.fillText(t.label, pad+40, y+58); x.textAlign = "left";
+    const names = applyOverrides(d.results, overrides).filter(r => r.tier===t.label).map(r => nameOf(r.label) + (overrides[r.label] && overrides[r.label]!==r.tier ? " ✎" : ""));
+    x.font = `700 24px ${font}`;
+    let cx = pad + 100;
+    for(const n of names){ const w = x.measureText(n).width + 36;
+      x.strokeStyle = v("--line-strong"); x.lineWidth = 2; x.strokeRect(cx, y+18, w, 50);
+      x.fillStyle = v("--fg"); x.fillText(n, cx+18, y+51); cx += w + 12; }
+  });
+  x.fillStyle = v("--n500"); x.font = `400 18px ${font}`;
+  const edited = Object.keys(overrides).length;
+  x.fillText(`${SITE} · rank it your way at ${location.host}${edited ? ` · ${edited} card${edited>1?"s":""} moved by hand` : ""} · ${new Date().toLocaleDateString("en-AU",{month:"long",year:"numeric"})}`, pad, H-28);
+  return cv;
+}
+function roundRect(x,a,b,w,h,r){ x.beginPath(); x.moveTo(a+r,b); x.arcTo(a+w,b,a+w,b+h,r); x.arcTo(a+w,b+h,a,b+h,r); x.arcTo(a,b+h,a,b,r); x.arcTo(a,b,a+w,b,r); x.closePath(); }
+const blobOf = cv => new Promise(res => cv.toBlob(res, "image/png"));
+$("#share").onclick = async () => {
+  if(!last) return;
+  const blob = await blobOf(drawImage(last));
+  const file = new File([blob], "ranking.png", { type:"image/png" });
+  const text = `Best for ${last.criteria.map(c=>c.keyword).join(" + ")}: ${nameOf(last.results[0].label)}`;
+  writeHash();
+  if(navigator.canShare?.({ files:[file] })){ try{ await navigator.share({ files:[file], text, url: location.href }); return; }catch{} }
+  try{ await navigator.clipboard.writeText(location.href); }catch{}
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "ranking.png"; a.click();
+  $("#status").textContent = "image downloaded, link copied";
+};
+// Full screen: the real API where it works; otherwise (iPhone Safari, embedded views) a fixed overlay
+const setFull = on => { $("#stage").classList.toggle("fs", on); $("#full").textContent = on || document.fullscreenElement ? "Exit full screen" : "Full screen"; };
+$("#full").onclick = async () => {
+  const st = $("#stage");
+  if (document.fullscreenElement) return document.exitFullscreen();
+  if (st.classList.contains("fs")) return setFull(false);
+  try { await st.requestFullscreen(); } catch { setFull(true); }
+};
+document.addEventListener("fullscreenchange", () => setFull(false));
+document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#stage").classList.contains("fs")) setFull(false); });
+$("#copy").onclick = async () => {
+  if(!last) return;
+  try{ const blob = await blobOf(drawImage(last)); await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]); $("#status").textContent = "copied, paste it anywhere"; }
+  catch(e){ $("#status").innerHTML = `<span class="err">copy failed: ${esc(e.message)}</span>`; }
+};
+pendingOverrides = readHash()?.o || null;
+// Nothing is pre-selected: a shared link runs; otherwise the board waits for a preset or a pasted list.
+if(location.hash.length > 1) compare();
+else $("#verdict").innerHTML = `Pick a preset above, or paste your own list.<small>The ranking is relative: every item is judged against the others in your list only.</small>`;
+</script>
+</body>
+</html>
