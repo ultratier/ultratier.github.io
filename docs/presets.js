@@ -16,12 +16,16 @@ export const PRESETS = [
       "Canon PowerShot G7 X Mark III": ["released 2019", "20MP 1-inch sensor", "24-100mm-equivalent f/1.8-2.8 zoom", "video: 4K 30p with a crop, microphone input, flip-up screen, popular with vloggers", "Picture Style colour profiles", "about 304g"],
       "Leica Q3": ["released 2023", "60MP full-frame sensor", "28mm f/1.7 Summilux fixed lens", "video: 8K on paper but poor in practice, heavy rolling shutter from the slow sensor readout, no microphone input, not stabilised for video, a stills camera", "Leica Looks colour profiles", "tilting screen", "about 743g"]
     },
-    // Official product shots where the maker's site had a clean one; copies live in docs/img so they
-    // cannot vanish. The rest fall back to the Wikipedia lead image.
+    // A picture of the actual model for each camera (Wikipedia's series pages lead with the 2011 X100
+    // and so on). Maker product shots for Ricoh, Sony, Canon; Wikimedia Commons photos for the rest.
+    // Copies live in docs/img so they cannot vanish; credits in public/img/CREDITS.md.
     images: {
       "Ricoh GR IV": "https://ultratier.github.io/img/cameras/ricoh-gr-iv.jpg",
       "Sony RX1R III": "https://ultratier.github.io/img/cameras/sony-rx1r-iii.jpg",
-      "Canon PowerShot G7 X Mark III": "https://ultratier.github.io/img/cameras/canon-g7x-iii.jpg"
+      "Canon PowerShot G7 X Mark III": "https://ultratier.github.io/img/cameras/canon-g7x-iii.jpg",
+      "Fujifilm X100VI": "https://ultratier.github.io/img/cameras/fujifilm-x100vi.jpg",
+      "Panasonic Lumix S9": "https://ultratier.github.io/img/cameras/panasonic-lumix-s9.jpg",
+      "Leica Q3": "https://ultratier.github.io/img/cameras/leica-q3.jpg"
     },
     chips: ["image quality", "travel friendly", "value for money", "JPEG look", "video", "beginner friendly"],
     on: ["image quality", "travel friendly", "JPEG look"] },
