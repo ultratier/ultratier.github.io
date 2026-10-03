@@ -77,6 +77,8 @@
   .chip:hover{border-color:var(--fg);color:var(--fg)}
   .chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
   .chip .w{font-size:9px;padding:0 4px;border:1px solid currentColor;line-height:1.4}
+  .chip .x{font-style:normal;font-size:13px;line-height:1;margin:0 -4px 0 2px;padding:0 4px;opacity:.6;cursor:pointer}
+  .chip .x:hover{opacity:1}
   .chip input{border:0;background:transparent;color:var(--fg);font:400 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;width:150px;outline:0}
   .chip input::placeholder{color:var(--n500)}
   .chip.on input{color:var(--bg)}
@@ -255,13 +257,15 @@ let CHIPS = [...GENERIC];
 const weights = {};
 let activePreset = null;   // the preset the current list came from; released as soon as the list or category is edited
 function drawChips(){
-  const chip = c => { const w = weights[c]||0; return `<span class="chip ${w?"on":""}" data-c="${esc(c)}">${esc(c)}${w?`<span class="w">${w}×</span>`:""}</span>`; };
+  const base = activePreset ? activePreset.chips : GENERIC; // a chip you typed yourself shows a × once it is cycled off (×1 → ×2 → ×3 → off)
+  const chip = c => { const w = weights[c]||0; return `<span class="chip ${w?"on":""}" data-c="${esc(c)}">${esc(c)}${w?`<span class="w">${w}×</span>`:""}${(base.includes(c) || w)?"":`<i class="x" data-x="${esc(c)}" title="Remove">×</i>`}</span>`; };
   $("#chips").innerHTML = CHIPS.map(chip).join("") +
     ((STATIC && !LIVE) ? "" : `<span class="chip" data-custom><input id="custom" placeholder="something else…"></span>`);
 }
 // "something else…" becomes a real chip (selected) on Enter or when you click away, and clears for the next one
 function addCustom(input){ const v = input.value.trim(); input.value = ""; if(!v) return; if(!CHIPS.includes(v)) CHIPS.push(v); weights[v] = 1; drawChips(); run(); }
 $("#chips").addEventListener("click", e => {
+  const x = e.target.closest("[data-x]"); if(x){ const c = x.dataset.x; CHIPS = CHIPS.filter(k => k !== c); delete weights[c]; drawChips(); run(); return; }
   const el = e.target.closest(".chip"); if(!el || el.hasAttribute("data-custom")) return;
   const c = el.dataset.c;
   if(STATIC && !LIVE){ for(const k in weights) delete weights[k]; weights[c] = 1; }
