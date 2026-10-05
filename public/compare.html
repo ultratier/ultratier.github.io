@@ -173,7 +173,7 @@
     <div>
       <p class="spec n500">ultratier &nbsp;·&nbsp; 001</p>
       <h1 id="title">Ultra<em>tier</em></h1>
-      <p class="sub">The ultrafast tier list by a decision model. Agree with it, or fight it. <span>Paste what you're comparing, tap what matters, and it is ranked in one call. The model here is Jev; Llama, GPT or any other behaves the same way: with facts in front of it, it judges. Without them, it guesses.</span></p>
+      <p class="sub">Ultrafast auto-generated tier list using an AI decision model, Jev. <span>This demonstrates how an LLM behaves: with facts, it judges. Without them, it guesses.</span></p>
     </div>
   </div>
 
@@ -436,7 +436,7 @@ function render(d){
   const buyTop = topItem?.buy ? ` <a class="buy" href="${esc(topItem.buy)}" target="_blank" rel="noopener sponsored">check price</a>` : "";
   const bestFor = crit.replace(/^for /, "");
   $("#verdict").innerHTML = `Best for ${esc(bestFor)}: ${esc(nameOf(top.label))}${buyTop}${useFacts ? "" : `<span class="mode ptag">names only</span>`}` +
-    `<small>${close ? `${esc(nameOf(second.label))} is a near tie. ` : ""}Confidence ${Math.round(top.confidence*100)}% ${useFacts ? "on the spec table below." : "with no facts at all. This is a guess from the name."}</small>`;
+    `<small>${close ? `${esc(nameOf(second.label))} is a near tie. ` : ""}Confidence ${Math.round(top.confidence*100)}% ${useFacts ? "on the spec table below." : "with no facts at all. This is ranking by name."}</small>`;
   const placed = applyOverrides(d.results, overrides);
   $("#board").innerHTML = d.tiers.map((t, i) => `
     <div class="tier" data-tier="${esc(t.label)}" data-rank="${Math.min(i, 4)}">
