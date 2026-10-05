@@ -77,30 +77,47 @@ up, rank it yourself for this run.
 run, and leave the saved default alone. If the script says the key was rejected, the next step for
 the user is setting the key up again.
 
-Whoever ranks, gathering the facts is still your job and happens first, exactly as described
-below. Only the last step, turning facts into placements, changes.
+Check the ranker with `status` before the lookups, so the first-run question and any key setup
+happen before the slow part. Whoever ranks, gathering the facts is still your job and happens
+first, exactly as described below. Only the last step, turning facts into placements, changes.
 
 ### Ranking with Jev
 
-Once the facts are gathered, write them to a JSON file in the system temp folder and run
-`node <this skill's folder>/scripts/jev.mjs rank <file>`:
+Once the facts are gathered, write them to a JSON file in the system temp folder and run, as a
+single command,
+`node <this skill's folder>/scripts/jev.mjs rank <file> --text --board <temp folder>/board.json`:
 
 ```json
-{ "category": "compact cameras", "criteria": [ { "keyword": "video", "weight": 1 } ], "compare": true,
-  "items": [ { "name": "Leica Q3", "facts": "Owner says: heavy rolling shutter, no mic input." },
-             { "name": "Canon G7 X III", "facts": "4K, mic input, flip screen." } ] }
+{ "category": "compact cameras", "criteria": [ { "keyword": "video", "weight": 1 } ],
+  "items": [ { "name": "Leica Q3", "facts": "Owner says: heavy rolling shutter, no mic input.",
+               "note": "you said: rolling shutter, no mic input" },
+             { "name": "Canon G7 X III", "facts": "4K, mic input, flip screen.",
+               "note": "looked up: 4K, mic input, flip screen", "image": "https://<maker's site>/<product-shot>.png" } ] }
 ```
 
 - `facts` is everything relevant you hold for that item, in plain sentences: a few facts that
   bear on the criteria, not a spec dump. Start the user's own statements with `Owner says:` and,
   when a lookup contradicted them, leave the contradicting lookup out, so their word stands.
-- An item with nothing found gets no `facts`; it is ranked on its name and labelled `guessed`.
-- `"compare": true` makes a second, names-only call. The `moved` list it returns is the "Changed
-  from names only" line, so use it as given instead of your own before-and-after.
-- Jev's placements are the board. Do not move items to where you would have put them. You still
-  write each line's evidence label and deciding fact, from the facts you sent.
-- Add one line under "Based on": `Ranked by: Jev (confidence <level from the script>)`, and append
-  the same words to the image footer.
+- `note` is the evidence line for the board: the label (`you said`, `looked up` or `guessed`) and
+  the single deciding fact, as described under "Output". `image` is the picture, if you found one.
+- An item with nothing found gets no `facts` and no `note`; it is ranked on its name and the
+  script labels it `guessed`.
+- The script also makes a names-only call and writes the "Changed from names only", "Based on"
+  and "Ranked by" lines itself, so use them as given instead of your own before-and-after.
+- Jev's placements are the board. Do not move items to where you would have put them.
+
+**Answer first, picture second.** The user should see the ranking the moment Jev returns it, so
+keep to this order and do not batch the steps:
+
+1. Run the one `rank` command above.
+2. Show what it printed, as it is, in a code block, then the `Sources:` list and any `Note:` or
+   `Your reasoning applied:` line under it.
+3. Only then draw the picture: `node <this skill's folder>/scripts/board.mjs <board file> --out <name>.png`.
+   The `rank` command already wrote the board file, so do not write one yourself.
+4. End with the `Image:` line.
+
+Do not reformat or re-order the board, and do not add commentary before
+it.
 
 ## Where facts come from, in priority order
 

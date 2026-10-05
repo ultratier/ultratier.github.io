@@ -42,8 +42,10 @@ With a list, this applies to this run only and the saved default stays as it was
 (`/tier use jev`, `/tier --use-llm`), it changes the default: run `node <this skill's folder>/scripts/jev.mjs use jev`
 or `use llm`, confirm in one line, and stop.
 
-**2. Otherwise use the saved default.** Run `node <this skill's folder>/scripts/jev.mjs status`. It prints
-`{"ranker": "jev" | "llm" | null, "key": true | false}`.
+**2. Otherwise use the saved default.** Go straight to the `rank` command under "Ranking with Jev":
+with `--default` it ranks when Jev is the saved default and a key is set, and otherwise prints
+`{"ranker": "jev" | "llm" | null, "key": true | false}` without ranking (`jev.mjs status` prints the
+same line on its own).
 
 - `null` means this is the first run. Ask once, naming yourself by your real name (Claude, Codex,
   or whatever you are): "Rank with Jev (fast, needs an API key from typesafe.ai) or
@@ -75,8 +77,9 @@ the user is setting the key up again.
 
 ### Ranking with Jev
 
-Write the list to a JSON file in the system temp folder and run
-`node <this skill's folder>/scripts/jev.mjs rank <file>`:
+Write the list to a JSON file in the system temp folder and run, as a single command,
+`node <this skill's folder>/scripts/jev.mjs rank <file> --default --text --board <temp folder>/board.json`
+(leave `--default` out when the user forced Jev for this run):
 
 ```json
 { "category": "compact cameras", "criteria": [ { "keyword": "video", "weight": 1 } ],
@@ -84,12 +87,26 @@ Write the list to a JSON file in the system temp folder and run
 ```
 
 Send the names exactly as the user gave them, with no facts or descriptions added: this is the
-names-only skill. Leave `criteria` out when the user has no criterion. Add `"tiers": [...]` for
-custom labels. The script prints the tiers, already in order, and an overall confidence level.
+names-only skill. Leave `criteria` out when the user has no criterion, and do not stop to ask for
+one: Jev ranks on overall quality and the title says so. Add `"tiers": [...]` for custom labels,
+`"title"` to word the title yourself, `"theme": "light"` for a light picture.
+
+**Answer first, picture second.** The user should see the ranking the moment Jev returns it, so
+keep to this order and do not batch the steps:
+
+1. Run the one `rank` command above.
+2. Show what it printed, as it is, in a code block. That is the finished text board.
+3. Only then draw the picture: `node <this skill's folder>/scripts/board.mjs <board file> --out <name>.png`.
+   The `rank` command already wrote the board file, so do not write one yourself.
+4. End with the `Image:` line.
+
+Do not run `status` first, do not reformat or re-order the board, and do not add commentary before
+it. If the command prints `{"ranker": ..., "key": ...}` instead of a board, Jev is not set up as the
+default: follow step 2 or 3 of "Which ranker" from that line.
 
 Jev's placements are the board. Do not move items to where you would have put them, and do not
 add ● marks: Jev's confidence is what tells the user how firm the board is. The rules under "How
-to rank" are for when you rank it yourself; the script already applies the same ones.
+to rank" and "Output" are for when you rank it yourself; the script already applies the same ones.
 
 ## How to rank
 

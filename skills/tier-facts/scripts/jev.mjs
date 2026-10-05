@@ -6,6 +6,11 @@
 //   node jev.mjs set-key --clipboard    -> take the key from the clipboard; safe for the agent to run
 //   node jev.mjs forget-key             -> delete the stored key
 //   node jev.mjs rank input.json        -> one Jev call, prints the ranking as JSON   (- reads stdin)
+//   node jev.mjs rank input.json --text --board board.json
+//                                       -> prints the finished text board, ready to show, and writes the
+//                                          input for board.mjs, so the answer can be shown before the picture
+//   ... rank input.json --default       -> only ranks when Jev is the saved default and a key is set;
+//                                          otherwise prints the same line as `status` and does nothing
 // The key is never printed, logged or passed on a command line. It lives in JEV_API_KEY if that is set,
 // otherwise in ~/.config/ultratier/jev.key (owner-only). The choice of ranker lives beside it in config.json.
 // rank input:  { "category": "compact cameras", "criteria": [ { "keyword": "video", "weight": 1 } ],
@@ -13,6 +18,8 @@
 //                "tiers": ["S","A","B","C","D"], "compare": true }
 // `facts` go into the state Jev ranks on. `compare` adds a second, names-only call and reports which items
 // moved a tier or more once the facts were in (`moved`), which is the "Changed from names only" line.
+// Items may also carry `note` (the evidence line, e.g. "looked up: 4K, mic input") and `image`; both are
+// passed through to the text board and the picture. `title` overrides the generated title.
 import { readFileSync, writeFileSync, existsSync, mkdirSync, rmSync, chmodSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { homedir, platform } from "node:os";
@@ -100,21 +107,25 @@ async function rankOnce(key, { category, crits, items, tiers }, withFacts) {
 }
 
 async function rank() {
+  if (args.includes("--default") && (readConfig().ranker !== "jev" || !getKey()))
+    return console.log(JSON.stringify({ ranker: readConfig().ranker || null, key: !!getKey() }));
   const key = getKey(); if (!key) die("No Jev key. Set one up first (see set-key).");
-  const src = args.find(a => !a.startsWith("--"));
+  const boardOut = args.includes("--board") ? args[args.indexOf("--board") + 1] : null;
+  const src = args.find((a, i) => !a.startsWith("--") && args[i - 1] !== "--board");
   const input = JSON.parse(readFileSync(!src || src === "-" ? 0 : src, "utf8"));
   const items = (input.items || []).map(it => typeof it === "string" ? { name: it } : it).filter(it => it.name);
   if (items.length < 2) die("Need two or more items.");
-  let crits = (input.criteria || []).map(c => typeof c === "string" ? { keyword: c, weight: 1 } : c).slice(0, 4);
-  if (!crits.length) crits = [{ keyword: "overall quality / which is best", weight: 1 }];
-  const total = crits.reduce((s, c) => s + (c.weight || 1), 0);
-  crits = crits.map(c => ({ keyword: c.keyword, weight: (c.weight || 1) / total }));
+  const asked = (input.criteria || []).map(c => typeof c === "string" ? { keyword: c, weight: 1 } : { keyword: c.keyword, weight: c.weight || 1 }).slice(0, 4);
+  let crits = asked.length ? asked : [{ keyword: "overall quality / which is best", weight: 1 }];
+  const total = crits.reduce((s, c) => s + c.weight, 0);
+  crits = crits.map(c => ({ keyword: c.keyword, weight: c.weight / total }));
   const labels = input.tiers?.length >= 2 ? input.tiers.slice(0, 10) : ["S", "A", "B", "C", "D"];
   const tiers = labels.map((label, i) => ({ label, desc: DESCS(labels.length)(i) }));
   const job = { category: (input.category || "items").trim(), crits, items, tiers };
-  const hasFacts = items.some(it => it.facts);
-  const [main, bare] = await Promise.all([rankOnce(key, job, true), input.compare && hasFacts ? rankOnce(key, job, false) : null]);
+  const withFacts = items.some(it => it.facts || it.note); // tier-facts sends these, tier sends bare names
+  const [main, bare] = await Promise.all([rankOnce(key, job, true), (input.compare ?? withFacts) && items.some(it => it.facts) ? rankOnce(key, job, false) : null]);
   const mean = main.results.reduce((s, r) => s + r.confidence, 0) / main.results.length;
+  const extra = Object.fromEntries(items.map(it => [it.name, it]));
   const out = { ranker: "jev", model: main.model, category: job.category, criteria: crits,
     tiers: tiers.map(t => ({ label: t.label, items: main.results.filter(r => r.tier === t.label) })),
     confidence: { mean: +mean.toFixed(2), level: mean >= 0.75 ? "high" : mean >= 0.5 ? "medium" : "low" } };
@@ -123,7 +134,34 @@ async function rank() {
     out.moved = main.results.filter(r => before[r.name] !== r.tier).map(r => ({ name: r.name, from: before[r.name], to: r.tier }))
       .sort((a, b) => Math.abs(at(b.from) - at(b.to)) - Math.abs(at(a.from) - at(a.to)));
   }
-  console.log(JSON.stringify(out));
+
+  // ---- the finished board, as text and as input for board.mjs ----
+  const cat = job.category[0].toUpperCase() + job.category.slice(1);
+  const title = input.title || `${cat}, ranked for ${asked.length ? asked.map(c => c.keyword + (c.weight !== 1 ? ` (×${c.weight})` : "")).join(", ") : "overall quality"}`;
+  const pad = Math.max(...labels.map(l => l.length)) + 2;
+  let text, board;
+  if (withFacts) {
+    const wide = Math.max(...items.map(it => it.name.length)) + 3;
+    const rows = out.tiers.flatMap(t => t.items.length
+      ? t.items.map((r, i) => `${(i ? "" : t.label).padEnd(pad)}${r.name.padEnd(wide)}${extra[r.name].note || "guessed: no facts found"}`.trimEnd())
+      : [t.label]);
+    const n = w => items.filter(it => (it.note || "guessed").toLowerCase().startsWith(w)).length;
+    const changed = `Changed from names only: ${out.moved?.length ? out.moved.map(m => `${m.name} ${m.from} → ${m.to}`).join(", ") : "nothing moved."}`;
+    const based = `Based on: ${n("you said")} from you, ${n("looked up")} looked up, ${n("guessed")} guessed`;
+    const by = `Ranked by: Jev (confidence ${out.confidence.level})`;
+    text = [title, "", ...rows, "", changed, based, by].join("\n");
+    board = { title, tiers: out.tiers.map(t => ({ label: t.label, items: t.items.map(r => { const e = extra[r.name]; return { name: r.name, note: e.note || "guessed: no facts found", ...(e.image ? { image: e.image } : {}) }; }) })),
+      footer: `${changed.replace(/\.$/, "")}.  ${based}.  ${by}` };
+  } else {
+    const sub = "Names only, ranked by Jev. No facts were looked up, so this is a prior.";
+    const rows = out.tiers.map(t => `${t.label.padEnd(pad)}${t.items.map(r => r.name).join(" · ")}`.trimEnd());
+    text = [title, sub, "", ...rows, "", `Confidence: ${out.confidence.level}. Jev's own confidence in these placements.`, "Run /tier-facts on the same list to check this against real facts."].join("\n");
+    board = { title, subtitle: sub, tiers: out.tiers.map(t => ({ label: t.label, items: t.items.map(r => r.name) })),
+      footer: `Confidence: ${out.confidence.level}. Run /tier-facts on the same list to check this against real facts.` };
+  }
+  if (input.theme) board.theme = input.theme;
+  if (boardOut) writeFileSync(boardOut, JSON.stringify(board));
+  console.log(args.includes("--text") ? text : JSON.stringify(out));
 }
 
 // ---------------- commands ----------------
@@ -137,4 +175,4 @@ else if (cmd === "use") {
 else if (cmd === "set-key") await setKey();
 else if (cmd === "forget-key") { rmSync(KEY_FILE, { force: true }); console.log("Stored key removed."); }
 else if (cmd === "rank") await rank().catch(e => die(e.status === 401 || e.status === 403 ? "Jev rejected the key. Set it up again (see set-key)." : `Jev call failed: ${e.message}`));
-else die("Commands: status | use jev|llm | set-key [--clipboard] | forget-key | rank input.json");
+else die("Commands: status | use jev|llm | set-key [--clipboard] | forget-key | rank input.json [--text] [--board out.json] [--default]");
