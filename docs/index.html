@@ -210,7 +210,7 @@
             <label class="spec n500">What kind of things are these?<input class="pfield" id="category" placeholder="e.g. compact cameras, yoghurt, running shoes"></label>
             <button class="pbtn pbtn-primary" id="compare">Compare</button>
           </div>
-          <p class="hint" id="ownlist" hidden>Static showcase, no server, nobody's tokens. To rank your own list: <a href="https://github.com/monoproxy/ultratier">clone the repo</a>, add a <a href="https://typesafe.ai">Jev key</a>, run <code>node server.js</code>.</p>
+          <p class="hint" id="ownlist" hidden>Static showcase, no server, nobody's tokens. To rank your own list: <a href="https://github.com/ultratier/ultratier.github.io">clone the repo</a>, add a <a href="https://typesafe.ai">Jev key</a>, run <code>node server.js</code>.</p>
         </div>
       </section>
 
@@ -336,7 +336,7 @@ if(STATIC && !LIVE){
   $("#ownlist").hidden = false;
   $("#weightsHint").textContent = "One criterion at a time in this showcase. Weights and your own criteria need the live version.";
 } else if(STATIC){
-  $("#ownlist").innerHTML = "Presets are frozen, free and instant. Your own list, weights and criteria are ranked live. If that is ever down, <a href=\"https://github.com/monoproxy/ultratier\">clone the repo</a>, add a <a href=\"https://typesafe.ai\">Jev key</a>, run <code>node server.js</code>.";
+  $("#ownlist").innerHTML = "Presets are frozen, free and instant. Your own list, weights and criteria are ranked live. If that is ever down, <a href=\"https://github.com/ultratier/ultratier.github.io\">clone the repo</a>, add a <a href=\"https://typesafe.ai\">Jev key</a>, run <code>node server.js</code>.";
   $("#ownlist").hidden = false;
 }
 
