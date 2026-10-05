@@ -11,6 +11,9 @@
 // Input: { "title": "...", "subtitle": "...", "footer": "...", "theme": "dark" | "light",
 //          "tiers": [ { "label": "S", "items": [ { "name": "...", "note": "..." } ] }, ... ] }
 // `note` is optional (tier-facts uses it for "you said: ..." / "looked up: ..."); items may also be plain strings.
+// `image` is optional: a URL (or local file path) of a picture of the item. The script downloads it and
+// embeds it in the output, so the finished file stands alone. A picture that cannot be fetched is
+// skipped and that tile shows the name only. Pass --no-images to skip all pictures.
 import { readFileSync, writeFileSync, existsSync, statSync, mkdtempSync, renameSync, rmSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
@@ -37,7 +40,28 @@ const wrap = (text, max) => { const out = []; let line = "";
   if (line) out.push(line); return out; };
 const perLine = Math.floor((TILE_W - 24) / CHAR);
 
-const tiers = input.tiers.map(t => ({ label: t.label, items: (t.items || []).map(i => typeof i === "string" ? { name: i } : i) }));
+const tiers = input.tiers.map(t => ({ label: t.label, items: (t.items || []).map(i => typeof i === "string" ? { name: i } : { ...i }) }));
+
+// ---------- pictures: fetch each one and embed it as a data URI ----------
+const IMG_H = 112, MAX_BYTES = 4_000_000;
+async function embed(src) {
+  try {
+    let buf, type;
+    if (/^https?:/i.test(src)) {
+      const r = await fetch(src, { signal: AbortSignal.timeout(10000), redirect: "follow",
+        headers: { "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36", accept: "image/png,image/jpeg,image/webp,image/*;q=0.8" } });
+      if (!r.ok) return null;
+      type = (r.headers.get("content-type") || "").split(";")[0].trim();
+      buf = Buffer.from(await r.arrayBuffer());
+    } else { buf = readFileSync(src); type = { png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", gif: "image/gif", svg: "image/svg+xml" }[src.split(".").pop().toLowerCase()] || ""; }
+    if (!type.startsWith("image/") || buf.length < 200 || buf.length > MAX_BYTES) return null;
+    return `data:${type};base64,${buf.toString("base64")}`;
+  } catch { return null; }
+}
+const withPics = tiers.flatMap(t => t.items).filter(i => i.image && !flag("--no-images"));
+let picsOk = 0;
+await Promise.all(withPics.map(async i => { i.data = await embed(i.image); if (i.data) picsOk++; }));
+if (withPics.length) console.error(`pictures: ${picsOk} of ${withPics.length} embedded`);
 const perRow = Math.floor((W - 2 * PAD - LABEL - GAP) / (TILE_W + GAP));
 let y = PAD, body = "";
 
@@ -49,8 +73,8 @@ y += 22;
 
 // rows
 tiers.forEach((t, ti) => {
-  const tiles = t.items.map(it => { const name = wrap(it.name, perLine), note = it.note ? wrap(it.note, perLine + 4) : [];
-    return { name, note, h: 22 + name.length * 17 + (note.length ? 6 + note.length * 14 : 0) + 10 }; });
+  const tiles = t.items.map(it => { const name = wrap(it.name, perLine), note = it.note ? wrap(it.note, perLine + 4) : [], pic = it.data ? IMG_H + 8 : 0;
+    return { name, note, data: it.data, pic, h: pic + 22 + name.length * 17 + (note.length ? 6 + note.length * 14 : 0) + 10 }; });
   const lines = []; for (let i = 0; i < tiles.length; i += perRow) lines.push(tiles.slice(i, i + perRow));
   const rowH = Math.max(84, GAP + lines.reduce((s, l) => s + Math.max(...l.map(x => x.h)) + GAP, 0));
   body += `<rect x="${PAD}" y="${y}" width="${W - 2 * PAD}" height="${rowH}" fill="${C.row}"/>`;
@@ -61,7 +85,8 @@ tiers.forEach((t, ti) => {
   for (const line of lines) { const lh = Math.max(...line.map(x => x.h)); let tx = PAD + LABEL + GAP;
     for (const tile of line) {
       body += `<rect x="${tx}" y="${ty}" width="${TILE_W}" height="${lh}" rx="6" fill="${C.tile}" stroke="${C.edge}"/>`;
-      let cy = ty + 24; for (const l of tile.name) { body += `<text x="${tx + 12}" y="${cy}" font-size="13" font-weight="700" fill="${C.fg}">${esc(l)}</text>`; cy += 17; }
+      if (tile.data) { body += `<rect x="${tx + 8}" y="${ty + 8}" width="${TILE_W - 16}" height="${IMG_H}" rx="4" fill="#ffffff"/><image x="${tx + 12}" y="${ty + 12}" width="${TILE_W - 24}" height="${IMG_H - 8}" preserveAspectRatio="xMidYMid meet" href="${tile.data}"/>`; }
+      let cy = ty + tile.pic + 24; for (const l of tile.name) { body += `<text x="${tx + 12}" y="${cy}" font-size="13" font-weight="700" fill="${C.fg}">${esc(l)}</text>`; cy += 17; }
       if (tile.note.length) { cy += 2; for (const l of tile.note) { body += `<text x="${tx + 12}" y="${cy}" font-size="11" fill="${C.muted}">${esc(l)}</text>`; cy += 14; } }
       tx += TILE_W + GAP; }
     ty += lh + GAP; }

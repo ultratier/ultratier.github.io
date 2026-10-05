@@ -58,6 +58,13 @@ Two traps worth knowing about:
   severe rolling shutter. Prefer facts about how the thing performs on the criterion over headline
   numbers.
 
+**Pick up a picture while you are there.** When you open a page for an item, note the address of
+its main product image (the page's `og:image`, or the main product photo), so the board can show
+it. Take it only from a page about the exact item: a picture of the previous model or of the whole
+range is as misleading as a wrong fact, so when in doubt leave it out. Makers' own product shots on
+a plain background work best. Do not go searching separately for pictures; an item with no picture
+simply gets a name-only tile.
+
 If no lookup tools are available at all, say so plainly at the top, use the user's facts where
 given, and mark everything else as guessed. Do not pretend to have looked.
 
@@ -127,12 +134,14 @@ node <this skill's folder>/scripts/board.mjs board.json --out tier-list.png
 ```
 
 Write `board.json` to the system temp folder first (do not leave it in the user's project). Each item
-carries its evidence as a `note`, which is drawn under the name:
+carries its evidence as a `note`, drawn under the name, and optionally an `image` address, drawn
+above it:
 
 ```json
 { "title": "Compact cameras, ranked for video",
   "tiers": [ { "label": "S", "items": [ { "name": "Lumix S9", "note": "you said: V-Log, open gate, stabilised" } ] },
-             { "label": "A", "items": [ { "name": "Canon G7 X III", "note": "looked up: 4K, mic input, flip screen" } ] },
+             { "label": "A", "items": [ { "name": "Canon G7 X III", "note": "looked up: 4K, mic input, flip screen",
+                                          "image": "https://<maker's site>/<product-shot>.png" } ] },
              { "label": "B", "items": [] },
              { "label": "C", "items": [ { "name": "Fujifilm X100VI", "note": "looked up: 6.2K but fixed 35mm lens" } ] },
              { "label": "D", "items": [ { "name": "Ricoh GR IV", "note": "looked up: Full HD only" },
@@ -142,6 +151,10 @@ carries its evidence as a `note`, which is drawn under the name:
 ```
 
 - Include every tier, empty ones too. Keep each note to the same short text as the text board.
+- Add `image` for each item you found a picture for. The script downloads those pictures and embeds
+  them in the file, so the image works anywhere it is shared; one that fails to download is skipped
+  and that tile shows the name only. It reports `pictures: n of m embedded`; no need to pass that on
+  unless none worked. Add `--no-images` if the user does not want pictures or is offline.
 - The footer is the "Changed from names only" and "Based on" lines. Leave the sources out of the
   image; they stay in the text.
 - Save the image in the current working directory with a short name that says what it is, e.g.
