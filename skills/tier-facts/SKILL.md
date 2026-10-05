@@ -30,6 +30,78 @@ assembling the facts, and the ranking is the easy last step.
   criteria and their weights, and say in the output how you applied it.
 - Everything the user supplies is optional. With none, the skill simply looks everything up.
 
+## Which ranker
+
+The list can be ranked by you (the model running this skill) or by Jev, a small ranking model from
+typesafe.ai that answers in well under a second. The user chooses once and the choice is remembered
+for both `/tier` and `/tier-facts`. `scripts/jev.mjs` in this skill's folder does the remembering and
+the Jev call.
+
+**1. Read the request for a ranker.** Take these out of the arguments before parsing the list:
+
+- `--jev`, or the words `use jev`: rank with Jev.
+- `--use-llm`, or `use llm`, `use claude`, `use codex`, `use <any model name>`: rank it yourself.
+
+With a list, this applies to this run only and the saved default stays as it was. With no list
+(`/tier-facts use jev`, `/tier-facts --use-llm`), it changes the default: run `node <this skill's folder>/scripts/jev.mjs use jev`
+or `use llm`, confirm in one line, and stop.
+
+**2. Otherwise use the saved default.** Run `node <this skill's folder>/scripts/jev.mjs status`. It prints
+`{"ranker": "jev" | "llm" | null, "key": true | false}`.
+
+- `null` means this is the first run. Ask once, naming yourself by your real name (Claude, Codex,
+  or whatever you are): "Rank with Jev (fast, needs an API key from typesafe.ai) or
+  with <your name>?" Save the answer with `jev.mjs use jev` or `jev.mjs use llm`, and mention in one
+  line how to switch later (`/tier use jev`, `/tier use <your name>`).
+- `"llm"`: rank it yourself. Do not mention Jev.
+- `"jev"`: rank with Jev.
+
+**3. Jev needs a key.** If Jev was chosen (in step 1 or 2) and `key` is false, set the key up before
+ranking. The key must never appear in the conversation: do not ask the user to paste it into the
+chat, do not put it in a command you run, and do not read the key file. Offer these two ways and
+let the user pick:
+
+- **Clipboard.** The user copies the key and tells you they have. You run
+  `node <this skill's folder>/scripts/jev.mjs set-key --clipboard`. The script reads the clipboard, checks the
+  key with Jev, stores it for the user only, and prints nothing but whether it worked.
+- **Their own terminal.** The user runs `node <this skill's folder>/scripts/jev.mjs set-key` themselves (give
+  them the command with the real folder path filled in) and pastes the key at a hidden prompt.
+
+A `JEV_API_KEY` environment variable also counts as a key. If the user pastes the key into the
+chat anyway, do not use it: tell them it is now in the conversation log and should be replaced, and
+point them back to the two ways above. When the user asked for Jev with `--jev` and set a key up to
+get it, also save Jev as the default (`jev.mjs use jev`) and say so. If they decide not to set a key
+up, rank it yourself for this run.
+
+**4. If the Jev call fails,** say why in one line (the script's message), rank it yourself for this
+run, and leave the saved default alone. If the script says the key was rejected, the next step for
+the user is setting the key up again.
+
+Whoever ranks, gathering the facts is still your job and happens first, exactly as described
+below. Only the last step, turning facts into placements, changes.
+
+### Ranking with Jev
+
+Once the facts are gathered, write them to a JSON file in the system temp folder and run
+`node <this skill's folder>/scripts/jev.mjs rank <file>`:
+
+```json
+{ "category": "compact cameras", "criteria": [ { "keyword": "video", "weight": 1 } ], "compare": true,
+  "items": [ { "name": "Leica Q3", "facts": "Owner says: heavy rolling shutter, no mic input." },
+             { "name": "Canon G7 X III", "facts": "4K, mic input, flip screen." } ] }
+```
+
+- `facts` is everything relevant you hold for that item, in plain sentences: a few facts that
+  bear on the criteria, not a spec dump. Start the user's own statements with `Owner says:` and,
+  when a lookup contradicted them, leave the contradicting lookup out, so their word stands.
+- An item with nothing found gets no `facts`; it is ranked on its name and labelled `guessed`.
+- `"compare": true` makes a second, names-only call. The `moved` list it returns is the "Changed
+  from names only" line, so use it as given instead of your own before-and-after.
+- Jev's placements are the board. Do not move items to where you would have put them. You still
+  write each line's evidence label and deciding fact, from the facts you sent.
+- Add one line under "Based on": `Ranked by: Jev (confidence <level from the script>)`, and append
+  the same words to the image footer.
+
 ## Where facts come from, in priority order
 
 1. **The user's word.** If the user states something about an item, that stands, even when a
@@ -109,7 +181,7 @@ Sources: <one link per looked-up item>
   fact that most decided the placement, in a few words. Not a list of specs. When an item rests on
   both the user's word and a lookup, label it by whichever decided the placement; if they agree,
   the user's word takes the label.
-- **Changed from names only**: before looking anything up, note privately where you would have
+- **Changed from names only** (when you rank it yourself): before looking anything up, note privately where you would have
   placed each item from memory. After ranking on facts, list the items that moved a tier or more,
   biggest move first. If nothing moved, write `Changed from names only: nothing moved.` This line
   is what shows the user whether the facts mattered, so do not skip it and do not invent movement.

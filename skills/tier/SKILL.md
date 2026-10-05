@@ -1,6 +1,6 @@
 ---
 name: tier
-description: Rank any list of things into an S/A/B/C/D tier list, fast, from what the model already knows, and label it honestly as a prior. Use whenever the user types /tier, asks for a tier list, asks to "rank these", "tier these", "which is best out of", or wants a quick ordering of products, tools, games, options or ideas on some criterion, even if they don't say "tier list". For a ranking backed by looked-up facts or the user's own facts, use tier-facts instead.
+description: Rank any list of things into an S/A/B/C/D tier list, fast, from names alone (by the model itself or by Jev, the user's choice), and label it honestly as a prior. Use whenever the user types /tier, asks for a tier list, asks to "rank these", "tier these", "which is best out of", or wants a quick ordering of products, tools, games, options or ideas on some criterion, even if they don't say "tier list". For a ranking backed by looked-up facts or the user's own facts, use tier-facts instead.
 ---
 
 # /tier — the vibe ranking
@@ -25,6 +25,71 @@ mistakes it for a checked answer. So the skill never dresses a guess up as a fin
   overall quality and say so in the title.
 - If the list is ambiguous about what kind of thing it is, infer the category from the items and
   name it in the title. Only ask if the items could plausibly be two different kinds of thing.
+
+## Which ranker
+
+The list can be ranked by you (the model running this skill) or by Jev, a small ranking model from
+typesafe.ai that answers in well under a second. The user chooses once and the choice is remembered
+for both `/tier` and `/tier-facts`. `scripts/jev.mjs` in this skill's folder does the remembering and
+the Jev call.
+
+**1. Read the request for a ranker.** Take these out of the arguments before parsing the list:
+
+- `--jev`, or the words `use jev`: rank with Jev.
+- `--use-llm`, or `use llm`, `use claude`, `use codex`, `use <any model name>`: rank it yourself.
+
+With a list, this applies to this run only and the saved default stays as it was. With no list
+(`/tier use jev`, `/tier --use-llm`), it changes the default: run `node <this skill's folder>/scripts/jev.mjs use jev`
+or `use llm`, confirm in one line, and stop.
+
+**2. Otherwise use the saved default.** Run `node <this skill's folder>/scripts/jev.mjs status`. It prints
+`{"ranker": "jev" | "llm" | null, "key": true | false}`.
+
+- `null` means this is the first run. Ask once, naming yourself by your real name (Claude, Codex,
+  or whatever you are): "Rank with Jev (fast, needs an API key from typesafe.ai) or
+  with <your name>?" Save the answer with `jev.mjs use jev` or `jev.mjs use llm`, and mention in one
+  line how to switch later (`/tier use jev`, `/tier use <your name>`).
+- `"llm"`: rank it yourself. Do not mention Jev.
+- `"jev"`: rank with Jev.
+
+**3. Jev needs a key.** If Jev was chosen (in step 1 or 2) and `key` is false, set the key up before
+ranking. The key must never appear in the conversation: do not ask the user to paste it into the
+chat, do not put it in a command you run, and do not read the key file. Offer these two ways and
+let the user pick:
+
+- **Clipboard.** The user copies the key and tells you they have. You run
+  `node <this skill's folder>/scripts/jev.mjs set-key --clipboard`. The script reads the clipboard, checks the
+  key with Jev, stores it for the user only, and prints nothing but whether it worked.
+- **Their own terminal.** The user runs `node <this skill's folder>/scripts/jev.mjs set-key` themselves (give
+  them the command with the real folder path filled in) and pastes the key at a hidden prompt.
+
+A `JEV_API_KEY` environment variable also counts as a key. If the user pastes the key into the
+chat anyway, do not use it: tell them it is now in the conversation log and should be replaced, and
+point them back to the two ways above. When the user asked for Jev with `--jev` and set a key up to
+get it, also save Jev as the default (`jev.mjs use jev`) and say so. If they decide not to set a key
+up, rank it yourself for this run.
+
+**4. If the Jev call fails,** say why in one line (the script's message), rank it yourself for this
+run, and leave the saved default alone. If the script says the key was rejected, the next step for
+the user is setting the key up again.
+
+### Ranking with Jev
+
+Write the list to a JSON file in the system temp folder and run
+`node <this skill's folder>/scripts/jev.mjs rank <file>`:
+
+```json
+{ "category": "compact cameras", "criteria": [ { "keyword": "video", "weight": 1 } ],
+  "items": ["Ricoh GR IV", "Fujifilm X100VI", "Lumix S9"] }
+```
+
+Send the names exactly as the user gave them, with no facts or descriptions added: this is the
+names-only skill. Leave `criteria` out when the user has no criterion. Add `"tiers": [...]` for
+custom labels. The script prints the tiers, already in order, and an overall confidence level.
+
+Jev's placements are the board. Do not move items to where you would have put them, and do not
+add ● marks: Jev's confidence is what tells the user how firm the board is. The rules under "How
+to rank" are for when you rank it yourself; the script already applies the same ones.
 
 ## How to rank
 
@@ -75,6 +140,9 @@ Run /tier-facts on the same list to check this against real facts.
   concrete, and you would be surprised to be wrong. A vague criterion such as "quality" or a list
   of recent products is low or medium at best: recent releases are exactly where training data
   runs out.
+- **When Jev ranked it**, the second line reads `Names only, ranked by Jev. No facts were looked up,
+  so this is a prior.` (use the same text as the image `subtitle`), and the confidence line is
+  `Confidence: <level from the script>. Jev's own confidence in these placements.`
 - No per-item essays. If the user asks why, explain the two or three placements most likely to
   be argued with, in a sentence each.
 
