@@ -117,6 +117,43 @@ Sources: <one link per looked-up item>
   what you said.`
 - Keep everything else out. No preamble, no per-item paragraphs, no closing summary.
 
+## The picture
+
+A tier list is a picture, so after printing the text board, draw it. The bundled script writes a PNG
+by default and needs nothing installed:
+
+```bash
+node <this skill's folder>/scripts/board.mjs board.json --out tier-list.png
+```
+
+Write `board.json` to the system temp folder first (do not leave it in the user's project). Each item
+carries its evidence as a `note`, which is drawn under the name:
+
+```json
+{ "title": "Compact cameras, ranked for video",
+  "tiers": [ { "label": "S", "items": [ { "name": "Lumix S9", "note": "you said: V-Log, open gate, stabilised" } ] },
+             { "label": "A", "items": [ { "name": "Canon G7 X III", "note": "looked up: 4K, mic input, flip screen" } ] },
+             { "label": "B", "items": [] },
+             { "label": "C", "items": [ { "name": "Fujifilm X100VI", "note": "looked up: 6.2K but fixed 35mm lens" } ] },
+             { "label": "D", "items": [ { "name": "Ricoh GR IV", "note": "looked up: Full HD only" },
+                                        { "name": "Sony RX1R III", "note": "looked up: no in-body stabilisation" },
+                                        { "name": "Leica Q3", "note": "you said: rolling shutter, no mic input" } ] } ],
+  "footer": "Changed from names only: Leica Q3 S → D, Lumix S9 A → S.  Based on: 2 from you, 4 looked up, 0 guessed." }
+```
+
+- Include every tier, empty ones too. Keep each note to the same short text as the text board.
+- The footer is the "Changed from names only" and "Based on" lines. Leave the sources out of the
+  image; they stay in the text.
+- Save the image in the current working directory with a short name that says what it is, e.g.
+  `tier-facts-compact-cameras.png`. Add `"theme": "light"` if the user asks for a light board.
+- The script prints the full path it wrote as its last line. Report it as the very last line of
+  your reply, as a path relative to the working directory when it is inside it: `Image: tier-facts-compact-cameras.png`.
+- The script adds a small `ultratier.github.io` mark in the corner. That is intended.
+- If no PNG renderer is available the script writes an SVG instead and says so; pass that message
+  on. Use `--svg` when the user asks for an SVG.
+- Skip the image when the user says they only want text, or when there is no shell to run it in.
+  The text board is always shown either way.
+
 ## Example
 
 Input:

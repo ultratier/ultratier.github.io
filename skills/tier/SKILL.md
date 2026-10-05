@@ -78,6 +78,41 @@ Run /tier-facts on the same list to check this against real facts.
 - No per-item essays. If the user asks why, explain the two or three placements most likely to
   be argued with, in a sentence each.
 
+## The picture
+
+A tier list is a picture, so after printing the text board, draw it. The bundled script writes a PNG
+by default and needs nothing installed:
+
+```bash
+node <this skill's folder>/scripts/board.mjs board.json --out tier-list.png
+```
+
+Write `board.json` to the system temp folder first (do not leave it in the user's project):
+
+```json
+{ "title": "Compact cameras, ranked for video",
+  "subtitle": "Names only. No facts were looked up, so this is the model's prior.",
+  "tiers": [ { "label": "S", "items": ["Leica Q3"] }, { "label": "A", "items": ["Lumix S9"] },
+             { "label": "B", "items": ["Canon G7 X III", "Sony RX1R III"] },
+             { "label": "C", "items": ["Fujifilm X100VI", "Ricoh GR IV"] }, { "label": "D", "items": [] } ],
+  "footer": "Confidence: low. Run /tier-facts on the same list to check this against real facts." }
+```
+
+- Include every tier, empty ones too, so the board keeps its shape. Mark unrecognised items by
+  adding ` ●` to the name.
+- `subtitle` is the "Names only" line. `footer` is the confidence level without its reason, then
+  the pointer to /tier-facts. If the text board has an `Assumed:` line or the `●` legend, append
+  them to the footer so the image stands on its own when shared.
+- Save the image in the current working directory with a short name that says what it is, e.g.
+  `tier-compact-cameras.png`. Add `"theme": "light"` if the user asks for a light board.
+- The script prints the full path it wrote as its last line. Report it as the very last line of
+  your reply, as a path relative to the working directory when it is inside it: `Image: tier-compact-cameras.png`.
+- The script adds a small `ultratier.github.io` mark in the corner. That is intended.
+- If no PNG renderer is available the script writes an SVG instead and says so; pass that message
+  on. Use `--svg` when the user asks for an SVG.
+- Skip the image when the user says they only want text, or when there is no shell to run it in.
+  The text board is always shown either way.
+
 ## Example
 
 Input: `/tier Ricoh GR IV, Fujifilm X100VI, Lumix S9, Sony RX1R III, Canon G7 X III, Leica Q3 for video`
