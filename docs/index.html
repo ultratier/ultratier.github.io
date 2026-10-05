@@ -128,6 +128,9 @@
   .fact{margin:0 0 14px;padding-bottom:14px;border-bottom:1px solid var(--line)} .fact:last-child{border:0;margin:0;padding:0}
   .fact b{display:block;font-size:13px;font-weight:700} .fact small{color:var(--n500);font-size:11px;line-height:1.6} .fact small.none{color:var(--n400);border-bottom:1px dashed var(--line-strong)}
   .fact a{color:var(--n400)}
+  .fact textarea.pfield{min-height:0;margin:6px 0 4px;font-size:12px;line-height:1.6;color:var(--n300);field-sizing:content}
+  .fact textarea.pfield[readonly]{border-style:dashed}
+  .fact .fmeta a{cursor:pointer}
   .disclosure{font-size:10px;letter-spacing:.06em;color:var(--n500);margin-top:18px}
   canvas{display:none}
   /* the Tier skin switch lives in the board's title bar, so toggling never moves anything below it */
@@ -231,7 +234,7 @@
         <div class="pbar"><span class="k">04 &nbsp; Fact sheet</span><span class="k">what the ranking was decided on</span></div>
         <div class="pbody">
           <div id="specs"></div>
-          <p class="hint">Facts come from the linked source. Items with no facts found are ranked on their name alone, which is a guess. <a href="#">Report a wrong fact</a></p>
+          <p class="hint" id="factsEdit">Facts come from the linked source. Wrong, stale or missing? Edit them here, one fact per line, and the ranking reruns on what you wrote. Items with no facts are ranked on their name alone, which is a guess.</p>
           <p class="disclosure" id="disclosure" hidden>As an Amazon Associate this site earns from qualifying purchases. Price links don't affect the ranking.</p>
         </div>
       </section>
@@ -267,7 +270,8 @@ const setTier = on => { document.querySelector("main").dataset.skin = on ? "tier
 { const q = new URLSearchParams(location.search).get("tier"); let st = q; if(st == null){ try{ st = localStorage.getItem("jevit-tier"); }catch{} } setTier(st !== "0"); }
 $("#tierskin").onchange = e => setTier(e.target.checked);
 const tierLook = () => document.querySelector("main").dataset.skin === "tier";
-let pendingOverrides = null;
+let pendingOverrides = null, pendingFacts = null;
+let frozenItems = false;   // ITEMS are a preset's frozen items, so the frozen answers apply (until a fact is edited)
 const GENERIC = ["quality", "value for money", "ease of use", "popularity", "for travel"];
 let CHIPS = [...GENERIC];
 const weights = {};
@@ -334,6 +338,7 @@ if(STATIC && !LIVE){
   $("#compare").disabled = true; $("#compare").textContent = "Frozen";
   $("#compare").title = "This showcase has no server. Clone the repo and run node server.js to rank your own list.";
   $("#ownlist").hidden = false;
+  $("#factsEdit").textContent = "Facts come from the linked source. Items with no facts are ranked on their name alone, which is a guess. Editing them needs the live version.";
   $("#weightsHint").textContent = "One criterion at a time in this showcase. Weights and your own criteria need the live version.";
 } else if(STATIC){
   $("#ownlist").innerHTML = "Presets are frozen, free and instant. Your own list, weights and criteria are ranked live. If that is ever down, <a href=\"https://github.com/ultratier/ultratier.github.io\">clone the repo</a>, add a <a href=\"https://typesafe.ai\">Jev key</a>, run <code>node server.js</code>.";
@@ -351,7 +356,7 @@ async function compare(){
     const same = p && names.length === p.items.length && names.every((n, i) => n === p.items[i].name);
     if(!same && !LIVE){ $("#istatus").innerHTML = '<span class="err">no server here: pick a preset, or run the repo locally to rank your own list</span>'; return; }
     if(!same){ return liveCompare(names); }
-    ITEMS = p.items; activePreset = PRESETS.find(x => x.category === p.category) || null; if(!Object.keys(weights).length){ CHIPS = [...p.chips]; for(const k of (p.on || [p.chips[0]])) weights[k] = 1; } drawChips();
+    ITEMS = p.items.map(x => ({ ...x })); frozenItems = true; applyPendingFacts(); activePreset = PRESETS.find(x => x.category === p.category) || null; if(!Object.keys(weights).length){ CHIPS = [...p.chips]; for(const k of (p.on || [p.chips[0]])) weights[k] = 1; } drawChips();
     $("#istatus").textContent = `frozen ${new Date(DATA.generated).toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"})}`;
     cache.clear(); drawFacts(); drawPresets(); run(); return;
   }
@@ -362,7 +367,7 @@ async function liveCompare(names){
   try{
     const r = await fetch((LIVE || location.origin + "/api") + "/enrich", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({ items: names, category: CATEGORY }) });
     if(!r.ok) throw new Error(`enrich ${r.status}`);
-    ITEMS = applyPresetFacts(await r.json(), CATEGORY);
+    ITEMS = applyPresetFacts(await r.json(), CATEGORY); frozenItems = false; applyPendingFacts();
     const found = ITEMS.filter(i => i.facts.length || i.summary).length;
     $("#istatus").textContent = found === ITEMS.length ? `Facts found for all ${found}.` : `Facts found for ${found} of ${ITEMS.length}. The rest are ranked on name alone.`;
     $("#disclosure").hidden = !ITEMS.some(i => i.buy);
@@ -371,12 +376,43 @@ async function liveCompare(names){
   }catch(e){ $("#istatus").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
   $("#compare").disabled = false;
 }
+// The fact sheet is editable: one fact per line. Looked-up and curated facts are only a starting
+// point; whatever is written here is the state Jev ranks on, so a wrong fact can be fixed in place.
+const factText = i => (i.facts.length ? i.facts : i.summary ? [i.summary] : []).join("\n");
+const factMeta = i => (i.orig ? `<small>edited by you · <a data-reset>reset</a></small>` : i.curated ? `<small>curated spec line</small>` : "") +
+  (i.source ? ` <small><a href="${esc(i.source)}" target="_blank" rel="noopener">source</a></small>` : "") +
+  (i.buy ? ` <small><a class="buy" href="${esc(i.buy)}" target="_blank" rel="noopener sponsored">check price</a></small>` : "");
 function drawFacts(){
-  $("#specs").innerHTML = ITEMS.map(i => `<p class="fact"><b>${esc(i.name)}</b>` +
-    (i.facts.length ? `<small>${esc(i.facts.join(" · "))}</small>` : i.summary ? `<small>${esc(i.summary)}</small>` : `<small class="none">No facts found. Ranked on the name only.</small>`) +
-    (i.curated ? ` <small>curated spec line</small>` : i.source ? ` <small><a href="${esc(i.source)}" target="_blank" rel="noopener">source</a></small>` : "") +
-    (i.buy ? ` <small><a class="buy" href="${esc(i.buy)}" target="_blank" rel="noopener sponsored">check price</a></small>` : "") + `</p>`).join("");
+  const ro = STATIC && !LIVE;
+  $("#specs").innerHTML = ITEMS.map((i, n) => `<div class="fact" data-n="${n}"><b>${esc(i.name)}</b>` +
+    `<textarea class="pfield" rows="${Math.max(1, factText(i).split("\n").length)}" aria-label="Facts for ${esc(i.name)}" placeholder="No facts found. Ranked on the name only.${ro ? "" : " Add your own, one per line."}"${ro ? " readonly" : ""}>${esc(factText(i))}</textarea>` +
+    `<span class="fmeta">${factMeta(i)}</span></div>`).join("");
 }
+function userFacts(it, lines){
+  const o = it.orig || { facts: it.facts, summary: it.summary, line: it.line };
+  if(lines.join("\n") === factText(o)){ Object.assign(it, o); delete it.orig; }
+  else { it.orig = o; it.facts = lines; it.summary = ""; it.line = [it.name, ...lines].join(" · "); }
+}
+function applyPendingFacts(){
+  if(pendingFacts) for(const it of ITEMS){ const f = pendingFacts[it.name]; if(Array.isArray(f)) userFacts(it, f.map(x => String(x).trim()).filter(Boolean)); }
+  pendingFacts = null;
+}
+function setFacts(n, text){
+  const it = ITEMS[n]; if(!it) return; const old = it.line;
+  userFacts(it, text.split("\n").map(x => x.trim()).filter(Boolean));
+  if(it.line === old) return;
+  if(useFacts && overrides[old]){ overrides[it.line] = overrides[old]; delete overrides[old]; }   // a card you moved stays where you put it
+  for(const k of [...cache.keys()]) if(!k.includes(" |names-only")) cache.delete(k);             // names-only answers never saw the facts
+  $(`#specs .fact[data-n="${n}"] .fmeta`).innerHTML = factMeta(it);
+  run();
+}
+$("#specs").addEventListener("change", e => { const f = e.target.closest(".fact"); if(f && e.target.matches("textarea")) setFacts(+f.dataset.n, e.target.value); });
+$("#specs").addEventListener("input", e => { if(e.target.matches("textarea")) e.target.rows = Math.max(1, e.target.value.split("\n").length); });
+$("#specs").addEventListener("click", e => {
+  const f = e.target.closest("[data-reset]")?.closest(".fact"); if(!f) return;
+  const it = ITEMS[+f.dataset.n], ta = f.querySelector("textarea");
+  ta.value = factText(it.orig); ta.rows = Math.max(1, ta.value.split("\n").length); setFacts(+f.dataset.n, ta.value);
+});
 
 // ---------- ranking with a per-criteria cache ----------
 const cache = new Map(); let last = null, seq = 0;
@@ -408,10 +444,10 @@ async function run(){
     if(!ITEMS.length) return;
     if(!d && STATIC){
       const p = DATA?.presets[CATEGORY], key = criteriaString();
-      const frozen = p && ITEMS === p.items && !tiersKey() ? p.results[useFacts ? "facts" : "names"][key] : null;
+      const frozen = p && frozenItems && !tiersKey() && !(useFacts && ITEMS.some(i => i.orig)) ? p.results[useFacts ? "facts" : "names"][key] : null;
       if(frozen){
         d = frozen; cache.set(crit, d);
-        const o = p.results[useFacts ? "names" : "facts"][key]; if(o) cache.set(key + (useFacts ? " |names-only" : ""), o); // both modes frozen: cards can show where they differ
+        const o = p.results[useFacts ? "names" : "facts"][key]; if(o && (useFacts || !ITEMS.some(i => i.orig))) cache.set(key + (useFacts ? " |names-only" : ""), o); // both modes frozen: cards can show where they differ
       } else if(!LIVE) throw new Error("not frozen for this combination, and no server here. Run the repo locally for weights and your own criteria.");
     }
     if(!d){ d = await rank(ITEMS.map(lineFor), { criteria: criteriaString(), category: CATEGORY, tiers: tiersNow() }); cache.set(crit, d); }
@@ -459,7 +495,7 @@ function render(d){
 }
 
 // ---------- shareable URL: #state carries the list, category, weights and your moves ----------
-function writeHash(){ if(!ITEMS.length) return; history.replaceState(null, "", "#" + encodeState({ i: ITEMS.map(x => x.name), c: CATEGORY, w: weights, f: useFacts ? 1 : 0, t: $("#tiers").value, r: $("#rubric").value, o: Object.fromEntries(Object.entries(overrides).map(([k,v]) => [nameOf(k), v])) })); }
+function writeHash(){ if(!ITEMS.length) return; history.replaceState(null, "", "#" + encodeState({ i: ITEMS.map(x => x.name), c: CATEGORY, w: weights, f: useFacts ? 1 : 0, t: $("#tiers").value, r: $("#rubric").value, o: Object.fromEntries(Object.entries(overrides).map(([k,v]) => [nameOf(k), v])), ...(ITEMS.some(x => x.orig) ? { e: Object.fromEntries(ITEMS.filter(x => x.orig).map(x => [x.name, x.facts])) } : {}) })); }
 function readHash(){
   const st = decodeState(location.hash.slice(1)); if(!st || !Array.isArray(st.i)) return null;
   $("#items").value = st.i.join("\n"); if(st.c) $("#category").value = st.c;
@@ -531,7 +567,7 @@ $("#copy").onclick = async () => {
   try{ const blob = await blobOf(drawImage(last)); await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]); $("#status").textContent = "copied, paste it anywhere"; }
   catch(e){ $("#status").innerHTML = `<span class="err">copy failed: ${esc(e.message)}</span>`; }
 };
-pendingOverrides = readHash()?.o || null;
+{ const st = readHash(); pendingOverrides = st?.o || null; pendingFacts = st?.e && typeof st.e === "object" ? st.e : null; }
 // Nothing is pre-selected: a shared link runs; otherwise the board waits for a preset or a pasted list.
 if(location.hash.length > 1) compare();
 else renderEmpty();
