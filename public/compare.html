@@ -165,16 +165,13 @@
   :is(#stage:fullscreen,#stage.fs) .card{max-width:360px;min-width:220px;padding:12px 16px 14px}
   :is(#stage:fullscreen,#stage.fs) .card b{font-size:16px}
   :is(#stage:fullscreen,#stage.fs) .card small{font-size:12px}
-  .frame{position:relative}
-  .frame::before{content:'';position:absolute;inset:0;pointer-events:none;--mk:11px;--ink:var(--line-strong);
-    background:linear-gradient(var(--ink),var(--ink)) left -5px top 0/var(--mk) 1px no-repeat,linear-gradient(var(--ink),var(--ink)) left 0 top -5px/1px var(--mk) no-repeat,linear-gradient(var(--ink),var(--ink)) right -5px top 0/var(--mk) 1px no-repeat,linear-gradient(var(--ink),var(--ink)) right 0 top -5px/1px var(--mk) no-repeat,linear-gradient(var(--ink),var(--ink)) left -5px bottom 0/var(--mk) 1px no-repeat,linear-gradient(var(--ink),var(--ink)) left 0 bottom -5px/1px var(--mk) no-repeat,linear-gradient(var(--ink),var(--ink)) right -5px bottom 0/var(--mk) 1px no-repeat,linear-gradient(var(--ink),var(--ink)) right 0 bottom -5px/1px var(--mk) no-repeat}
 </style>
 </head>
 <body>
 <main>
-  <div class="lede frame">
+  <div class="lede">
     <div>
-      <p class="spec n500">ultratier &nbsp;·&nbsp; 001 &nbsp;·&nbsp; <span id="date"></span></p>
+      <p class="spec n500">ultratier &nbsp;·&nbsp; 001</p>
       <h1 id="title">Ultra<em>tier</em></h1>
       <p class="sub">The ultrafast tier list by a decision model. Agree with it, or fight it. <span>Paste what you're comparing, tap what matters, and it is ranked in one call. The model here is Jev; Llama, GPT or any other behaves the same way: with facts in front of it, it judges. Without them, it guesses.</span></p>
     </div>
@@ -268,7 +265,6 @@ const setTier = on => { document.querySelector("main").dataset.skin = on ? "tier
 { const q = new URLSearchParams(location.search).get("tier"); let st = q; if(st == null){ try{ st = localStorage.getItem("jevit-tier"); }catch{} } setTier(st !== "0"); }
 $("#tierskin").onchange = e => setTier(e.target.checked);
 const tierLook = () => document.querySelector("main").dataset.skin === "tier";
-$("#date").textContent = `facts as of ${new Date().toLocaleDateString("en-AU",{month:"long",year:"numeric"})}`;
 let pendingOverrides = null;
 const GENERIC = ["quality", "value for money", "ease of use", "popularity", "for travel"];
 let CHIPS = [...GENERIC];
