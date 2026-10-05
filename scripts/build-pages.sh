@@ -7,6 +7,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p docs/fonts docs/data
 cp public/jev.js public/tierboard.js public/presets.js docs/
+cp public/og.png docs/   # link preview image
 cp public/fonts/*.woff2 public/fonts/OFL-ProxyMono.txt docs/fonts/
 # absolute module/font paths -> relative, and the static flag
 sed -e 's|from "/jev.js"|from "./jev.js"|; s|from "/tierboard.js"|from "./tierboard.js"|; s|from "/presets.js"|from "./presets.js"|' \

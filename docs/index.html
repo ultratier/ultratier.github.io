@@ -8,6 +8,15 @@
 <meta name="theme-color" content="#000000">
 <meta name="jevit-static" content="1">
 <meta name="jevit-api" content="https://monoproxy.com.au/api">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ultratier.github.io/">
+<meta property="og:title" content="Ultratier: a tier list that shows when the model is guessing">
+<meta property="og:description" content="Paste any list and it is ranked into S/A/B/C/D in one call. Turn the facts off and watch the same model guess. Fix a fact and watch a card move.">
+<meta property="og:image" content="https://ultratier.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ultratier.github.io/og.png">
 <link rel="preload" href="./fonts/proxymono-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/proxymono-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -507,8 +516,18 @@ function readHash(){
   return st;
 }
 // ---------- share image: the thing that leaves the site ----------
+// The other mode's answer for the same list (names-only when facts are on, and the reverse), so the
+// image can show where the two disagree. One extra Jev call if it is not already cached.
+const otherCrit = () => criteriaString() + (useFacts ? " |names-only" : "") + tiersKey();
+async function ensureOther(){
+  if(cache.has(otherCrit())) return;
+  try{ cache.set(otherCrit(), await rank(ITEMS.map(i => useFacts ? i.name : i.line), { criteria: criteriaString(), category: CATEGORY, tiers: tiersNow() })); }catch{}
+}
 function drawImage(d){
-  const W = 1200, pad = 48, rowH = 96, headH = 170, footH = 70;
+  const otherTier = Object.fromEntries((cache.get(otherCrit())?.results || []).map(r => [nameOf(r.label), r.tier]));
+  const differs = r => { const o = otherTier[nameOf(r.label)]; return o && o !== (r.edited ? r.jevTier : r.tier) ? o : ""; };
+  const moved = d.results.filter(differs).length, hook = Object.keys(otherTier).length > 0;
+  const W = 1200, pad = 48, rowH = 96, headH = hook ? 206 : 170, footH = 70;
   const cv = $("#cv"), H = headH + d.tiers.length*rowH + footH; cv.width = W; cv.height = H;
   const x = cv.getContext("2d");
   const cs = getComputedStyle($("#stage")), v = n => cs.getPropertyValue(n).trim();
@@ -521,18 +540,23 @@ function drawImage(d){
   x.fillText(`ranked for ${crit}${useFacts ? "" : " · names only, no facts looked up"}`, pad, 112);
   x.fillStyle = v("--fg"); x.font = `400 22px ${font}`;
   x.fillText(`Best: ${nameOf(d.results[0].label)}`, pad, 150);
+  if(hook) x.fillText(moved ? `${moved} of ${d.results.length} land in a different tier ${useFacts ? "when Jev only sees the names" : "once Jev sees the facts"}` : `Same tiers with or without the facts`, pad, 186);
   d.tiers.forEach((t,i) => {
     const y = headH + i*rowH;
     x.strokeStyle = v("--line-strong"); x.lineWidth = 2; x.strokeRect(pad, y, W-2*pad, rowH-10);
     x.fillStyle = v(["--tS","--tA","--tB","--tC","--tD"][Math.min(i, 4)]); x.fillRect(pad, y, 80, rowH-10);
     x.fillStyle = tierLook() ? "#333" : i === 0 ? v("--bg") : v("--fg"); x.font = `${tierLook() ? "400 22px" : "800 40px"} ${font}`; x.textAlign = "center";
     x.fillText(t.label, pad+40, y+58); x.textAlign = "left";
-    const names = applyOverrides(d.results, overrides).filter(r => r.tier===t.label).map(r => nameOf(r.label) + (overrides[r.label] && overrides[r.label]!==r.tier ? " ✎" : ""));
-    x.font = `700 24px ${font}`;
+    const cards = applyOverrides(d.results, overrides).filter(r => r.tier===t.label).map(r => [nameOf(r.label) + (overrides[r.label] && overrides[r.label]!==r.tier ? " ✎" : ""), differs(r)]);
     let cx = pad + 100;
-    for(const n of names){ const w = x.measureText(n).width + 36;
+    for(const [n, o] of cards){ // a card that the other mode ranks elsewhere says so: "by name: C"
+      const tag = o ? `${useFacts ? "by name" : "with facts"}: ${o}` : "";
+      x.font = `700 24px ${font}`; const nw = x.measureText(n).width;
+      x.font = `400 16px ${font}`; const tw = tag ? x.measureText(tag).width + 14 : 0;
+      const w = nw + tw + 36;
       x.strokeStyle = v("--line-strong"); x.lineWidth = 2; x.strokeRect(cx, y+18, w, 50);
-      x.fillStyle = v("--fg"); x.fillText(n, cx+18, y+51); cx += w + 12; }
+      x.fillStyle = v("--n400"); if(tag) x.fillText(tag, cx+18+nw+14, y+49);
+      x.font = `700 24px ${font}`; x.fillStyle = v("--fg"); x.fillText(n, cx+18, y+51); cx += w + 12; }
   });
   x.fillStyle = v("--n500"); x.font = `400 18px ${font}`;
   const edited = Object.keys(overrides).length;
@@ -543,6 +567,7 @@ function roundRect(x,a,b,w,h,r){ x.beginPath(); x.moveTo(a+r,b); x.arcTo(a+w,b,a
 const blobOf = cv => new Promise(res => cv.toBlob(res, "image/png"));
 $("#share").onclick = async () => {
   if(!last) return;
+  await ensureOther();
   const blob = await blobOf(drawImage(last));
   const file = new File([blob], "ranking.png", { type:"image/png" });
   const text = `Best for ${last.criteria.map(c=>c.keyword).join(" + ")}: ${nameOf(last.results[0].label)}`;
@@ -564,7 +589,7 @@ document.addEventListener("fullscreenchange", () => setFull(false));
 document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#stage").classList.contains("fs")) setFull(false); });
 $("#copy").onclick = async () => {
   if(!last) return;
-  try{ const blob = await blobOf(drawImage(last)); await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]); $("#status").textContent = "copied, paste it anywhere"; }
+  try{ await ensureOther(); const blob = await blobOf(drawImage(last)); await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]); $("#status").textContent = "copied, paste it anywhere"; }
   catch(e){ $("#status").innerHTML = `<span class="err">copy failed: ${esc(e.message)}</span>`; }
 };
 { const st = readHash(); pendingOverrides = st?.o || null; pendingFacts = st?.e && typeof st.e === "object" ? st.e : null; }
